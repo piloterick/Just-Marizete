@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+a { 
+    text-decoration: none;
+}
+
+
+ul {
+    display: inline-block;
+    list-style-type: none;
+    
+    
+
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: white;
+    
+}
+
+.icona {
+    width: 30px;
+    height: 30px;
+}
+
+.navbar li {
+    display: inline-block;
+    vertical-align: middle;
+    
+    
+}
+
+.menu-border {
+    border: 1px solid blue;
+    border-radius: 15%;
+    
+}
+
+.menu-border:hover {
+    background-color: rgb(103, 186, 224);
+}
+
+.navbar a {
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.logo {
+    height: 100px;
+    width: 100px;
+    /* filter: drop-shadow(1px 1px 1px black); */
+}
+
+.titolo {
+    text-transform: uppercase;
+    font-family: "Fredericka the Great", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(10, 10, 143);
+}
+
+.banner {
+    text-align: center;
+    background-color: rgb(232, 187, 241);
+    margin-top: 95px;
+    padding: 10px 0;
+}
+
+
+footer {
+    background-color: rgb(211, 210, 210);
+    height: 60px;
+    text-align: center;
+}
