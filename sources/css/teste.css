@@ -74,6 +74,23 @@ ul {
     padding: 10px 0;
 }
 
+h2, p {
+    text-align: center;
+}
+
+figure {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.item {
+    text-align: center;
+}
+
+img {
+    width: 200px;
+}
+
 
 footer {
     background-color: rgb(211, 210, 210);
