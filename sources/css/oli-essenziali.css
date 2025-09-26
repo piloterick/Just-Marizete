@@ -78,17 +78,66 @@ h2, p {
     text-align: center;
 }
 
-figure {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.item {
+.card {
+    background-color: #fff;
+    width: 180px;
+    height: 355px;
+    border: 1px solid rgb(211, 207, 207);
+    border-radius: 12px;
+    box-shadow: 4px 4px 12px #aaaa;
+    margin: 50px;
+}
+
+.card img {
+    width: 180px;
+}
+
+.card div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    height: 25%;
+}
+
+.card h2 {
+    font-size: 1.2rem;
     text-align: center;
+    margin: 0;
+
 }
 
-img {
-    width: 150px;
+.card p {
+    font-size: .9rem;
+    color: #3b3b3baa;
+    text-align: center;
+    margin: 0;
+}
+
+.card button {
+    background-color: #132dc2;
+    height: 30px;
+    border: none;
+    padding: 4px;
+    width: 80%;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: rgb(22, 112, 49);
+    cursor: pointer;
 }
 
 
