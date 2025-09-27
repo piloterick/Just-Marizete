@@ -76,6 +76,10 @@ ul {
     width: 100%;
 }
 
+section h2 {
+    text-align: center;
+}
+
 #prodotti {
     text-align: left;
 }
@@ -83,6 +87,11 @@ ul {
 .prodotti {
     display: inline-block;
     vertical-align: top;
+    border: 1px solid #cdb0ff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #ebebeb;
 }
 
 footer {
