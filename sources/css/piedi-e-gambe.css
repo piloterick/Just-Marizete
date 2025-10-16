@@ -1,6 +1,11 @@
-body {
+:root {
+    --navbar: #5585b5;
+}
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 a { 
@@ -20,7 +25,7 @@ ul {
     position: fixed;
     width: 100%;
     top: 0;
-    background-color: white;
+    background-color: var(--navbar);
     
 }
 
