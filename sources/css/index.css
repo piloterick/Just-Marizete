@@ -29,6 +29,12 @@ body {
     
 }
 
+.icona-menu {
+    width: 30px;
+    display: none;
+}
+
+
 
 nav .logo {
     width: 80px;
@@ -90,17 +96,15 @@ span {
 }
 
 .image-text {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     background-color: #6643b5;
     color: #fff;
+    padding: 1rem
 }
 
 .main-image {
-    width: 700px;
+    width: 100%;
 }
 
 .information {
@@ -131,6 +135,44 @@ section h2 {
 
 footer {
     background-color: rgb(211, 210, 210);
-    height: 60px;
+    margin-top: 20px;
     text-align: center;
+    padding: 30px 0;
 }
+
+
+
+@media (max-width: 760px) {
+    .image-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .main-image {
+        width: 100%;
+    }
+}
+
+@media (max-width: 450px) {
+    .menu-border, .link-nav {
+        display: none;
+    }
+
+    .icona-menu {
+        display: block;
+    }
+
+    .prodotti {
+        display: flex;
+        flex-direction: column;
+        margin-right: 10px;
+    }
+
+    .prodotti h3, ul li {
+        text-align: center;
+    }
+}
+
