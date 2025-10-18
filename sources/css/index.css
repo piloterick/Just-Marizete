@@ -16,11 +16,14 @@ body {
 }
 
 
-.navbar {
+header {
     position: fixed;
     width: 100%;
     top: 0;
     background-color: var(--navbar);
+}
+
+.navbar {
     height: 6rem;
     display: flex;
     justify-content: space-between;
@@ -31,9 +34,15 @@ body {
 
 .icona-menu {
     width: 30px;
+}
+
+.mobile-menu-icon {
     display: none;
 }
 
+.mobile-menu {
+    display: none;
+}
 
 
 nav .logo {
@@ -62,14 +71,14 @@ nav .logo {
     background-color: #6643b5;
 }
 
-.navbar ul li a {
+.nav-list li a {
     color: black;
     font-size: 15px;
     font-weight: bold;
     padding: 0 10px;
 }
 
-.navbar ul li a:hover {
+.nav-list li a:hover {
     color: #fff;
     font-size: 1.1rem;
 }
@@ -157,22 +166,37 @@ footer {
 }
 
 @media (max-width: 450px) {
-    .menu-border, .link-nav {
+    .nav-list {
         display: none;
     }
 
-    .icona-menu {
+
+    .mobile-menu-icon {
         display: block;
+        cursor: pointer;
     }
 
-    .prodotti {
+
+
+    .mobile-menu ul {
         display: flex;
         flex-direction: column;
-        margin-right: 10px;
+        text-align: center;
+        padding: 1.2rem;
+        width: 120px;
     }
 
-    .prodotti h3, ul li {
-        text-align: center;
+    .mobile-menu .nav-item {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    
+
+
+    .open {
+        display: flex;
+        justify-content: center;
     }
 }
 

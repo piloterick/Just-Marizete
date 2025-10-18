@@ -12,18 +12,32 @@
 
 </head>
 <body>
-    <nav class="navbar">
-        <img class="logo" src="./sources/images/Logo_Just.svg" alt="Logo Just">
-        <ul class="nav-list">
-            <li class="menu-border"><a class="link-nav" href="#">Home</a></li>
-            <li class="menu-border"><a class="link-nav" href="#prodotti">Prodotti</a></li>
-            <li class="menu-border"><a class="link-nav" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
-            <li class="menu-border"><a class="link-nav" href="#">Contatti</a></li>
-            <li class="icona"><img class="icona-menu" src="/sources/images/menu-list.png" alt="icona menu">
-            </li>
-        </ul>
-        
-    </nav>
+    <header>
+        <nav class="navbar">
+            <img class="logo" src="./sources/images/Logo_Just.svg" alt="Logo Just">
+            <ul class="nav-list">
+                <li class="menu-border nav-item"><a class="link-nav" href="#">Home</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="#prodotti">Prodotti</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="#">Contatti</a></li>
+            </ul>
+
+            <div class="mobile-menu-icon">
+                <a href="#" onclick="menuShow()"><img class="icona-menu" src="sources/images/menu-list.png" alt="lista menu"></a>
+            </div>
+            
+        </nav>
+
+        <div class="mobile-menu">
+            <ul class="nav-list">
+                <li class="menu-border nav-item"><a class="link-nav" href="#">Home</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="#prodotti">Prodotti</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="#">Contatti</a></li>
+            </ul>
+        </div>
+    </header>
+
     <div class="banner">
         <h1 class="titolo">Just <span>Marizete</span></h1>
         
@@ -93,5 +107,7 @@
             <p>Website Created by Erick Developer</p>
         </div>
     </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
