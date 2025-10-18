@@ -10,15 +10,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Libertinus+Keyboard&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar">
-        <ul>
-            <li class="menu-border"><a href="./index.html">Home</a></li>
-            <li class="menu-border"><a href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
-            <li class="menu-border"><a href="#">Contatti</a></li>
-            <li><a href="#"><img class="icona" src="./sources/images/facebook-icon.png" alt="facebook icon"></a></li>
-            <li><a href="#"><img class="icona" src="./sources/images/instagram-icon.png" alt="instagram icon"></a></li>
-        </ul>
-    </nav>
+    <header>
+        <nav class="navbar">
+            <img class="logo" src="./sources/images/Logo_Just.svg" alt="Logo Just">
+            <ul class="nav-list">
+                <li class="menu-border nav-item"><a class="link-nav" href="./index.html">Home</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="#">Contatti</a></li>
+            </ul>
+
+            <div class="mobile-menu-icon">
+                <a href="#" onclick="menuShow()"><img class="icona-menu" src="sources/images/menu-list.png" alt="lista menu"></a>
+            </div>
+            
+        </nav>
+
+        <div class="mobile-menu">
+            <ul class="nav-list">
+                <li class="menu-border nav-item"><a class="link-nav" href="./index.html">Home</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="#">Contatti</a></li>
+            </ul>
+        </div>
+    </header>
+
     <div class="banner">
         <h1 class="titolo">Just Marizete</h1>
         
@@ -70,5 +85,7 @@
         <p>Made with ❤️ in Italy © 2025 Just Marizete</p>
         <p>Website Created by Erick Developer</p>
     </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
