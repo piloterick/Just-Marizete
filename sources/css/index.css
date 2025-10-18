@@ -185,12 +185,13 @@ footer {
         flex-direction: column;
         text-align: center;
         padding: 1.2rem;
-        width: 120px;
     }
 
     .mobile-menu .nav-item {
         display: block;
         margin-bottom: 10px;
+        padding: 5px;
+        width: 120px;
     }
 
     
