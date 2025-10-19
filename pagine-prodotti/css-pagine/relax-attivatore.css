@@ -95,82 +95,54 @@ span {
 .banner {
     text-align: center;
     background-color: rgb(232, 187, 241);
-    margin-top: 95px;
+    margin-top: 78px;
     padding: 10px 0;
 }
 
-h2, p {
-    text-align: center;
-}
-
-
-.container {
+.titolo-foto {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-}
-
-.card {
-    background-color: #fff;
-    width: 180px;
-    height: 355px;
-    border: 1px solid rgb(211, 207, 207);
-    border-radius: 12px;
-    box-shadow: 4px 4px 12px #aaaa;
-    margin: 10px;
-}
-
-.card img {
-    width: 180px;
-}
-
-.card div {
-    display: flex;
     flex-direction: column;
+    margin: 20px 0;
+}
+
+.foto-prodotto {
+    width: 400px;
+}
+
+.info-prodotto h2 {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.aquista {
+    display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 4px;
-    height: 25%;
+    margin-top: 20px;
 }
 
-.card h2 {
-    font-size: 1.2rem;
-    text-align: center;
-    margin: 0;
-
-}
-
-.card p {
-    font-size: .9rem;
-    color: #3b3b3baa;
-    text-align: center;
-    margin: 0;
-}
-
-.card button {
-    background-color: #132dc2;
-    height: 30px;
-    border: none;
-    padding: 4px;
-    width: 80%;
-    color: #fff;
-    font-size: 1rem;
+.btn-aquista {
+    font-size: 1.1rem;
     font-weight: bold;
+    color: #010029;
+    padding: 5px;
     border-radius: 10px;
-}
-
-.btn-info {
-    color: #fff;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-button:hover {
-    background-color: rgb(22, 112, 49);
+    background-color: rgb(248, 170, 24);
+    box-shadow: 3px 4px rgb(10, 10, 143);
     cursor: pointer;
+    transition: all 0.2s;
 }
 
+.btn-aquista:hover {
+    font-size: 1.2rem;
+    box-shadow: none;
+    transform: translateY(-3px);
+}
+
+.btn-aquista:active {
+    color: #fff;
+}
 
 footer {
     background-color: rgb(211, 210, 210);
