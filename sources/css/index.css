@@ -310,7 +310,9 @@ footer {
         width: 120px;
     }
 
-    
+    .container {
+        justify-content: center;
+    }
 
 
     .open {
