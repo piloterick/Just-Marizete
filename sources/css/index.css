@@ -270,20 +270,6 @@ footer {
 
 
 @media (max-width: 760px) {
-    .image-text {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .main-image {
-        width: 100%;
-    }
-}
-
-@media (max-width: 450px) {
     .nav-list {
         display: none;
     }
@@ -308,6 +294,31 @@ footer {
         margin-bottom: 10px;
         padding: 5px;
         width: 120px;
+    }
+
+    .search {
+        width: 150px;
+    }
+
+
+    .image-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .main-image {
+        width: 100%;
+    }
+}
+
+@media (max-width: 450px) {
+    
+
+    .search {
+        width: 80px;
     }
 
     .container {
