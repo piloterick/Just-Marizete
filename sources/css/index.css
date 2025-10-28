@@ -76,6 +76,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    visibility: hidden;
 }
 
 .icona-menu {
