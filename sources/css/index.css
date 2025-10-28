@@ -3,6 +3,10 @@
     --bg-color: #8594e4;
 }
 
+:target {
+    scroll-margin-top: 95px;
+}
+
 * {
     margin: 0;
     padding: 0;
