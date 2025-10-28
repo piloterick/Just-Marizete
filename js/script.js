@@ -69,5 +69,76 @@ const addToCart = card => {
 
     cartBox.querySelector(".cart-remove").addEventListener("click", () => {
         cartBox.remove();
+
+        updateCartCount(-1);
+
+        updateTotalPrice();
     });
+
+    cartBox.querySelector(".cart-quantity").addEventListener("click", event => {
+        const numberElement = cartBox.querySelector(".number");
+        const decrementButton = cartBox.querySelector("#decrement");
+        let quantity = numberElement.textContent;
+
+        if (event.target.id === "decrement" && quantity > 1) {
+            quantity--;
+            if (quantity === 1) {
+                decrementButton.style.color = "#999";
+            }
+        }else if (event.target.id === "increment") {
+            quantity++;
+            decrementButton.style.color = "#333";
+        }
+
+        numberElement.textContent = quantity;
+
+        updateTotalPrice();
+    });
+
+    updateCartCount(0);
+
+    updateTotalPrice();
 };
+
+const updateTotalPrice = () => {
+    const totalPriceElement = document.querySelector(".total-price");
+    const cartBoxes = cartContent.querySelectorAll(".cart-box");
+    let total = 0;
+    cartBoxes.forEach(cartBox => {
+        const priceElement = cartBox.querySelector(".cart-price");
+        const quantityElement = cartBox.querySelector(".number");
+        const price = priceElement.textContent.replace("€", "");
+        const quantity = quantityElement.textContent;
+        total += price * quantity;
+    });
+    totalPriceElement.textContent = `€${total}`;
+};
+
+let cartItemCount = 0;
+const updateCartCount = change => {
+    const cartItemCountBadge = document.querySelector(".cart-item-count");
+    cartItemCount += change;
+    if (cartItemCount > 0) {
+        cartItemCountBadge.style.visibility = "visible";
+        cartItemCountBadge.textContent = cartItemCount;
+    } else {
+        cartItemCountBadge.style.visibility = "hidden";
+        cartItemCountBadge.textContent = "";
+    }
+};
+
+const buyNowButton = document.querySelector(".btn-buy");
+buyNowButton.addEventListener("click", () => {
+    const cartBoxes = cartContent.querySelectorAll(".cart-box");
+    if (cartBoxes.length === 0) {
+        alert("Il tuo carrello è vuoto. Aggiungi prodotti al tuo carrello prima di aquistare.");
+        return;
+    }
+
+    cartBoxes.forEach(cartBox => cartBox.remove());
+
+    cartItemCount = 0;
+    updateCartCount(0);
+
+    updateTotalPrice();
+});
