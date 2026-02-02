@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Just Marizete</title>
+    <link rel="stylesheet" href="./sources/css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Libertinus+Keyboard&display=swap"
+        rel="stylesheet">
+    <meta name="description" content="Just Marizete - Prodotti naturali svizzeri per il benessere">
+    <link rel="icon" href="./sources/images/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
+
+
+
+</head>
+
+<body>
+    <!-- Header and NavBar-->
+    <header>
+        <nav class="navbar">
+            <img class="logo" src="./sources/images/Logo_Just.svg" alt="Logo Just">
+
+            <div class="search-bar">
+                <img src="sources/images/search-icon.png" alt="Icona Cerca">
+                <input type="text" placeholder="Cerca" class="search">
+            </div>
+
+            <ul class="nav-list">
+                <li class="nav-item"><a class="link-nav" href="#">Home</a></li>
+                <li class="nav-item"><a class="link-nav" href="#chi-sono">Chi Sono</a></li>
+                <li class="nav-item"><a class="link-nav" href="#prodotti">Prodotti</a></li>
+                <li class="nav-item"><a class="link-nav" href="https://www.just.it/catalogo/"
+                        target="_blank">Catalogo</a></li>
+                <li class="nav-item"><a class="link-nav" href="#">Contatti</a></li>
+            </ul>
+
+            <!-- Menu Mobile Icon - CORRETTO -->
+            <button class="mobile-menu-icon" id="mobile-menu-btn" aria-label="Apri menu">
+                <img class="icona-menu" src="sources/images/menu-list.png" alt="Menu">
+            </button>
+
+            <!-- Cart Icon Wrapper - CORRETTO -->
+            <div class="cart-icon-wrapper" id="cart-icon-wrapper">
+                <img class="shopping-car" id="cart-icon" src="sources/images/shopping-car.png" alt="Carrello">
+                <span class="cart-item-count">0</span>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Dropdown -->
+        <div class="mobile-menu" id="mobile-menu">
+            <ul class="mobile-nav-list">
+                <li><a class="mobile-link" href="#">Home</a></li>
+                <li><a class="mobile-link" href="#chi-sono">Chi Sono</a></li>
+                <li><a class="mobile-link" href="#prodotti">Prodotti</a></li>
+                <li><a class="mobile-link" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
+                <li><a class="mobile-link" href="#">Contatti</a></li>
+            </ul>
+        </div>
+    </header>
+    <!-- End Header and NavBar-->
+
+    <!-- Carrello Spesa -->
+
+    <div class="cart-overlay"></div>
+    <div class="cart">
+        <div class="cart-header">
+            <h2 class="cart-title">Il Tuo Carrello</h2>
+            <button id="cart-close"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="cart-content">
+            <!-- Items renderizzati da JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="total">
+                <div class="total-title">Totale</div>
+                <div class="total-price">€ 0,00</div>
+            </div>
+            <button class="btn-buy">Acquista Ora</button>
+        </div>
+    </div>
+    <!-- End Carrello Spesa -->
+
+    <!-- Main Banner-->
+    <div class="banner">
+        <h1 class="titolo">Just <span class="span-name">Marizete</span></h1>
+    </div>
+    <!-- End Main Banner-->
+
+    <!-- ✨ NUOVA SEZIONE CHI SONO ✨ -->
+    <section id="chi-sono" class="about-section">
+        <div class="about-container">
+            <!-- Foto Consulente -->
+            <div class="about-image">
+                <div class="image-frame">
+                    <img src="./sources/images/profilo.png" alt="Marizete - Consulente Just">
+                    <div class="image-decoration"></div>
+                </div>
+                <!-- Badge Certificazione -->
+                <div class="certification-badge">
+                    <span class="badge-icon">✓</span>
+                    <span class="badge-text">Consulente Certificata</span>
+                </div>
+            </div>
+
+            <!-- Contenuto Testuale -->
+            <div class="about-content">
+                <span class="about-subtitle">Piacere di conoscerti!</span>
+                <h2 class="about-title">Ciao, sono <span class="highlight">Marizete</span></h2>
+
+                <p class="about-intro">
+                    Sono una <strong>Consulente Just</strong> appassionata di benessere naturale.
+                    Da oltre <strong>X anni</strong> aiuto le famiglie a scoprire i benefici dei
+                    prodotti svizzeri Just, realizzati con ingredienti naturali di altissima qualità.
+                </p>
+
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🌿</div>
+                        <div class="feature-text">
+                            <h4>Prodotti 100% Naturali</h4>
+                            <p>Formule svizzere con ingredienti vegetali, minerali e marini</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">💬</div>
+                        <div class="feature-text">
+                            <h4>Consulenza Personalizzata</h4>
+                            <p>Ti guido nella scelta dei prodotti più adatti alle tue esigenze</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">🚚</div>
+                        <div class="feature-text">
+                            <h4>Consegna a Domicilio</h4>
+                            <p>Ricevi i tuoi prodotti comodamente a casa tua</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">❤️</div>
+                        <div class="feature-text">
+                            <h4>Assistenza Continua</h4>
+                            <p>Sempre disponibile per consigli e supporto post-vendita</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quote/Motto -->
+                <blockquote class="about-quote">
+                    "Il mio obiettivo è portare il benessere naturale in ogni casa,
+                    con prodotti che rispettano te e l'ambiente."
+                </blockquote>
+
+                <!-- Call to Action -->
+                <div class="about-cta">
+                    <a href="https://wa.me/393664932878" class="btn-whatsapp" target="_blank">
+                        <i class="ri-whatsapp-line"></i>
+                        Contattami su WhatsApp
+                    </a>
+                    <a href="#prodotti" class="btn-products">
+                        <i class="ri-shopping-bag-3-line"></i>
+                        Scopri i Prodotti
+                    </a>
+                </div>
+
+                <!-- Social Links (opzionale) -->
+                <div class="social-links">
+                    <span>Seguimi:</span>
+                    <a href="#" class="social-icon" aria-label="Facebook">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="#" class="social-icon" aria-label="Instagram">
+                        <i class="ri-instagram-line"></i>
+                    </a>
+                    <a href="#" class="social-icon" aria-label="WhatsApp">
+                        <i class="ri-whatsapp-line"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number" data-target="500">0</span>
+                <span class="stat-label">Clienti Soddisfatti</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="10">0</span>
+                <span class="stat-label">Anni di Esperienza</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="100">0</span>
+                <span class="stat-label">Prodotti Disponibili</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="5">0</span>
+                <span class="stat-label">⭐ Valutazione Media</span>
+            </div>
+        </div>
+    </section>
+    <!-- END CHI SONO -->
+
+    <main>
+
+        <!-- Information Section-->
+        <div class="image-text">
+            <div class="image">
+                <img class="main-image" src="./sources/images/just-background.webp" alt="immagine prodotti just">
+            </div>
+            <div class="information">
+                <h2>Tradizione Naturale, Metodo e Sapienza</h2>
+                <p>Scopri la perfetta sinergia tra Natura e scienza. Il binomio che da 90 anni ci permette di portare
+                    nelle case un patrimonio di eccellenza svizzera attraverso le formule Just, ricche in ingredienti
+                    vegetali, minerali e marini, ideali per il tuo benessere.</p>
+            </div>
+        </div>
+        <!-- End Information Section-->
+
+
+        <!-- ===== SEZIONE PRODOTTI ===== -->
+        <section id="prodotti" class="products-section">
+
+            <!-- Header Sezione -->
+            <div class="section-header">
+                <span class="section-badge">🌿 Catalogo Completo</span>
+                <h2 class="section-title">I Nostri Prodotti</h2>
+                <p class="section-subtitle">Scopri oltre 100 prodotti naturali svizzeri per il tuo benessere quotidiano
+                </p>
+            </div>
+
+            <!-- Filtri e Navigazione -->
+            <div class="products-navigation">
+                <div class="categories-wrapper">
+                    <div class="categories-menu">
+                        <button class="category-btn active" data-category="all">
+                            <i class="ri-apps-line"></i>
+                            <span>Tutti</span>
+                        </button>
+                        <button class="category-btn" data-category="benessere">
+                            <i class="ri-heart-pulse-line"></i>
+                            <span>Benessere</span>
+                        </button>
+                        <button class="category-btn" data-category="bellezza">
+                            <i class="ri-sparkling-line"></i>
+                            <span>Bellezza</span>
+                        </button>
+                        <button class="category-btn" data-category="casa">
+                            <i class="ri-home-smile-line"></i>
+                            <span>Casa</span>
+                        </button>
+                        <button class="category-btn" data-category="integratori">
+                            <i class="ri-capsule-line"></i>
+                            <span>Integratori</span>
+                        </button>
+                    </div>
+                    <div class="products-search">
+                        <i class="ri-search-line"></i>
+                        <input type="text" id="product-search" placeholder="Cerca prodotto...">
+                    </div>
+                    <div class="products-sort">
+                        <select id="sort-products">
+                            <option value="default">Ordina per</option>
+                            <option value="price-asc">Prezzo: crescente</option>
+                            <option value="price-desc">Prezzo: decrescente</option>
+                            <option value="name-asc">Nome: A-Z</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Container Prodotti -->
+            <div class="products-container">
+
+                <!-- Sidebar -->
+                <aside class="products-sidebar">
+                    <div class="sidebar-sticky">
+
+                        <!-- Linea Benessere -->
+                        <div class="sidebar-category">
+                            <button class="sidebar-category-header active">
+                                <span class="category-icon">🌿</span>
+                                <span class="category-name">Linea Benessere</span>
+                                <i class="ri-arrow-down-s-line arrow"></i>
+                            </button>
+                            <ul class="sidebar-subcategories open">
+                                <li><a href="#oli-essenziali" class="subcategory-link active">Oli Essenziali</a></li>
+                                <li><a href="#creme-dermoattive" class="subcategory-link">Creme Dermoattive</a></li>
+                                <li><a href="#bagni-essenze" class="subcategory-link">Bagni ed Essenze</a></li>
+                                <li><a href="#lamelloderm" class="subcategory-link">Lamelloderm</a></li>
+                                <li><a href="#piedi-gambe" class="subcategory-link">Piedi e Gambe</a></li>
+                                <li><a href="#malva" class="subcategory-link">Malva</a></li>
+                                <li><a href="#baby" class="subcategory-link">Baby</a></li>
+                                <li><a href="#specifici" class="subcategory-link">Specifici</a></li>
+                                <li><a href="#igiene-orale" class="subcategory-link">Igiene Orale</a></li>
+                                <li><a href="#intim" class="subcategory-link">Intim</a></li>
+                                <li><a href="#lozioni-corpo" class="subcategory-link">Lozioni Corpo</a></li>
+                                <li><a href="#amici-animali" class="subcategory-link">Amici Animali</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Linea Bellezza -->
+                        <div class="sidebar-category">
+                            <button class="sidebar-category-header">
+                                <span class="category-icon">✨</span>
+                                <span class="category-name">Linea Bellezza</span>
+                                <i class="ri-arrow-down-s-line arrow"></i>
+                            </button>
+                            <ul class="sidebar-subcategories">
+                                <li><a href="#capelli" class="subcategory-link">Capelli</a></li>
+                                <li><a href="#body-reform" class="subcategory-link">Body Reform</a></li>
+                                <li><a href="#infiore" class="subcategory-link">Infiore</a></li>
+                                <li><a href="#solari" class="subcategory-link">Solari</a></li>
+                                <li><a href="#uomo" class="subcategory-link">Uomo</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Linea Casa -->
+                        <div class="sidebar-category">
+                            <button class="sidebar-category-header">
+                                <span class="category-icon">🏠</span>
+                                <span class="category-name">Linea Casa</span>
+                                <i class="ri-arrow-down-s-line arrow"></i>
+                            </button>
+                            <ul class="sidebar-subcategories">
+                                <li><a href="#prodotti-casa" class="subcategory-link">Prodotti Casa</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Integratori -->
+                        <div class="sidebar-category">
+                            <button class="sidebar-category-header">
+                                <span class="category-icon">💊</span>
+                                <span class="category-name">Integratori</span>
+                                <i class="ri-arrow-down-s-line arrow"></i>
+                            </button>
+                            <ul class="sidebar-subcategories">
+                                <li><a href="#integrazione-alimentare" class="subcategory-link">Integrazione
+                                        Alimentare</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Promo Box -->
+                        <div class="sidebar-promo">
+                            <div class="promo-badge">🎁 Offerta</div>
+                            <h4>Spedizione Gratuita</h4>
+                            <p>Per ordini superiori a €50</p>
+                            <a href="https://wa.me/39XXXXXXXXXX" class="promo-btn" target="_blank">Ordina Ora</a>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Area Prodotti -->
+                <div class="products-main">
+                    <!-- LINEA BENESSERE -->
+                    <div class="category-section" data-category="benessere">
+                        <div class="category-header">
+                            <div class="category-title-wrapper">
+                                <span class="category-icon-large">🌿</span>
+                                <div>
+                                    <h2 class="category-title">Linea Benessere</h2>
+                                    <p class="category-description">Prodotti naturali per il tuo benessere quotidiano
+                                    </p>
+                                </div>
+                            </div>
+                            <span class="products-count">62 prodotti</span>
+                        </div>
+
+                        <!-- OLI ESSENZIALI -->
+                        <div class="subcategory-section" id="oli-essenziali">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-drop-line"></i> Oli Essenziali</h3>
+                                <span class="subcategory-count">10 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Oli Essenziali -->
+                        <!-- CREME DERMOATTIVE -->
+                        <div class="subcategory-section" id="creme-dermoattive">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-hand-heart-line"></i> Creme Dermoattive</h3>
+                                <span class="subcategory-count">11 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Creme Dermoattive -->
+                        <!-- BAGNI ED ESSENZE -->
+                        <div class="subcategory-section" id="bagni-essenze">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-water-flash-line"></i> Bagni ed Essenze</h3>
+                                <span class="subcategory-count">13 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Bagni ed Essenze -->
+                        <!-- LAMELLODERM -->
+                        <div class="subcategory-section" id="lamelloderm">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-shield-check-line"></i> Lamelloderm</h3>
+                                <span class="subcategory-count">2 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Lamelloderm -->
+
+                        <!-- PIEDI E GAMBE -->
+                        <div class="subcategory-section" id="piedi-gambe">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-footprint-line"></i> Piedi e Gambe</h3>
+                                <span class="subcategory-count">3 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Piedi e Gambe -->
+
+                        <!-- MALVA -->
+                        <div class="subcategory-section" id="malva">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-plant-line"></i> Malva</h3>
+                                <span class="subcategory-count">3 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Malva -->
+                        <!-- BABY -->
+                        <div class="subcategory-section" id="baby">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-emotion-happy-line"></i> Baby</h3>
+                                <span class="subcategory-count">2 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Baby -->
+
+                        <!-- SPECIFICI -->
+                        <div class="subcategory-section" id="specifici">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-first-aid-kit-line"></i> Specifici</h3>
+                                <span class="subcategory-count">9 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Specifici -->
+                        <!-- IGIENE ORALE -->
+                        <div class="subcategory-section" id="igiene-orale">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-tooth-line"></i> Igiene Orale</h3>
+                                <span class="subcategory-count">2 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Igiene Orale -->
+
+                        <!-- INTIM -->
+                        <div class="subcategory-section" id="intim">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-heart-2-line"></i> Intim</h3>
+                                <span class="subcategory-count">2 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Intim -->
+
+                        <!-- LOZIONI CORPO -->
+                        <div class="subcategory-section" id="lozioni-corpo">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-body-scan-line"></i> Lozioni Corpo</h3>
+                                <span class="subcategory-count">4 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Lozioni Corpo -->
+
+                        <!-- AMICI ANIMALI -->
+                        <div class="subcategory-section" id="amici-animali">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-bear-smile-line"></i> Amici Animali</h3>
+                                <span class="subcategory-count">1 prodotto</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Amici Animali -->
+
+                    </div>
+                    <!-- End Linea Benessere -->
+                    <!-- ========================================== -->
+                    <!-- LINEA BELLEZZA -->
+                    <!-- ========================================== -->
+                    <div class="category-section" data-category="bellezza">
+                        <div class="category-header">
+                            <div class="category-title-wrapper">
+                                <span class="category-icon-large">✨</span>
+                                <div>
+                                    <h2 class="category-title">Linea Bellezza</h2>
+                                    <p class="category-description">Prodotti per esaltare la tua bellezza naturale</p>
+                                </div>
+                            </div>
+                            <span class="products-count">33 prodotti</span>
+                        </div>
+
+                        <!-- CAPELLI -->
+                        <div class="subcategory-section" id="capelli">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-scissors-cut-line"></i> Capelli</h3>
+                                <span class="subcategory-count">10 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Capelli -->
+
+                        <!-- BODY REFORM -->
+                        <div class="subcategory-section" id="body-reform">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-body-scan-line"></i> Body Reform</h3>
+                                <span class="subcategory-count">2 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Body Reform -->
+
+                        <!-- INFIORE -->
+                        <div class="subcategory-section" id="infiore">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-flower-line"></i> Infiore</h3>
+                                <span class="subcategory-count">13 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Infiore -->
+
+                        <!-- SOLARI -->
+                        <div class="subcategory-section" id="solari">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-sun-line"></i> Solari</h3>
+                                <span class="subcategory-count">6 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Solari -->
+
+                        <!-- UOMO -->
+                        <div class="subcategory-section" id="uomo">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-user-3-line"></i> Uomo</h3>
+                                <span class="subcategory-count">2 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Uomo -->
+
+                    </div>
+                    <!-- End Linea Bellezza -->
+
+                    <!-- ========================================== -->
+                    <!-- LINEA CASA -->
+                    <!-- ========================================== -->
+                    <div class="category-section" data-category="casa">
+                        <div class="category-header">
+                            <div class="category-title-wrapper">
+                                <span class="category-icon-large">🏠</span>
+                                <div>
+                                    <h2 class="category-title">Linea Casa</h2>
+                                    <p class="category-description">Prodotti naturali per la cura della tua casa</p>
+                                </div>
+                            </div>
+                            <span class="products-count">5 prodotti</span>
+                        </div>
+
+                        <!-- PRODOTTI CASA -->
+                        <div class="subcategory-section" id="prodotti-casa">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-home-heart-line"></i> Prodotti Casa</h3>
+                                <span class="subcategory-count">5 prodotti</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Prodotti Casa -->
+
+                    </div>
+                    <!-- End Linea Casa -->
+
+                    <!-- ========================================== -->
+                    <!-- LINEA INTEGRATORI -->
+                    <!-- ========================================== -->
+                    <div class="category-section" data-category="integratori">
+                        <div class="category-header">
+                            <div class="category-title-wrapper">
+                                <span class="category-icon-large">💊</span>
+                                <div>
+                                    <h2 class="category-title">Linea Integratori</h2>
+                                    <p class="category-description">Integratori alimentari per il tuo benessere</p>
+                                </div>
+                            </div>
+                            <span class="products-count">1 prodotto</span>
+                        </div>
+
+                        <!-- INTEGRAZIONE ALIMENTARE -->
+                        <div class="subcategory-section" id="integrazione-alimentare">
+                            <div class="subcategory-header">
+                                <h3 class="subcategory-title"><i class="ri-capsule-line"></i> Integrazione Alimentare
+                                </h3>
+                                <span class="subcategory-count">1 prodotto</span>
+                            </div>
+
+                            <div class="products-grid">
+
+                            </div>
+                        </div>
+                        <!-- End Integrazione Alimentare -->
+
+                    </div>
+                    <!-- End Linea Integratori -->
+
+                </div>
+                <!-- End Products Main -->
+            </div> <!-- products-container -->
+        </section> <!-- products-section -->
+
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <!-- Footer Top - Informazioni principali -->
+        <div class="footer-top">
+            <div class="footer-container">
+
+                <!-- Colonna 1 - Brand & About -->
+                <div class="footer-col footer-brand">
+                    <img src="./sources/images/Logo_Just.svg" alt="Logo Just" class="footer-logo">
+                    <h3 class="footer-title">Just Marizete</h3>
+                    <p class="footer-description">
+                        Consulente autorizzata Just. Da oltre 10 anni porto il benessere
+                        naturale svizzero direttamente a casa tua con prodotti di qualità
+                        superiore.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://facebook.com/tuapagina" class="social-link" target="_blank"
+                            aria-label="Facebook">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="https://instagram.com/tuapagina" class="social-link" target="_blank"
+                            aria-label="Instagram">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                        <a href="https://wa.me/39XXXXXXXXXX" class="social-link whatsapp" target="_blank"
+                            aria-label="WhatsApp">
+                            <i class="ri-whatsapp-line"></i>
+                        </a>
+                        <a href="https://t.me/tuousername" class="social-link" target="_blank" aria-label="Telegram">
+                            <i class="ri-telegram-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Colonna 2 - Link Rapidi -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">Link Rapidi</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="ri-home-4-line"></i> Home</a></li>
+                        <li><a href="#chi-sono"><i class="ri-user-heart-line"></i> Chi Sono</a></li>
+                        <li><a href="#prodotti"><i class="ri-shopping-bag-3-line"></i> Prodotti</a></li>
+                        <li><a href="https://www.just.it/catalogo/" target="_blank"><i class="ri-book-open-line"></i>
+                                Catalogo Completo</a></li>
+                        <li><a href="#contatti"><i class="ri-mail-line"></i> Contatti</a></li>
+                    </ul>
+                </div>
+
+                <!-- Colonna 3 - Categorie Prodotti -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">Categorie</h4>
+                    <ul class="footer-links">
+                        <li><a href="#prodotti"><i class="ri-leaf-line"></i> Oli Essenziali</a></li>
+                        <li><a href="#prodotti"><i class="ri-heart-pulse-line"></i> Creme Dermoattive</a></li>
+                        <li><a href="#prodotti"><i class="ri-drop-line"></i> Bagni ed Essenze</a></li>
+                        <li><a href="#prodotti"><i class="ri-sun-line"></i> Solari</a></li>
+                        <li><a href="#prodotti"><i class="ri-sparkling-line"></i> Linea Infiore</a></li>
+                        <li><a href="#prodotti"><i class="ri-home-smile-line"></i> Linea Casa</a></li>
+                    </ul>
+                </div>
+
+                <!-- Colonna 4 - Contatti -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">Contattami</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="ri-map-pin-2-fill"></i>
+                            <span>Venezia, Italia</span>
+                        </li>
+                        <li>
+                            <i class="ri-phone-fill"></i>
+                            <a href="tel:+393664932878">+39 366 493 2878</a>
+                        </li>
+                        <li>
+                            <i class="ri-whatsapp-fill"></i>
+                            <a href="https://wa.me/393664932878" target="_blank">WhatsApp</a>
+                        </li>
+                        <li>
+                            <i class="ri-mail-fill"></i>
+                            <a href="mailto:tua@email.com">tua@email.com</a>
+                        </li>
+                        <li>
+                            <i class="ri-time-fill"></i>
+                            <span>Lun - Sab: 9:00 - 19:00</span>
+                        </li>
+                    </ul>
+
+                    <!-- Badge Certificazione -->
+                    <div class="footer-badge">
+                        <i class="ri-verified-badge-fill"></i>
+                        <span>Consulente Certificata Just</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Middle - Newsletter (opzionale) -->
+        <div class="footer-newsletter">
+            <div class="newsletter-container">
+                <div class="newsletter-content">
+                    <i class="ri-mail-send-line newsletter-icon"></i>
+                    <div class="newsletter-text">
+                        <h4>Iscriviti alla Newsletter</h4>
+                        <p>Ricevi offerte esclusive e consigli di benessere</p>
+                    </div>
+                </div>
+                <form class="newsletter-form" onsubmit="return handleNewsletter(event)">
+                    <input type="email" placeholder="La tua email..." required>
+                    <button type="submit">
+                        <i class="ri-send-plane-fill"></i>
+                        Iscriviti
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer Bottom - Copyright & Info Legali -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-container">
+                <div class="footer-copyright">
+                    <p>Made with ❤️ in Italy © 2025 <strong>Just Marizete</strong></p>
+                    <p class="footer-credits">Website Created by <a href="#" target="_blank">Erick Developer</a></p>
+                </div>
+
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <span class="separator">|</span>
+                    <a href="#">Termini e Condizioni</a>
+                    <span class="separator">|</span>
+                    <a href="#">Cookie Policy</a>
+                </div>
+
+                <div class="footer-payments">
+                    <span>Pagamenti accettati:</span>
+                    <div class="payment-icons">
+                        <i class="ri-money-euro-circle-line" title="Contanti"></i>
+                        <i class="ri-bank-card-line" title="Carta"></i>
+                        <i class="ri-paypal-line" title="PayPal"></i>
+                        <i class="ri-secure-payment-line" title="Bonifico"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <a href="#" class="back-to-top" id="backToTop" aria-label="Torna su">
+            <i class="ri-arrow-up-line"></i>
+        </a>
+    </footer>
+    <!-- ===== END FOOTER ===== -->
+
+    <script src="js/script.js"></script>
+    <script src="js/products-data.js"></script>
+</body>
+</html>
