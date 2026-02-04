@@ -23,107 +23,119 @@
         <nav class="navbar">
             <img class="logo" src="./sources/images/Logo_Just.svg" alt="Logo Just">
 
-            <div class="search-bar">
+            <div class="search-bar" id="search-container">
                 <img src="sources/images/search-icon.png" alt="Icona Cerca">
-                <input type="text" placeholder="Cerca" class="search">
+                <input type="text" placeholder="Cerca prodotti..." class="search" id="search-input" autocomplete="off">
+                <button class="search-clear" id="search-clear" aria-label="Cancella ricerca">
+                    <i class="ri-close-line"></i>
+                </button>
+
+                <!-- Dropdown Risultati -->
+                <div class="search-results" id="search-results">
+                    <div class="search-results-content">
+                        <!-- Risultati inseriti da JS -->
+                    </div>
+                </div>
             </div>
 
             <ul class="nav-list">
-    <li class="nav-item"><a class="link-nav" href="#">Home</a></li>
-    <li class="nav-item"><a class="link-nav" href="#chi-sono">Chi Sono</a></li>
-    
-    <!-- PRODOTTI CON DROPDOWN -->
-    <li class="nav-item has-dropdown">
-        <a class="link-nav dropdown-toggle" href="#prodotti">
-            Prodotti
-            <i class="ri-arrow-down-s-line dropdown-arrow"></i>
-        </a>
-        
-        <!-- Mega Menu Dropdown -->
-        <div class="dropdown-menu">
-            <div class="dropdown-container">
-                
-                <!-- Colonna 1: Benessere -->
-                <div class="dropdown-column">
-                    <h4 class="dropdown-title">
-                        <span class="dropdown-icon">🌿</span>
-                        Linea Benessere
-                    </h4>
-                    <ul class="dropdown-links">
-                        <li><a href="#oli-essenziali">Oli Essenziali</a></li>
-                        <li><a href="#creme-dermoattive">Creme Dermoattive</a></li>
-                        <li><a href="#bagni-essenze">Bagni ed Essenze</a></li>
-                        <li><a href="#lamelloderm">Lamelloderm</a></li>
-                        <li><a href="#piedi-gambe">Piedi e Gambe</a></li>
-                        <li><a href="#malva">Malva</a></li>
-                        <li><a href="#baby">Baby</a></li>
-                        <li><a href="#specifici">Specifici</a></li>
-                        <li><a href="#igiene-orale">Igiene Orale</a></li>
-                        <li><a href="#intim">Intim</a></li>
-                        <li><a href="#lozioni-corpo">Lozioni Corpo</a></li>
-                        <li><a href="#amici-animali">Amici Animali</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Colonna 2: Bellezza -->
-                <div class="dropdown-column">
-                    <h4 class="dropdown-title">
-                        <span class="dropdown-icon">✨</span>
-                        Linea Bellezza
-                    </h4>
-                    <ul class="dropdown-links">
-                        <li><a href="#capelli">Capelli</a></li>
-                        <li><a href="#body-reform">Body Reform</a></li>
-                        <li><a href="#infiore">Infiore</a></li>
-                        <li><a href="#solari">Solari</a></li>
-                        <li><a href="#uomo">Uomo</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Colonna 3: Casa & Integratori -->
-                <div class="dropdown-column">
-                    <h4 class="dropdown-title">
-                        <span class="dropdown-icon">🏠</span>
-                        Linea Casa
-                    </h4>
-                    <ul class="dropdown-links">
-                        <li><a href="#prodotti-casa">Prodotti Casa</a></li>
-                    </ul>
-                    
-                    <h4 class="dropdown-title" style="margin-top: 25px;">
-                        <span class="dropdown-icon">💊</span>
-                        Integratori
-                    </h4>
-                    <ul class="dropdown-links">
-                        <li><a href="#integrazione-alimentare">Integrazione Alimentare</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Colonna 4: Promo/CTA -->
-                <div class="dropdown-column dropdown-promo">
-                    <div class="promo-card">
-                        <span class="promo-badge">🎁 Novità</span>
-                        <h4>Scopri le Offerte</h4>
-                        <p>Prodotti in promozione questo mese!</p>
-                        <a href="#prodotti" class="promo-link">
-                            Vedi Tutti
-                            <i class="ri-arrow-right-line"></i>
-                        </a>
-                    </div>
-                    <a href="https://www.just.it/catalogo/" target="_blank" rel="noopener noreferrer" class="catalog-link">
-                        <i class="ri-book-open-line"></i>
-                        Catalogo Completo Just
+                <li class="nav-item"><a class="link-nav" href="#">Home</a></li>
+                <li class="nav-item"><a class="link-nav" href="#chi-sono">Chi Sono</a></li>
+
+                <!-- PRODOTTI CON DROPDOWN -->
+                <li class="nav-item has-dropdown">
+                    <a class="link-nav dropdown-toggle" href="#prodotti">
+                        Prodotti
+                        <i class="ri-arrow-down-s-line dropdown-arrow"></i>
                     </a>
-                </div>
-                
-            </div>
-        </div>
-    </li>
-    <!-- END PRODOTTI DROPDOWN -->
-    
-    <li class="nav-item"><a class="link-nav" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
-    <li class="nav-item"><a class="link-nav" href="#contatti">Contatti</a></li>
-</ul>
+
+                    <!-- Mega Menu Dropdown -->
+                    <div class="dropdown-menu">
+                        <div class="dropdown-container">
+
+                            <!-- Colonna 1: Benessere -->
+                            <div class="dropdown-column">
+                                <h4 class="dropdown-title">
+                                    <span class="dropdown-icon">🌿</span>
+                                    Linea Benessere
+                                </h4>
+                                <ul class="dropdown-links">
+                                    <li><a href="#oli-essenziali">Oli Essenziali</a></li>
+                                    <li><a href="#creme-dermoattive">Creme Dermoattive</a></li>
+                                    <li><a href="#bagni-essenze">Bagni ed Essenze</a></li>
+                                    <li><a href="#lamelloderm">Lamelloderm</a></li>
+                                    <li><a href="#piedi-gambe">Piedi e Gambe</a></li>
+                                    <li><a href="#malva">Malva</a></li>
+                                    <li><a href="#baby">Baby</a></li>
+                                    <li><a href="#specifici">Specifici</a></li>
+                                    <li><a href="#igiene-orale">Igiene Orale</a></li>
+                                    <li><a href="#intim">Intim</a></li>
+                                    <li><a href="#lozioni-corpo">Lozioni Corpo</a></li>
+                                    <li><a href="#amici-animali">Amici Animali</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Colonna 2: Bellezza -->
+                            <div class="dropdown-column">
+                                <h4 class="dropdown-title">
+                                    <span class="dropdown-icon">✨</span>
+                                    Linea Bellezza
+                                </h4>
+                                <ul class="dropdown-links">
+                                    <li><a href="#capelli">Capelli</a></li>
+                                    <li><a href="#body-reform">Body Reform</a></li>
+                                    <li><a href="#infiore">Infiore</a></li>
+                                    <li><a href="#solari">Solari</a></li>
+                                    <li><a href="#uomo">Uomo</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Colonna 3: Casa & Integratori -->
+                            <div class="dropdown-column">
+                                <h4 class="dropdown-title">
+                                    <span class="dropdown-icon">🏠</span>
+                                    Linea Casa
+                                </h4>
+                                <ul class="dropdown-links">
+                                    <li><a href="#prodotti-casa">Prodotti Casa</a></li>
+                                </ul>
+
+                                <h4 class="dropdown-title" style="margin-top: 25px;">
+                                    <span class="dropdown-icon">💊</span>
+                                    Integratori
+                                </h4>
+                                <ul class="dropdown-links">
+                                    <li><a href="#integrazione-alimentare">Integrazione Alimentare</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Colonna 4: Promo/CTA -->
+                            <div class="dropdown-column dropdown-promo">
+                                <div class="promo-card">
+                                    <span class="promo-badge">🎁 Novità</span>
+                                    <h4>Scopri le Offerte</h4>
+                                    <p>Prodotti in promozione questo mese!</p>
+                                    <a href="#prodotti" class="promo-link">
+                                        Vedi Tutti
+                                        <i class="ri-arrow-right-line"></i>
+                                    </a>
+                                </div>
+                                <a href="https://www.just.it/catalogo/" target="_blank" rel="noopener noreferrer"
+                                    class="catalog-link">
+                                    <i class="ri-book-open-line"></i>
+                                    Catalogo Completo Just
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <!-- END PRODOTTI DROPDOWN -->
+
+                <li class="nav-item"><a class="link-nav" href="https://www.just.it/catalogo/"
+                        target="_blank">Catalogo</a></li>
+                <li class="nav-item"><a class="link-nav" href="#contatti">Contatti</a></li>
+            </ul>
 
             <!-- Menu Mobile Icon - CORRETTO -->
             <button class="mobile-menu-icon" id="mobile-menu-btn" aria-label="Apri menu">
@@ -138,82 +150,83 @@
         </nav>
 
         <!-- Mobile Menu Dropdown -->
-<div class="mobile-menu" id="mobile-menu">
-    <ul class="mobile-nav-list">
-        <li><a class="mobile-link" href="#">Home</a></li>
-        <li><a class="mobile-link" href="#chi-sono">Chi Sono</a></li>
-        
-        <!-- ========== PRODOTTI CON DROPDOWN ========== -->
-        <li class="mobile-dropdown">
-            <button class="mobile-dropdown-toggle" id="mobile-products-toggle">
-                <span>Prodotti</span>
-                <i class="ri-arrow-down-s-line"></i>
-            </button>
-            
-            <div class="mobile-dropdown-menu" id="mobile-products-submenu">
-                
-                <!-- Benessere -->
-                <div class="mobile-dropdown-category">
-                    <div class="mobile-category-title">🌿 Linea Benessere</div>
-                    <div class="mobile-category-links">
-                        <a href="#oli-essenziali">Oli Essenziali</a>
-                        <a href="#creme-dermoattive">Creme Dermoattive</a>
-                        <a href="#bagni-essenze">Bagni ed Essenze</a>
-                        <a href="#lamelloderm">Lamelloderm</a>
-                        <a href="#piedi-gambe">Piedi e Gambe</a>
-                        <a href="#malva">Malva</a>
-                        <a href="#baby">Baby</a>
-                        <a href="#specifici">Specifici</a>
-                        <a href="#igiene-orale">Igiene Orale</a>
-                        <a href="#intim">Intim</a>
-                        <a href="#lozioni-corpo">Lozioni Corpo</a>
-                        <a href="#amici-animali">Amici Animali</a>
+        <div class="mobile-menu" id="mobile-menu">
+            <ul class="mobile-nav-list">
+                <li><a class="mobile-link" href="#">Home</a></li>
+                <li><a class="mobile-link" href="#chi-sono">Chi Sono</a></li>
+
+                <!-- ========== PRODOTTI CON DROPDOWN ========== -->
+                <li class="mobile-dropdown">
+                    <button class="mobile-dropdown-toggle" id="mobile-products-toggle">
+                        <span>Prodotti</span>
+                        <i class="ri-arrow-down-s-line"></i>
+                    </button>
+
+                    <div class="mobile-dropdown-menu" id="mobile-products-submenu">
+
+                        <!-- Benessere -->
+                        <div class="mobile-dropdown-category">
+                            <div class="mobile-category-title">🌿 Linea Benessere</div>
+                            <div class="mobile-category-links">
+                                <a href="#oli-essenziali">Oli Essenziali</a>
+                                <a href="#creme-dermoattive">Creme Dermoattive</a>
+                                <a href="#bagni-essenze">Bagni ed Essenze</a>
+                                <a href="#lamelloderm">Lamelloderm</a>
+                                <a href="#piedi-gambe">Piedi e Gambe</a>
+                                <a href="#malva">Malva</a>
+                                <a href="#baby">Baby</a>
+                                <a href="#specifici">Specifici</a>
+                                <a href="#igiene-orale">Igiene Orale</a>
+                                <a href="#intim">Intim</a>
+                                <a href="#lozioni-corpo">Lozioni Corpo</a>
+                                <a href="#amici-animali">Amici Animali</a>
+                            </div>
+                        </div>
+
+                        <!-- Bellezza -->
+                        <div class="mobile-dropdown-category">
+                            <div class="mobile-category-title">✨ Linea Bellezza</div>
+                            <div class="mobile-category-links">
+                                <a href="#capelli">Capelli</a>
+                                <a href="#body-reform">Body Reform</a>
+                                <a href="#infiore">Infiore</a>
+                                <a href="#solari">Solari</a>
+                                <a href="#uomo">Uomo</a>
+                            </div>
+                        </div>
+
+                        <!-- Casa -->
+                        <div class="mobile-dropdown-category">
+                            <div class="mobile-category-title">🏠 Linea Casa</div>
+                            <div class="mobile-category-links">
+                                <a href="#prodotti-casa">Prodotti Casa</a>
+                            </div>
+                        </div>
+
+                        <!-- Integratori -->
+                        <div class="mobile-dropdown-category">
+                            <div class="mobile-category-title">💊 Integratori</div>
+                            <div class="mobile-category-links">
+                                <a href="#integrazione-alimentare">Integrazione Alimentare</a>
+                            </div>
+                        </div>
+
+                        <!-- Link catalogo -->
+                        <a href="https://www.just.it/catalogo/" target="_blank" rel="noopener noreferrer"
+                            class="mobile-catalog-link">
+                            <i class="ri-book-open-line"></i>
+                            Catalogo Completo Just
+                            <i class="ri-external-link-line"></i>
+                        </a>
+
                     </div>
-                </div>
-                
-                <!-- Bellezza -->
-                <div class="mobile-dropdown-category">
-                    <div class="mobile-category-title">✨ Linea Bellezza</div>
-                    <div class="mobile-category-links">
-                        <a href="#capelli">Capelli</a>
-                        <a href="#body-reform">Body Reform</a>
-                        <a href="#infiore">Infiore</a>
-                        <a href="#solari">Solari</a>
-                        <a href="#uomo">Uomo</a>
-                    </div>
-                </div>
-                
-                <!-- Casa -->
-                <div class="mobile-dropdown-category">
-                    <div class="mobile-category-title">🏠 Linea Casa</div>
-                    <div class="mobile-category-links">
-                        <a href="#prodotti-casa">Prodotti Casa</a>
-                    </div>
-                </div>
-                
-                <!-- Integratori -->
-                <div class="mobile-dropdown-category">
-                    <div class="mobile-category-title">💊 Integratori</div>
-                    <div class="mobile-category-links">
-                        <a href="#integrazione-alimentare">Integrazione Alimentare</a>
-                    </div>
-                </div>
-                
-                <!-- Link catalogo -->
-                <a href="https://www.just.it/catalogo/" target="_blank" rel="noopener noreferrer" class="mobile-catalog-link">
-                    <i class="ri-book-open-line"></i>
-                    Catalogo Completo Just
-                    <i class="ri-external-link-line"></i>
-                </a>
-                
-            </div>
-        </li>
-        <!-- ========== END PRODOTTI DROPDOWN ========== -->
-        
-        <li><a class="mobile-link" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
-        <li><a class="mobile-link" href="#contatti">Contatti</a></li>
-    </ul>
-</div>
+                </li>
+                <!-- ========== END PRODOTTI DROPDOWN ========== -->
+
+                <li><a class="mobile-link" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
+                <li><a class="mobile-link" href="#contatti">Contatti</a></li>
+            </ul>
+        </div>
     </header>
     <!-- End Header and NavBar-->
 

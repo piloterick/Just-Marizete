@@ -40,6 +40,9 @@ function setupEventListeners() {
     cartClose?.addEventListener('click', closeCart);
     cartOverlay?.addEventListener('click', closeCart);
 
+    // search functionality
+    setupSearch();
+
     // Add to Cart Buttons
     document.querySelectorAll('.shopping-bag').forEach(btn => {
         btn.addEventListener('click', handleAddToCart);
@@ -465,47 +468,7 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
-// ==========================================
-// SEARCH FUNCTIONALITY
-// ==========================================
-const searchInput = document.querySelector('.search');
 
-searchInput?.addEventListener('input', debounce((e) => {
-    const searchTerm = e.target.value.toLowerCase().trim();
-    filterProducts(searchTerm);
-}, 300));
-
-function filterProducts(searchTerm) {
-    const cards = document.querySelectorAll('.card');
-    let visibleCount = 0;
-
-    cards.forEach(card => {
-        const title = card.querySelector('.product-title, h2')?.textContent.toLowerCase() || '';
-        const description = card.querySelector('p')?.textContent.toLowerCase() || '';
-
-        const matches = title.includes(searchTerm) || description.includes(searchTerm);
-
-        card.style.display = matches || searchTerm === '' ? '' : 'none';
-        card.style.animation = matches ? 'fadeIn 0.3s ease' : '';
-
-        if (matches || searchTerm === '') visibleCount++;
-    });
-
-    // Show message if no results
-    // You can add a "no results" message here if needed
-}
-
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
 
 // ==========================================
 // SMOOTH SCROLL FOR ANCHOR LINKS
@@ -1254,3 +1217,337 @@ mobileProductsToggle?.addEventListener('click', function() {
     setTimeout(checkDropdownScroll, 400); // Dopo l'animazione
 });
 
+
+// ==========================================
+// SEARCH FUNCTIONALITY - COMPLETA
+// ==========================================
+
+// Database categorie/pagine per ricerca rapida
+const searchCategories = [
+    { title: "Oli Essenziali", category: "Linea Benessere", icon: "🌿", link: "#oli-essenziali", type: "category" },
+    { title: "Creme Dermoattive", category: "Linea Benessere", icon: "🌿", link: "#creme-dermoattive", type: "category" },
+    { title: "Bagni ed Essenze", category: "Linea Benessere", icon: "🌿", link: "#bagni-essenze", type: "category" },
+    { title: "Lamelloderm", category: "Linea Benessere", icon: "🌿", link: "#lamelloderm", type: "category" },
+    { title: "Piedi e Gambe", category: "Linea Benessere", icon: "🌿", link: "#piedi-gambe", type: "category" },
+    { title: "Malva", category: "Linea Benessere", icon: "🌿", link: "#malva", type: "category" },
+    { title: "Baby", category: "Linea Benessere", icon: "🌿", link: "#baby", type: "category" },
+    { title: "Specifici", category: "Linea Benessere", icon: "🌿", link: "#specifici", type: "category" },
+    { title: "Igiene Orale", category: "Linea Benessere", icon: "🌿", link: "#igiene-orale", type: "category" },
+    { title: "Intim", category: "Linea Benessere", icon: "🌿", link: "#intim", type: "category" },
+    { title: "Lozioni Corpo", category: "Linea Benessere", icon: "🌿", link: "#lozioni-corpo", type: "category" },
+    { title: "Amici Animali", category: "Linea Benessere", icon: "🌿", link: "#amici-animali", type: "category" },
+    { title: "Capelli", category: "Linea Bellezza", icon: "✨", link: "#capelli", type: "category" },
+    { title: "Body Reform", category: "Linea Bellezza", icon: "✨", link: "#body-reform", type: "category" },
+    { title: "Infiore", category: "Linea Bellezza", icon: "✨", link: "#infiore", type: "category" },
+    { title: "Solari", category: "Linea Bellezza", icon: "✨", link: "#solari", type: "category" },
+    { title: "Uomo", category: "Linea Bellezza", icon: "✨", link: "#uomo", type: "category" },
+    { title: "Prodotti Casa", category: "Linea Casa", icon: "🏠", link: "#prodotti-casa", type: "category" },
+    { title: "Integrazione Alimentare", category: "Integratori", icon: "💊", link: "#integrazione-alimentare", type: "category" },
+    { title: "Chi Sono", category: "Pagine", icon: "👤", link: "#chi-sono", type: "page" },
+    { title: "Contatti", category: "Pagine", icon: "📞", link: "#contatti", type: "page" },
+    { title: "Catalogo Just", category: "Link Esterni", icon: "📖", link: "https://www.just.it/catalogo/", type: "external" }
+];
+
+// Elementi DOM Search
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+const searchResultsContent = searchResults?.querySelector('.search-results-content');
+const searchClear = document.getElementById('search-clear');
+
+let searchTimeout;
+let currentFocusIndex = -1;
+
+// ==========================================
+// SETUP SEARCH
+// ==========================================
+function setupSearch() {
+    if (!searchInput || !searchResults) return;
+
+    // Input handler con debounce
+    searchInput.addEventListener('input', function () {
+        const query = this.value.trim();
+
+        // Mostra/nascondi bottone clear
+        searchClear?.classList.toggle('visible', query.length > 0);
+
+        // Debounce per performance
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            if (query.length >= 2) {
+                performSearch(query);
+            } else {
+                closeSearchResults();
+            }
+        }, 200);
+    });
+
+    // Focus handler
+    searchInput.addEventListener('focus', function () {
+        if (this.value.trim().length >= 2) {
+            searchResults.classList.add('active');
+        }
+    });
+
+    // Clear button
+    searchClear?.addEventListener('click', function () {
+        searchInput.value = '';
+        this.classList.remove('visible');
+        closeSearchResults();
+        searchInput.focus();
+    });
+
+    // Chiudi quando clicchi fuori
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('#search-container')) {
+            closeSearchResults();
+        }
+    });
+
+    // Navigazione tastiera
+    searchInput.addEventListener('keydown', handleSearchKeyboard);
+}
+
+// ==========================================
+// ESEGUI RICERCA
+// ==========================================
+function performSearch(query) {
+    const normalizedQuery = normalizeString(query);
+
+    // 1. Cerca nei PRODOTTI (dal tuo database products.js)
+    const productResults = products.filter(product => {
+        const nameMatch = normalizeString(product.name).includes(normalizedQuery);
+        const descMatch = normalizeString(product.description).includes(normalizedQuery);
+        const categoryMatch = normalizeString(product.category).includes(normalizedQuery);
+        return nameMatch || descMatch || categoryMatch;
+    }).slice(0, 8); // Limita a 8 prodotti
+
+    // 2. Cerca nelle CATEGORIE/PAGINE
+    const categoryResults = searchCategories.filter(item => {
+        return normalizeString(item.title).includes(normalizedQuery);
+    }).slice(0, 5); // Limita a 5 categorie
+
+    // Renderizza risultati
+    renderSearchResults(productResults, categoryResults, query);
+}
+
+// ==========================================
+// RENDERIZZA RISULTATI
+// ==========================================
+function renderSearchResults(productResults, categoryResults, query) {
+    if (!searchResultsContent) return;
+
+    const totalResults = productResults.length + categoryResults.length;
+
+    if (totalResults === 0) {
+        // Nessun risultato
+        searchResultsContent.innerHTML = `
+            <div class="search-no-results">
+                <i class="ri-search-line"></i>
+                <p>Nessun risultato per "<strong>${escapeHtml(query)}</strong>"</p>
+                <p style="font-size: 12px; margin-top: 8px; opacity: 0.7;">
+                    Prova con: "Olio 31", "Crema", "Lavanda"...
+                </p>
+            </div>
+        `;
+    } else {
+        let html = '';
+
+        // Sezione Categorie (se presenti)
+        if (categoryResults.length > 0) {
+            html += `<div class="search-category-header">📂 Categorie</div>`;
+            categoryResults.forEach((item, index) => {
+                const isExternal = item.type === 'external' ? 'target="_blank" rel="noopener noreferrer"' : '';
+                html += `
+                    <a href="${item.link}" class="search-result-item" ${isExternal} data-index="${index}">
+                        <div class="search-result-icon">${item.icon}</div>
+                        <div class="search-result-info">
+                            <div class="search-result-title">${highlightMatch(item.title, query)}</div>
+                            <div class="search-result-subtitle">${item.category}</div>
+                        </div>
+                        <i class="ri-arrow-right-s-line search-result-arrow"></i>
+                    </a>
+                `;
+            });
+        }
+
+        // Sezione Prodotti (se presenti)
+        if (productResults.length > 0) {
+            html += `<div class="search-category-header">🛍️ Prodotti</div>`;
+            productResults.forEach((product, index) => {
+                const badgeHtml = product.badges.includes('bestseller') 
+                    ? '<span class="search-badge bestseller">⭐ Best</span>' 
+                    : product.badges.includes('new') 
+                    ? '<span class="search-badge new">🆕 Nuovo</span>' 
+                    : '';
+
+                html += `
+                    <a href="#${product.subcategory}" class="search-result-item search-product-item" data-product-id="${product.id}" data-index="${categoryResults.length + index}">
+                        <div class="search-result-image">
+                            <img src="${product.image}" alt="${product.name}" onerror="this.src='./sources/images/placeholder.png'">
+                        </div>
+                        <div class="search-result-info">
+                            <div class="search-result-title">
+                                ${highlightMatch(product.name, query)}
+                                ${badgeHtml}
+                            </div>
+                            <div class="search-result-subtitle">${product.category}</div>
+                            <div class="search-result-price">€ ${product.price.toFixed(2)}</div>
+                        </div>
+                        <i class="ri-arrow-right-s-line search-result-arrow"></i>
+                    </a>
+                `;
+            });
+        }
+
+        // Link "Vedi tutti"
+        if (productResults.length >= 8) {
+            html += `
+                <a href="#prodotti" class="search-view-all">
+                    <i class="ri-search-line"></i>
+                    Vedi tutti i risultati per "${escapeHtml(query)}"
+                </a>
+            `;
+        }
+
+        searchResultsContent.innerHTML = html;
+
+        // Event listener per i risultati
+        searchResultsContent.querySelectorAll('.search-result-item').forEach(item => {
+            item.addEventListener('click', handleResultClick);
+        });
+    }
+
+    // Reset focus index
+    currentFocusIndex = -1;
+    searchResults.classList.add('active');
+}
+
+// ==========================================
+// GESTISCI CLICK SU RISULTATO
+// ==========================================
+function handleResultClick(e) {
+    const href = this.getAttribute('href');
+    const isExternal = this.getAttribute('target') === '_blank';
+    const productId = this.dataset.productId;
+
+    if (!isExternal && href?.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+
+        if (target) {
+            const headerHeight = document.querySelector('header')?.offsetHeight || 80;
+            const targetPosition = target.offsetTop - headerHeight - 20;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+
+            // Se è un prodotto, evidenzialo brevemente
+            if (productId) {
+                setTimeout(() => {
+                    highlightProduct(productId);
+                }, 500);
+            }
+        }
+    }
+
+    // Chiudi ricerca
+    closeSearchResults();
+    searchInput.value = '';
+    searchClear?.classList.remove('visible');
+}
+
+// ==========================================
+// EVIDENZIA PRODOTTO (opzionale)
+// ==========================================
+function highlightProduct(productId) {
+    const productCard = document.querySelector(`.product-card[data-id="${productId}"]`);
+    if (productCard) {
+        productCard.classList.add('highlight');
+        productCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+            productCard.classList.remove('highlight');
+        }, 2000);
+    }
+}
+
+// ==========================================
+// NAVIGAZIONE TASTIERA
+// ==========================================
+function handleSearchKeyboard(e) {
+    const items = searchResultsContent?.querySelectorAll('.search-result-item');
+    if (!items || items.length === 0) return;
+
+    switch (e.key) {
+        case 'ArrowDown':
+            e.preventDefault();
+            currentFocusIndex = (currentFocusIndex + 1) % items.length;
+            updateSearchFocus(items);
+            break;
+
+        case 'ArrowUp':
+            e.preventDefault();
+            currentFocusIndex = currentFocusIndex <= 0 ? items.length - 1 : currentFocusIndex - 1;
+            updateSearchFocus(items);
+            break;
+
+        case 'Enter':
+            if (currentFocusIndex >= 0 && items[currentFocusIndex]) {
+                e.preventDefault();
+                items[currentFocusIndex].click();
+            }
+            break;
+
+        case 'Escape':
+            closeSearchResults();
+            searchInput.blur();
+            break;
+    }
+}
+
+// ==========================================
+// AGGIORNA FOCUS TASTIERA
+// ==========================================
+function updateSearchFocus(items) {
+    items.forEach((item, index) => {
+        item.classList.toggle('focused', index === currentFocusIndex);
+    });
+
+    if (items[currentFocusIndex]) {
+        items[currentFocusIndex].scrollIntoView({ block: 'nearest' });
+    }
+}
+
+// ==========================================
+// CHIUDI RISULTATI
+// ==========================================
+function closeSearchResults() {
+    searchResults?.classList.remove('active');
+    currentFocusIndex = -1;
+}
+
+// ==========================================
+// FUNZIONI HELPER
+// ==========================================
+function normalizeString(str) {
+    return str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, ""); // Rimuove accenti
+}
+
+function highlightMatch(text, query) {
+    const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+    return text.replace(regex, '<span class="search-highlight">$1</span>');
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function escapeRegex(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
