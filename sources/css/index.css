@@ -1269,30 +1269,6 @@ header {
     box-shadow: 0 5px 20px rgba(102, 67, 181, 0.3);
 }
 
-/* Products Search */
-.products-search {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #f5f5f5;
-    padding: 12px 20px;
-    border-radius: 50px;
-    flex: 1;
-    max-width: 300px;
-}
-
-.products-search i {
-    color: #999;
-    font-size: 18px;
-}
-
-.products-search input {
-    flex: 1;
-    border: none;
-    background: transparent;
-    font-size: 14px;
-    outline: none;
-}
 
 /* Products Sort */
 .products-sort select {
@@ -1813,10 +1789,6 @@ header {
         justify-content: center;
     }
     
-    .products-search {
-        max-width: 100%;
-        width: 100%;
-    }
 }
 
 @media (max-width: 768px) {
