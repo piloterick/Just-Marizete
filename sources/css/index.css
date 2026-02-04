@@ -3507,3 +3507,7 @@ header {
     opacity: 1;
 }
 
+
+.mobile-dropdown span {
+    margin: 0 auto;
+}
