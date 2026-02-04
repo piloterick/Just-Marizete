@@ -49,8 +49,73 @@ function setupEventListeners() {
     mobileMenuIcon?.addEventListener('click', toggleMobileMenu);
 
     // Close mobile menu on link click
-    document.querySelectorAll('.mobile-menu .link-nav').forEach(link => {
+    document.querySelectorAll('.mobile-menu .mobile-link').forEach(link => {
         link.addEventListener('click', closeMobileMenu);
+    });
+
+    // ==========================================
+    // 🆕 DROPDOWN PRODOTTI MOBILE
+    // ==========================================
+    const mobileProductsToggle = document.getElementById('mobile-products-toggle');
+    const mobileProductsSubmenu = document.getElementById('mobile-products-submenu');
+
+    // Toggle dropdown quando clicchi su "Prodotti"
+    mobileProductsToggle?.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileProductsSubmenu?.classList.toggle('open');
+    });
+
+    // Chiudi menu quando clicchi su una categoria
+    document.querySelectorAll('.mobile-category-links a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            // Chiudi menu
+            closeMobileMenu();
+            mobileProductsSubmenu?.classList.remove('open');
+            mobileProductsToggle?.classList.remove('active');
+            
+            // Smooth scroll se è un anchor
+            if (href?.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                
+                if (target) {
+                    const headerHeight = document.querySelector('header')?.offsetHeight || 80;
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }, 300); // Delay per permettere al menu di chiudersi
+                }
+            }
+        });
+    });
+
+    // Chiudi dropdown quando clicchi sul link catalogo
+    document.querySelector('.mobile-catalog-link')?.addEventListener('click', function() {
+        closeMobileMenu();
+        mobileProductsSubmenu?.classList.remove('open');
+        mobileProductsToggle?.classList.remove('active');
+    });
+
+    // ==========================================
+    // 🆕 CHIUDI MENU CLICK FUORI
+    // ==========================================
+    document.addEventListener('click', function(e) {
+        if (mobileMenu?.classList.contains('open')) {
+            const isClickInsideMenu = mobileMenu.contains(e.target);
+            const isClickOnMenuBtn = mobileMenuIcon?.contains(e.target);
+            
+            if (!isClickInsideMenu && !isClickOnMenuBtn) {
+                closeMobileMenu();
+                mobileProductsSubmenu?.classList.remove('open');
+                mobileProductsToggle?.classList.remove('active');
+            }
+        }
     });
 
     // Buy Button
@@ -61,10 +126,12 @@ function setupEventListeners() {
         if (e.key === 'Escape') {
             closeCart();
             closeMobileMenu();
+            // Chiudi anche dropdown
+            mobileProductsSubmenu?.classList.remove('open');
+            mobileProductsToggle?.classList.remove('active');
         }
     });
 }
-
 // ==========================================
 // CART FUNCTIONS
 // ==========================================
@@ -350,15 +417,12 @@ function toggleMobileMenu() {
 
 function closeMobileMenu() {
     mobileMenu?.classList.remove('open');
-}
-
-// Legacy function support
-function menuShow() {
-    toggleMobileMenu();
-}
-
-function listClose() {
-    closeMobileMenu();
+    
+    // 🆕 Chiudi anche il dropdown prodotti
+    const mobileProductsToggle = document.getElementById('mobile-products-toggle');
+    const mobileProductsSubmenu = document.getElementById('mobile-products-submenu');
+    mobileProductsSubmenu?.classList.remove('open');
+    mobileProductsToggle?.classList.remove('active');
 }
 
 // ==========================================
@@ -1167,4 +1231,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 });
 
+
+// ==========================================
+// RILEVA SE DROPDOWN HA BISOGNO DI SCROLL
+// ==========================================
+function checkDropdownScroll() {
+    const dropdown = document.getElementById('mobile-products-submenu');
+    
+    if (dropdown) {
+        // Controlla se il contenuto è più alto del container
+        if (dropdown.scrollHeight > dropdown.clientHeight) {
+            dropdown.classList.add('has-scroll');
+        } else {
+            dropdown.classList.remove('has-scroll');
+        }
+    }
+}
+
+// Chiama quando si apre il dropdown
+const mobileProductsToggle = document.getElementById('mobile-products-toggle');
+mobileProductsToggle?.addEventListener('click', function() {
+    setTimeout(checkDropdownScroll, 400); // Dopo l'animazione
+});
 

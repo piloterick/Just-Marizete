@@ -138,15 +138,82 @@
         </nav>
 
         <!-- Mobile Menu Dropdown -->
-        <div class="mobile-menu" id="mobile-menu">
-            <ul class="mobile-nav-list">
-                <li><a class="mobile-link" href="#">Home</a></li>
-                <li><a class="mobile-link" href="#chi-sono">Chi Sono</a></li>
-                <li><a class="mobile-link" href="#prodotti">Prodotti</a></li>
-                <li><a class="mobile-link" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
-                <li><a class="mobile-link" href="#">Contatti</a></li>
-            </ul>
-        </div>
+<div class="mobile-menu" id="mobile-menu">
+    <ul class="mobile-nav-list">
+        <li><a class="mobile-link" href="#">Home</a></li>
+        <li><a class="mobile-link" href="#chi-sono">Chi Sono</a></li>
+        
+        <!-- ========== PRODOTTI CON DROPDOWN ========== -->
+        <li class="mobile-dropdown">
+            <button class="mobile-dropdown-toggle" id="mobile-products-toggle">
+                <span>Prodotti</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </button>
+            
+            <div class="mobile-dropdown-menu" id="mobile-products-submenu">
+                
+                <!-- Benessere -->
+                <div class="mobile-dropdown-category">
+                    <div class="mobile-category-title">🌿 Linea Benessere</div>
+                    <div class="mobile-category-links">
+                        <a href="#oli-essenziali">Oli Essenziali</a>
+                        <a href="#creme-dermoattive">Creme Dermoattive</a>
+                        <a href="#bagni-essenze">Bagni ed Essenze</a>
+                        <a href="#lamelloderm">Lamelloderm</a>
+                        <a href="#piedi-gambe">Piedi e Gambe</a>
+                        <a href="#malva">Malva</a>
+                        <a href="#baby">Baby</a>
+                        <a href="#specifici">Specifici</a>
+                        <a href="#igiene-orale">Igiene Orale</a>
+                        <a href="#intim">Intim</a>
+                        <a href="#lozioni-corpo">Lozioni Corpo</a>
+                        <a href="#amici-animali">Amici Animali</a>
+                    </div>
+                </div>
+                
+                <!-- Bellezza -->
+                <div class="mobile-dropdown-category">
+                    <div class="mobile-category-title">✨ Linea Bellezza</div>
+                    <div class="mobile-category-links">
+                        <a href="#capelli">Capelli</a>
+                        <a href="#body-reform">Body Reform</a>
+                        <a href="#infiore">Infiore</a>
+                        <a href="#solari">Solari</a>
+                        <a href="#uomo">Uomo</a>
+                    </div>
+                </div>
+                
+                <!-- Casa -->
+                <div class="mobile-dropdown-category">
+                    <div class="mobile-category-title">🏠 Linea Casa</div>
+                    <div class="mobile-category-links">
+                        <a href="#prodotti-casa">Prodotti Casa</a>
+                    </div>
+                </div>
+                
+                <!-- Integratori -->
+                <div class="mobile-dropdown-category">
+                    <div class="mobile-category-title">💊 Integratori</div>
+                    <div class="mobile-category-links">
+                        <a href="#integrazione-alimentare">Integrazione Alimentare</a>
+                    </div>
+                </div>
+                
+                <!-- Link catalogo -->
+                <a href="https://www.just.it/catalogo/" target="_blank" rel="noopener noreferrer" class="mobile-catalog-link">
+                    <i class="ri-book-open-line"></i>
+                    Catalogo Completo Just
+                    <i class="ri-external-link-line"></i>
+                </a>
+                
+            </div>
+        </li>
+        <!-- ========== END PRODOTTI DROPDOWN ========== -->
+        
+        <li><a class="mobile-link" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
+        <li><a class="mobile-link" href="#contatti">Contatti</a></li>
+    </ul>
+</div>
     </header>
     <!-- End Header and NavBar-->
 

@@ -3209,3 +3209,300 @@ header {
         display: none;
     }
 }
+
+
+/* ===================================
+   MOBILE DROPDOWN MENU - PRODOTTI
+   =================================== */
+
+/* Container dropdown */
+.mobile-dropdown {
+    width: 100%;
+}
+
+/* Toggle Button */
+.mobile-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mobile-dropdown-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mobile-dropdown-toggle i {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.mobile-dropdown-toggle.active i {
+    transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.mobile-dropdown-menu {
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin-top: 8px;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.mobile-dropdown-menu.open {
+    max-height: 1000px;
+    padding: 15px;
+}
+
+/* Category Container */
+.mobile-dropdown-category {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-dropdown-category:last-of-type {
+    margin-bottom: 15px;
+}
+
+/* Category Title */
+.mobile-category-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffd700;
+    margin-bottom: 12px;
+    padding-left: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Category Links Container */
+.mobile-category-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Individual Links */
+.mobile-category-links a {
+    display: inline-block;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.mobile-category-links a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.mobile-category-links a:active {
+    transform: scale(0.95);
+}
+
+/* Catalog Link */
+.mobile-catalog-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.mobile-catalog-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.mobile-catalog-link i {
+    font-size: 18px;
+}
+
+/* ===================================
+   ANIMAZIONE APERTURA
+   =================================== */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mobile-dropdown-menu.open .mobile-dropdown-category {
+    animation: fadeInDown 0.3s ease forwards;
+}
+
+.mobile-dropdown-menu.open .mobile-dropdown-category:nth-child(1) { animation-delay: 0.05s; }
+.mobile-dropdown-menu.open .mobile-dropdown-category:nth-child(2) { animation-delay: 0.1s; }
+.mobile-dropdown-menu.open .mobile-dropdown-category:nth-child(3) { animation-delay: 0.15s; }
+.mobile-dropdown-menu.open .mobile-dropdown-category:nth-child(4) { animation-delay: 0.2s; }
+
+/* ===================================
+   RESPONSIVE ADJUSTMENTS
+   =================================== */
+@media (max-width: 400px) {
+    .mobile-dropdown-toggle {
+        padding: 12px 15px;
+        font-size: 15px;
+    }
+    
+    .mobile-category-links a {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    .mobile-category-title {
+        font-size: 13px;
+    }
+}
+
+/* ===================================
+   MOBILE MENU - FIX SCROLL
+   =================================== */
+
+/* Menu Mobile Container - PERMETTE SCROLL */
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: calc(100vh - 70px); /* Altezza viewport meno header */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    overflow-y: auto; /* 🔧 PERMETTE SCROLL VERTICALE */
+    -webkit-overflow-scrolling: touch; /* Smooth scroll su iOS */
+}
+
+.mobile-menu.open {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+/* ===================================
+   MOBILE DROPDOWN MENU - FIX SCROLL
+   =================================== */
+
+/* Dropdown Menu - SCROLL INTERNO */
+.mobile-dropdown-menu {
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin-top: 8px;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.mobile-dropdown-menu.open {
+    max-height: 60vh; /* 🔧 60% della viewport */
+    overflow-y: auto; /* 🔧 PERMETTE SCROLL */
+    -webkit-overflow-scrolling: touch; /* Smooth scroll su iOS */
+    padding: 15px;
+}
+
+/* ===================================
+   SCROLLBAR PERSONALIZZATA
+   =================================== */
+
+/* Scrollbar per mobile menu */
+.mobile-menu::-webkit-scrollbar,
+.mobile-dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.mobile-menu::-webkit-scrollbar-track,
+.mobile-dropdown-menu::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb,
+.mobile-dropdown-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 3px;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb:hover,
+.mobile-dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* ===================================
+   RESPONSIVE - ALTEZZE DINAMICHE
+   =================================== */
+
+@media (max-width: 600px) {
+    .mobile-menu {
+        max-height: calc(100vh - 60px);
+        padding: 15px;
+    }
+    
+    .mobile-dropdown-menu.open {
+        max-height: 50vh; /* Più piccolo su schermi piccoli */
+    }
+}
+
+@media (max-width: 400px) {
+    .mobile-menu {
+        max-height: calc(100vh - 50px);
+        padding: 12px;
+    }
+    
+    .mobile-dropdown-menu.open {
+        max-height: 45vh;
+        padding: 12px;
+    }
+}
+
+/* ===================================
+   FIX: INDICATORE SCROLL (Opzionale)
+   =================================== */
+
+/* Mostra che c'è altro contenuto */
+.mobile-dropdown-menu.open::after {
+    content: '';
+    display: block;
+    height: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 100%);
+    position: sticky;
+    bottom: 0;
+    margin: -15px -15px 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Mostra gradiente solo se c'è scroll */
+.mobile-dropdown-menu.has-scroll::after {
+    opacity: 1;
+}
+
