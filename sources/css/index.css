@@ -2937,3 +2937,275 @@ header {
 .hidden {
     display: none !important;
 }
+
+
+/* ===================================
+   DROPDOWN MENU - PRODOTTI
+   =================================== */
+
+/* Container del nav-item con dropdown */
+.nav-item.has-dropdown {
+    position: relative;
+}
+
+/* Link con freccia */
+.dropdown-toggle {
+    display: flex !important;
+    align-items: center;
+    gap: 5px;
+}
+
+.dropdown-arrow {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.nav-item.has-dropdown:hover .dropdown-arrow,
+.nav-item.has-dropdown.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* ===================================
+   MEGA MENU DROPDOWN
+   =================================== */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: max-content;
+    max-width: 900px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    padding: 30px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+/* Triangolo decorativo */
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid white;
+}
+
+/* Mostra dropdown su hover */
+.nav-item.has-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Area invisibile per mantenere hover */
+.nav-item.has-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+}
+
+/* ===================================
+   DROPDOWN CONTAINER (Grid)
+   =================================== */
+.dropdown-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+/* ===================================
+   DROPDOWN COLUMNS
+   =================================== */
+.dropdown-column {
+    min-width: 180px;
+}
+
+.dropdown-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e8e0ff;
+}
+
+.dropdown-icon {
+    font-size: 1.3rem;
+}
+
+/* ===================================
+   DROPDOWN LINKS
+   =================================== */
+.dropdown-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-links li {
+    margin-bottom: 8px;
+}
+
+.dropdown-links a {
+    display: block;
+    padding: 8px 12px;
+    color: #555;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.dropdown-links a:hover {
+    background: linear-gradient(135deg, #f0ebff 0%, #e8e0ff 100%);
+    color: #6643b5;
+    padding-left: 18px;
+}
+
+/* Icona freccia su hover */
+.dropdown-links a::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    transition: all 0.2s ease;
+}
+
+.dropdown-links a:hover::before {
+    content: '→ ';
+    width: auto;
+    margin-right: 5px;
+}
+
+/* ===================================
+   DROPDOWN PROMO COLUMN
+   =================================== */
+.dropdown-promo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.promo-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 25px;
+    border-radius: 16px;
+    color: white;
+    text-align: center;
+}
+
+.promo-card .promo-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.promo-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.promo-card p {
+    font-size: 13px;
+    opacity: 0.9;
+    margin-bottom: 15px;
+}
+
+.promo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    color: #6643b5;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.promo-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.catalog-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    background: #f8f9ff;
+    border-radius: 12px;
+    color: #6643b5;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.catalog-link:hover {
+    background: #6643b5;
+    color: white;
+}
+
+.catalog-link i {
+    font-size: 1.2rem;
+}
+
+/* ===================================
+   DROPDOWN RESPONSIVE
+   =================================== */
+@media (max-width: 1200px) {
+    .dropdown-menu {
+        max-width: 750px;
+    }
+    
+    .dropdown-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .dropdown-promo {
+        grid-column: span 3;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .promo-card {
+        flex: 1;
+        max-width: 300px;
+    }
+    
+    .catalog-link {
+        flex: 1;
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 900px) {
+    /* Nascondi dropdown su tablet/mobile - usa mobile menu */
+    .dropdown-menu {
+        display: none !important;
+    }
+    
+    .dropdown-arrow {
+        display: none;
+    }
+}
