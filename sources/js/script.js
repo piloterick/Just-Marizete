@@ -63,30 +63,30 @@ function setupEventListeners() {
     const mobileProductsSubmenu = document.getElementById('mobile-products-submenu');
 
     // Toggle dropdown quando clicchi su "Prodotti"
-    mobileProductsToggle?.addEventListener('click', function() {
+    mobileProductsToggle?.addEventListener('click', function () {
         this.classList.toggle('active');
         mobileProductsSubmenu?.classList.toggle('open');
     });
 
     // Chiudi menu quando clicchi su una categoria
     document.querySelectorAll('.mobile-category-links a').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            
+
             // Chiudi menu
             closeMobileMenu();
             mobileProductsSubmenu?.classList.remove('open');
             mobileProductsToggle?.classList.remove('active');
-            
+
             // Smooth scroll se è un anchor
             if (href?.startsWith('#')) {
                 e.preventDefault();
                 const target = document.querySelector(href);
-                
+
                 if (target) {
                     const headerHeight = document.querySelector('header')?.offsetHeight || 80;
                     const targetPosition = target.offsetTop - headerHeight - 20;
-                    
+
                     setTimeout(() => {
                         window.scrollTo({
                             top: targetPosition,
@@ -99,7 +99,7 @@ function setupEventListeners() {
     });
 
     // Chiudi dropdown quando clicchi sul link catalogo
-    document.querySelector('.mobile-catalog-link')?.addEventListener('click', function() {
+    document.querySelector('.mobile-catalog-link')?.addEventListener('click', function () {
         closeMobileMenu();
         mobileProductsSubmenu?.classList.remove('open');
         mobileProductsToggle?.classList.remove('active');
@@ -108,11 +108,11 @@ function setupEventListeners() {
     // ==========================================
     // 🆕 CHIUDI MENU CLICK FUORI
     // ==========================================
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (mobileMenu?.classList.contains('open')) {
             const isClickInsideMenu = mobileMenu.contains(e.target);
             const isClickOnMenuBtn = mobileMenuIcon?.contains(e.target);
-            
+
             if (!isClickInsideMenu && !isClickOnMenuBtn) {
                 closeMobileMenu();
                 mobileProductsSubmenu?.classList.remove('open');
@@ -420,7 +420,7 @@ function toggleMobileMenu() {
 
 function closeMobileMenu() {
     mobileMenu?.classList.remove('open');
-    
+
     // 🆕 Chiudi anche il dropdown prodotti
     const mobileProductsToggle = document.getElementById('mobile-products-toggle');
     const mobileProductsSubmenu = document.getElementById('mobile-products-submenu');
@@ -562,11 +562,11 @@ console.log('🛒 Just Marizete E-commerce initialized!');
    =================================== */
 function animateCounters() {
     const counters = document.querySelectorAll('.stat-number');
-    
+
     const observerOptions = {
         threshold: 0.5
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -575,7 +575,7 @@ function animateCounters() {
                 const duration = 2000; // 2 secondi
                 const increment = target / (duration / 16);
                 let current = 0;
-                
+
                 const updateCounter = () => {
                     current += increment;
                     if (current < target) {
@@ -585,13 +585,13 @@ function animateCounters() {
                         counter.textContent = target;
                     }
                 };
-                
+
                 updateCounter();
                 observer.unobserve(counter);
             }
         });
     }, observerOptions);
-    
+
     counters.forEach(counter => observer.observe(counter));
 }
 
@@ -677,7 +677,7 @@ function initProductsSection() {
 // Filter by Category
 function filterByCategory(category) {
     const sections = document.querySelectorAll('.category-section');
-    
+
     sections.forEach(section => {
         if (category === 'all' || section.dataset.category === category) {
             section.style.display = 'block';
@@ -692,11 +692,11 @@ function filterByCategory(category) {
 function searchProducts(query) {
     const cards = document.querySelectorAll('.product-card');
     const lowerQuery = query.toLowerCase().trim();
-    
+
     cards.forEach(card => {
         const title = card.querySelector('.product-title')?.textContent.toLowerCase() || '';
         const description = card.querySelector('.product-description')?.textContent.toLowerCase() || '';
-        
+
         if (title.includes(lowerQuery) || description.includes(lowerQuery) || lowerQuery === '') {
             card.style.display = 'block';
             card.style.animation = 'fadeIn 0.3s ease';
@@ -709,17 +709,17 @@ function searchProducts(query) {
 // Sort Products
 function sortProducts(sortType) {
     const grids = document.querySelectorAll('.products-grid');
-    
+
     grids.forEach(grid => {
         const cards = Array.from(grid.querySelectorAll('.product-card'));
-        
+
         cards.sort((a, b) => {
             const priceA = parseFloat(a.dataset.price) || 0;
             const priceB = parseFloat(b.dataset.price) || 0;
             const nameA = a.dataset.name || '';
             const nameB = b.dataset.name || '';
-            
-            switch(sortType) {
+
+            switch (sortType) {
                 case 'price-asc':
                     return priceA - priceB;
                 case 'price-desc':
@@ -732,7 +732,7 @@ function sortProducts(sortType) {
                     return 0;
             }
         });
-        
+
         cards.forEach(card => grid.appendChild(card));
     });
 }
@@ -743,17 +743,17 @@ function handleAddToCart(e) {
     const title = card.querySelector('.product-title')?.textContent;
     const price = card.querySelector('.current-price')?.textContent;
     const image = card.querySelector('.product-image img')?.src;
-    
+
     // Animazione bottone
     const btn = e.target.closest('.add-to-cart-btn');
     btn.innerHTML = '<i class="ri-check-line"></i> Aggiunto!';
     btn.style.background = '#4caf50';
-    
+
     setTimeout(() => {
         btn.innerHTML = '<i class="ri-shopping-cart-2-line"></i><span>Aggiungi</span>';
         btn.style.background = '';
     }, 1500);
-    
+
     // Aggiungi al carrello (usa la funzione esistente)
     if (typeof addToCart === 'function') {
         addToCart({
@@ -764,7 +764,7 @@ function handleAddToCart(e) {
             quantity: 1
         });
     }
-    
+
     showToast(`${title} aggiunto al carrello!`, 'success');
 }
 
@@ -774,7 +774,7 @@ function openQuickView(card) {
     const description = card.querySelector('.product-description')?.textContent;
     const price = card.querySelector('.current-price')?.textContent;
     const image = card.querySelector('.product-image img')?.src;
-    
+
     // Crea modal
     const modal = document.createElement('div');
     modal.className = 'quick-view-modal';
@@ -796,14 +796,14 @@ function openQuickView(card) {
             </div>
         </div>
     `;
-    
+
     document.body.appendChild(modal);
     document.body.style.overflow = 'hidden';
-    
+
     // Close handlers
     modal.querySelector('.quick-view-overlay').addEventListener('click', () => closeQuickView(modal));
     modal.querySelector('.quick-view-close').addEventListener('click', () => closeQuickView(modal));
-    
+
     // Add animation
     setTimeout(() => modal.classList.add('active'), 10);
 }
@@ -817,7 +817,7 @@ function closeQuickView(modal) {
 // Utility Functions
 function debounce(func, wait) {
     let timeout;
-    return function(...args) {
+    return function (...args) {
         clearTimeout(timeout);
         timeout = setTimeout(() => func.apply(this, args), wait);
     };
@@ -994,12 +994,12 @@ function formatPriceIT(price) {
  * Genera l'HTML di una singola card prodotto
  */
 function createProductCard(product) {
-    const badgesHTML = product.badges && product.badges.length > 0 
+    const badgesHTML = product.badges && product.badges.length > 0
         ? `<div class="product-badges">
-            ${product.badges.map(badge => 
-                `<span class="badge badge-${badge}">${getBadgeText(badge)}</span>`
-            ).join('')}
-           </div>` 
+            ${product.badges.map(badge =>
+            `<span class="badge badge-${badge}">${getBadgeText(badge)}</span>`
+        ).join('')}
+           </div>`
         : '';
 
     return `
@@ -1042,7 +1042,7 @@ function createProductCard(product) {
 function renderProductsToGrid(productsArray, containerSelector) {
     const container = document.querySelector(containerSelector);
     if (!container) return;
-    
+
     if (productsArray.length === 0) {
         container.innerHTML = `
             <div class="no-products" style="grid-column: 1/-1; text-align: center; padding: 40px;">
@@ -1052,7 +1052,7 @@ function renderProductsToGrid(productsArray, containerSelector) {
         `;
         return;
     }
-    
+
     container.innerHTML = productsArray.map(product => createProductCard(product)).join('');
 }
 
@@ -1066,7 +1066,7 @@ function renderAllProducts() {
         console.warn('Assicurati di caricare products-data.js PRIMA di questo script.');
         return;
     }
-    
+
     const subcategories = [
         'oli-essenziali',
         'creme-dermoattive',
@@ -1094,15 +1094,15 @@ function renderAllProducts() {
     subcategories.forEach(subcat => {
         const filteredProducts = products.filter(p => p.subcategory === subcat);
         const selector = `#${subcat} .products-grid`;
-        
+
         if (document.querySelector(selector)) {
             renderProductsToGrid(filteredProducts, selector);
             totalRendered += filteredProducts.length;
         }
     });
-    
+
     console.log(`✅ ${totalRendered} prodotti renderizzati automaticamente!`);
-    
+
     // Re-inizializza event listeners dopo il render
     reinitProductListeners();
 }
@@ -1116,7 +1116,7 @@ function reinitProductListeners() {
         // Rimuovi listener esistenti per evitare duplicati
         btn.replaceWith(btn.cloneNode(true));
     });
-    
+
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', handleAddToCart);
     });
@@ -1125,7 +1125,7 @@ function reinitProductListeners() {
     document.querySelectorAll('.wishlist-btn').forEach(btn => {
         btn.replaceWith(btn.cloneNode(true));
     });
-    
+
     document.querySelectorAll('.wishlist-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const productId = parseInt(btn.dataset.id);
@@ -1137,14 +1137,14 @@ function reinitProductListeners() {
     document.querySelectorAll('.quick-view-btn').forEach(btn => {
         btn.replaceWith(btn.cloneNode(true));
     });
-    
+
     document.querySelectorAll('.quick-view-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const card = e.target.closest('.product-card');
             openQuickView(card);
         });
     });
-    
+
     // Aggiorna UI wishlist
     updateWishlistUI();
 }
@@ -1156,7 +1156,7 @@ let wishlist = JSON.parse(localStorage.getItem('justWishlist')) || [];
 
 function toggleWishlistPersistent(productId, btn) {
     const index = wishlist.indexOf(productId);
-    
+
     if (index === -1) {
         wishlist.push(productId);
         btn.classList.add('active');
@@ -1168,7 +1168,7 @@ function toggleWishlistPersistent(productId, btn) {
         btn.innerHTML = '<i class="ri-heart-line"></i>';
         showToast('Rimosso dai preferiti', 'success');
     }
-    
+
     localStorage.setItem('justWishlist', JSON.stringify(wishlist));
 }
 
@@ -1176,10 +1176,10 @@ function updateWishlistUI() {
     document.querySelectorAll('.wishlist-btn').forEach(btn => {
         const productId = parseInt(btn.dataset.id);
         const isInWishlist = wishlist.includes(productId);
-        
+
         btn.classList.toggle('active', isInWishlist);
-        btn.innerHTML = isInWishlist 
-            ? '<i class="ri-heart-fill"></i>' 
+        btn.innerHTML = isInWishlist
+            ? '<i class="ri-heart-fill"></i>'
             : '<i class="ri-heart-line"></i>';
     });
 }
@@ -1200,7 +1200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================
 function checkDropdownScroll() {
     const dropdown = document.getElementById('mobile-products-submenu');
-    
+
     if (dropdown) {
         // Controlla se il contenuto è più alto del container
         if (dropdown.scrollHeight > dropdown.clientHeight) {
@@ -1213,7 +1213,7 @@ function checkDropdownScroll() {
 
 // Chiama quando si apre il dropdown
 const mobileProductsToggle = document.getElementById('mobile-products-toggle');
-mobileProductsToggle?.addEventListener('click', function() {
+mobileProductsToggle?.addEventListener('click', function () {
     setTimeout(checkDropdownScroll, 400); // Dopo l'animazione
 });
 
@@ -1374,11 +1374,11 @@ function renderSearchResults(productResults, categoryResults, query) {
         if (productResults.length > 0) {
             html += `<div class="search-category-header">🛍️ Prodotti</div>`;
             productResults.forEach((product, index) => {
-                const badgeHtml = product.badges.includes('bestseller') 
-                    ? '<span class="search-badge bestseller">⭐ Best</span>' 
-                    : product.badges.includes('new') 
-                    ? '<span class="search-badge new">🆕 Nuovo</span>' 
-                    : '';
+                const badgeHtml = product.badges.includes('bestseller')
+                    ? '<span class="search-badge bestseller">⭐ Best</span>'
+                    : product.badges.includes('new')
+                        ? '<span class="search-badge new">🆕 Nuovo</span>'
+                        : '';
 
                 html += `
                     <a href="#${product.subcategory}" class="search-result-item search-product-item" data-product-id="${product.id}" data-index="${categoryResults.length + index}">
@@ -1551,3 +1551,189 @@ function escapeHtml(text) {
 function escapeRegex(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
+
+// ==========================================
+// CONTEGGIO PRODOTTI AUTOMATICO
+// ==========================================
+
+/**
+ * Aggiorna tutti i conteggi prodotti nel sito
+ * Chiamare dopo aver caricato i prodotti o aggiunto nuovi
+ */
+function updateProductCounts() {
+
+    // Conteggi per LINEA
+    const countByLine = {
+        benessere: getProductsByLine('benessere').length,
+        bellezza: getProductsByLine('bellezza').length,
+        casa: getProductsByLine('casa').length,
+        integratori: getProductsByLine('integratori').length
+    };
+
+    // Conteggi per SOTTOCATEGORIA
+    const countBySubcategory = {
+        'oli-essenziali': getProductsBySubcategory('oli-essenziali').length,
+        'creme-dermoattive': getProductsBySubcategory('creme-dermoattive').length,
+        'bagni-essenze': getProductsBySubcategory('bagni-essenze').length,
+        'lamelloderm': getProductsBySubcategory('lamelloderm').length,
+        'piedi-gambe': getProductsBySubcategory('piedi-gambe').length,
+        'malva': getProductsBySubcategory('malva').length,
+        'baby': getProductsBySubcategory('baby').length,
+        'specifici': getProductsBySubcategory('specifici').length,
+        'igiene-orale': getProductsBySubcategory('igiene-orale').length,
+        'intim': getProductsBySubcategory('intim').length,
+        'lozioni-corpo': getProductsBySubcategory('lozioni-corpo').length,
+        'amici-animali': getProductsBySubcategory('amici-animali').length,
+        'capelli': getProductsBySubcategory('capelli').length,
+        'body-reform': getProductsBySubcategory('body-reform').length,
+        'infiore': getProductsBySubcategory('infiore').length,
+        'solari': getProductsBySubcategory('solari').length,
+        'uomo': getProductsBySubcategory('uomo').length,
+        'prodotti-casa': getProductsBySubcategory('prodotti-casa').length,
+        'integrazione-alimentare': getProductsBySubcategory('integrazione-alimentare').length
+    };
+
+    // ==========================================
+    // AGGIORNA CONTEGGI LINEE (Category Section Headers)
+    // ==========================================
+
+    // Linea Benessere
+    const benessereCount = document.querySelector('[data-category="benessere"] .products-count');
+    if (benessereCount) {
+        benessereCount.textContent = `${countByLine.benessere} prodotti`;
+    }
+
+    // Linea Bellezza
+    const bellezzaCount = document.querySelector('[data-category="bellezza"] .products-count');
+    if (bellezzaCount) {
+        bellezzaCount.textContent = `${countByLine.bellezza} prodotti`;
+    }
+
+    // Linea Casa
+    const casaCount = document.querySelector('[data-category="casa"] .products-count');
+    if (casaCount) {
+        casaCount.textContent = `${countByLine.casa} prodotti`;
+    }
+
+    // Linea Integratori
+    const integratoriCount = document.querySelector('[data-category="integratori"] .products-count');
+    if (integratoriCount) {
+        integratoriCount.textContent = `${countByLine.integratori} prodott${countByLine.integratori === 1 ? 'o' : 'i'}`;
+    }
+
+    // ==========================================
+    // AGGIORNA CONTEGGI SOTTOCATEGORIE
+    // ==========================================
+
+    Object.keys(countBySubcategory).forEach(subcategory => {
+        const count = countBySubcategory[subcategory];
+        const element = document.querySelector(`#${subcategory} .subcategory-count`);
+
+        if (element) {
+            element.textContent = `${count} prodott${count === 1 ? 'o' : 'i'}`;
+        }
+    });
+
+    // ==========================================
+    // AGGIORNA SIDEBAR
+    // ==========================================
+
+    // Aggiorna conteggi nella sidebar (se hai aggiunto data-count)
+    document.querySelectorAll('.subcategory-link').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href) {
+            const subcategory = href.replace('#', '');
+            const count = countBySubcategory[subcategory];
+
+            if (count !== undefined) {
+                // Se vuoi mostrare il conteggio nel link
+                let countBadge = link.querySelector('.sidebar-count');
+                if (!countBadge) {
+                    countBadge = document.createElement('span');
+                    countBadge.className = 'sidebar-count';
+                    link.appendChild(countBadge);
+                }
+                countBadge.textContent = count;
+            }
+        }
+    });
+
+    // ==========================================
+    // AGGIORNA HEADER SEZIONE PRODOTTI
+    // ==========================================
+
+    const totalProducts = products.length;
+    const sectionSubtitle = document.querySelector('.products-section .section-subtitle');
+    if (sectionSubtitle) {
+        sectionSubtitle.textContent = `Scopri oltre ${totalProducts} prodotti naturali svizzeri per il tuo benessere quotidiano`;
+    }
+
+    // ==========================================
+    // AGGIORNA STATS (Chi Sono)
+    // ==========================================
+
+    const productsStatNumber = document.querySelector('.stat-item:nth-child(3) .stat-number');
+    if (productsStatNumber) {
+        productsStatNumber.setAttribute('data-target', totalProducts);
+    }
+
+    // Log per debug
+    console.log('📊 Conteggi aggiornati:', {
+        totale: totalProducts,
+        linee: countByLine,
+        sottocategorie: countBySubcategory
+    });
+}
+
+// ==========================================
+// AGGIORNA CONTEGGIO MOBILE MENU (Opzionale)
+// ==========================================
+
+function updateMobileMenuCounts() {
+    const mobileCategories = document.querySelectorAll('.mobile-dropdown-category');
+
+    mobileCategories.forEach(category => {
+        const titleEl = category.querySelector('.mobile-category-title');
+        if (!titleEl) return;
+
+        const title = titleEl.textContent;
+        let count = 0;
+
+        if (title.includes('Benessere')) {
+            count = getProductsByLine('benessere').length;
+        } else if (title.includes('Bellezza')) {
+            count = getProductsByLine('bellezza').length;
+        } else if (title.includes('Casa')) {
+            count = getProductsByLine('casa').length;
+        } else if (title.includes('Integratori')) {
+            count = getProductsByLine('integratori').length;
+        }
+
+        // Aggiungi badge conteggio se vuoi
+        let badge = titleEl.querySelector('.mobile-count-badge');
+        if (!badge && count > 0) {
+            badge = document.createElement('span');
+            badge.className = 'mobile-count-badge';
+            titleEl.appendChild(badge);
+        }
+        if (badge) {
+            badge.textContent = `(${count})`;
+        }
+    });
+}
+
+// ==========================================
+// INIZIALIZZAZIONE
+// ==========================================
+
+// Chiama all'avvio
+document.addEventListener('DOMContentLoaded', () => {
+    // ... altro codice esistente ...
+
+    // 🔄 Aggiorna conteggi prodotti
+    updateProductCounts();
+    updateMobileMenuCounts();
+});
+
+// Esporta funzione per uso esterno (opzionale)
+window.updateProductCounts = updateProductCounts;
