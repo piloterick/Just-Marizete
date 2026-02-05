@@ -1737,3 +1737,285 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Esporta funzione per uso esterno (opzionale)
 window.updateProductCounts = updateProductCounts;
+
+
+// ==========================================
+// USER AUTH STATE (nel sito principale)
+// ==========================================
+
+// Controlla se utente è loggato
+firebase.auth().onAuthStateChanged(user => {
+    updateUserUI(user);
+});
+
+function updateUserUI(user) {
+    const navList = document.querySelector('.nav-list');
+    const mobileNavList = document.querySelector('.mobile-nav-list');
+
+    if (user) {
+        // Utente loggato - mostra profilo
+        const userHtml = `
+            <li class="nav-item user-menu">
+                <a class="link-nav" href="profilo.html">
+                    <i class="ri-user-line"></i>
+                    ${user.displayName || 'Profilo'}
+                </a>
+            </li>
+        `;
+        // Aggiungi al menu
+    } else {
+        // Utente non loggato - mostra login
+        const loginHtml = `
+            <li class="nav-item">
+                <a class="link-nav" href="login.html">
+                    <i class="ri-user-line"></i>
+                    Accedi
+                </a>
+            </li>
+        `;
+        // Aggiungi al menu
+    }
+}
+
+
+// ==========================================
+// NAVBAR USER AUTH
+// ==========================================
+
+// Elementi DOM
+const navUser = document.getElementById('nav-user');
+const userGuest = document.getElementById('user-guest');
+const userLogged = document.getElementById('user-logged');
+const userAvatarBtn = document.getElementById('user-avatar-btn');
+const userDropdown = document.getElementById('user-dropdown');
+const userAvatar = document.getElementById('user-avatar');
+const userAvatarLarge = document.getElementById('user-avatar-large');
+const userName = document.getElementById('user-name');
+const userFullname = document.getElementById('user-fullname');
+const userEmail = document.getElementById('user-email');
+const userMenuAdmin = document.getElementById('user-menu-admin');
+const btnLogout = document.getElementById('btn-logout');
+
+// Mobile elements
+const mobileUserSection = document.getElementById('mobile-user-section');
+const mobileGuest = document.getElementById('mobile-guest');
+const mobileLogged = document.getElementById('mobile-logged');
+const mobileUserAvatar = document.getElementById('mobile-user-avatar');
+const mobileUserName = document.getElementById('mobile-user-name');
+const mobileUserEmail = document.getElementById('mobile-user-email');
+const mobileAdminLinks = document.getElementById('mobile-admin-links');
+const mobileBtnLogout = document.getElementById('mobile-btn-logout');
+
+// ==========================================
+// INIT AUTH STATE
+// ==========================================
+
+function initAuthState() {
+    // Controlla se Firebase è disponibile
+    if (typeof firebase === 'undefined') {
+        console.warn('Firebase non caricato');
+        return;
+    }
+    
+    firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) {
+            // Utente loggato
+            await updateUILoggedIn(user);
+        } else {
+            // Utente non loggato
+            updateUILoggedOut();
+        }
+    });
+}
+
+// ==========================================
+// UPDATE UI - LOGGATO
+// ==========================================
+
+async function updateUILoggedIn(user) {
+    // Nascondi guest, mostra logged
+    userGuest?.classList.add('hidden');
+    userLogged?.classList.remove('hidden');
+    
+    mobileGuest?.classList.add('hidden');
+    mobileLogged?.classList.remove('hidden');
+    mobileUserSection?.classList.remove('hidden');
+    
+    // Ottieni dati utente da Firestore
+    let userData = null;
+    let isAdmin = false;
+    
+    try {
+        const userDoc = await firebase.firestore()
+            .collection('users')
+            .doc(user.uid)
+            .get();
+        
+        if (userDoc.exists) {
+            userData = userDoc.data();
+            isAdmin = userData.role === 'admin';
+        }
+    } catch (error) {
+        console.error('Errore recupero dati utente:', error);
+    }
+    
+    // Nome da mostrare
+    const displayName = userData?.name || user.displayName?.split(' ')[0] || 'Utente';
+    const fullName = userData 
+        ? `${userData.name || ''} ${userData.surname || ''}`.trim() 
+        : user.displayName || 'Utente';
+    const email = user.email;
+    const photoURL = userData?.photoURL || user.photoURL;
+    
+    // Aggiorna Desktop
+    if (userName) userName.textContent = displayName;
+    if (userFullname) userFullname.textContent = fullName;
+    if (userEmail) userEmail.textContent = email;
+    
+    // Avatar
+    if (photoURL) {
+        if (userAvatar) userAvatar.innerHTML = `<img src="${photoURL}" alt="Avatar">`;
+        if (userAvatarLarge) userAvatarLarge.innerHTML = `<img src="${photoURL}" alt="Avatar">`;
+        if (mobileUserAvatar) mobileUserAvatar.innerHTML = `<img src="${photoURL}" alt="Avatar">`;
+    } else {
+        const initial = displayName.charAt(0).toUpperCase();
+        if (userAvatar) userAvatar.innerHTML = `<span>${initial}</span>`;
+        if (userAvatarLarge) userAvatarLarge.innerHTML = `<span>${initial}</span>`;
+        if (mobileUserAvatar) mobileUserAvatar.innerHTML = `<span>${initial}</span>`;
+    }
+    
+    // Aggiorna Mobile
+    if (mobileUserName) mobileUserName.textContent = fullName;
+    if (mobileUserEmail) mobileUserEmail.textContent = email;
+    
+    // Mostra/nascondi menu admin
+    if (isAdmin) {
+        userMenuAdmin?.classList.remove('hidden');
+        mobileAdminLinks?.classList.remove('hidden');
+    } else {
+        userMenuAdmin?.classList.add('hidden');
+        mobileAdminLinks?.classList.add('hidden');
+    }
+}
+
+// ==========================================
+// UPDATE UI - NON LOGGATO
+// ==========================================
+
+function updateUILoggedOut() {
+    // Mostra guest, nascondi logged
+    userGuest?.classList.remove('hidden');
+    userLogged?.classList.add('hidden');
+    
+    mobileGuest?.classList.remove('hidden');
+    mobileLogged?.classList.add('hidden');
+    mobileUserSection?.classList.add('hidden');
+    
+    // Chiudi dropdown se aperto
+    userDropdown?.classList.remove('active');
+    userAvatarBtn?.classList.remove('active');
+}
+
+// ==========================================
+// TOGGLE USER DROPDOWN
+// ==========================================
+
+function setupUserDropdown() {
+    // Toggle dropdown
+    userAvatarBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        userAvatarBtn.classList.toggle('active');
+        userDropdown?.classList.toggle('active');
+    });
+    
+    // Chiudi cliccando fuori
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.user-logged')) {
+            userDropdown?.classList.remove('active');
+            userAvatarBtn?.classList.remove('active');
+        }
+    });
+    
+    // Chiudi su ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            userDropdown?.classList.remove('active');
+            userAvatarBtn?.classList.remove('active');
+        }
+    });
+}
+
+// ==========================================
+// LOGOUT
+// ==========================================
+
+function setupLogout() {
+    const handleLogout = async () => {
+        try {
+            await firebase.auth().signOut();
+            
+            // Chiudi menu
+            userDropdown?.classList.remove('active');
+            closeMobileMenu();
+            
+            // Redirect opzionale
+            // window.location.href = 'index.html';
+            
+            showToast('👋 Logout effettuato', 'success');
+            
+        } catch (error) {
+            console.error('Errore logout:', error);
+            showToast('Errore durante il logout', 'error');
+        }
+    };
+    
+    btnLogout?.addEventListener('click', handleLogout);
+    mobileBtnLogout?.addEventListener('click', handleLogout);
+}
+
+// ==========================================
+// TOAST NOTIFICATION (se non l'hai già)
+// ==========================================
+
+function showToast(message, type = 'success') {
+    // Crea container se non esiste
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    
+    const icons = {
+        success: 'ri-check-line',
+        error: 'ri-error-warning-line',
+        warning: 'ri-alert-line'
+    };
+    
+    toast.innerHTML = `
+        <i class="${icons[type] || icons.success}"></i>
+        <span class="toast-message">${message}</span>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Rimuovi dopo 3 secondi
+    setTimeout(() => {
+        toast.style.animation = 'slideInRight 0.3s ease reverse';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+// ==========================================
+// INIZIALIZZA TUTTO
+// ==========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    initAuthState();
+    setupUserDropdown();
+    setupLogout();
+});

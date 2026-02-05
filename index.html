@@ -137,21 +137,108 @@
                 <li class="nav-item"><a class="link-nav" href="#contatti">Contatti</a></li>
             </ul>
 
-            <!-- Menu Mobile Icon - CORRETTO -->
+            <!-- ========== USER AUTH SECTION ========== -->
+            <div class="nav-user" id="nav-user">
+
+                <!-- Stato: Non Loggato -->
+                <div class="user-guest" id="user-guest">
+                    <a href="login.html" class="btn-nav-login">
+                        <i class="ri-user-line"></i>
+                        <span>Accedi</span>
+                    </a>
+                </div>
+
+                <!-- Stato: Loggato -->
+                <div class="user-logged hidden" id="user-logged">
+                    <button class="user-avatar-btn" id="user-avatar-btn">
+                        <div class="user-avatar" id="user-avatar">
+                            <i class="ri-user-line"></i>
+                        </div>
+                        <span class="user-name" id="user-name">Utente</span>
+                        <i class="ri-arrow-down-s-line"></i>
+                    </button>
+
+                    <!-- Dropdown Menu Utente -->
+                    <div class="user-dropdown" id="user-dropdown">
+                        <div class="user-dropdown-header">
+                            <div class="user-avatar-large" id="user-avatar-large">
+                                <i class="ri-user-line"></i>
+                            </div>
+                            <div class="user-info">
+                                <span class="user-fullname" id="user-fullname">Nome Utente</span>
+                                <span class="user-email" id="user-email">email@esempio.com</span>
+                            </div>
+                        </div>
+
+                        <div class="user-dropdown-divider"></div>
+
+                        <!-- Menu Cliente -->
+                        <div class="user-menu-customer" id="user-menu-customer">
+                            <a href="profilo.html" class="user-dropdown-item">
+                                <i class="ri-user-settings-line"></i>
+                                Il Mio Profilo
+                            </a>
+                            <a href="ordini.html" class="user-dropdown-item">
+                                <i class="ri-shopping-bag-3-line"></i>
+                                I Miei Ordini
+                            </a>
+                            <a href="wishlist.html" class="user-dropdown-item">
+                                <i class="ri-heart-line"></i>
+                                Preferiti
+                            </a>
+                        </div>
+
+                        <!-- Menu Admin (nascosto per clienti) -->
+                        <div class="user-menu-admin hidden" id="user-menu-admin">
+                            <div class="user-dropdown-divider"></div>
+                            <span class="user-dropdown-label">Amministrazione</span>
+                            <a href="admin.html" class="user-dropdown-item admin-item">
+                                <i class="ri-dashboard-line"></i>
+                                Dashboard Admin
+                            </a>
+                            <a href="admin.html#add-product" class="user-dropdown-item admin-item">
+                                <i class="ri-add-circle-line"></i>
+                                Aggiungi Prodotto
+                            </a>
+                        </div>
+
+                        <div class="user-dropdown-divider"></div>
+
+                        <button class="user-dropdown-item logout-item" id="btn-logout">
+                            <i class="ri-logout-box-line"></i>
+                            Esci
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- ========== END USER AUTH ========== -->
+
+            <!-- Mobile Menu Icon -->
             <button class="mobile-menu-icon" id="mobile-menu-btn" aria-label="Apri menu">
                 <img class="icona-menu" src="sources/images/menu-list.png" alt="Menu">
             </button>
 
-            <!-- Cart Icon Wrapper - CORRETTO -->
+            <!-- Cart Icon -->
             <div class="cart-icon-wrapper" id="cart-icon-wrapper">
                 <img class="shopping-car" id="cart-icon" src="sources/images/shopping-car.png" alt="Carrello">
                 <span class="cart-item-count">0</span>
-            </div>
         </nav>
 
         <!-- Mobile Menu Dropdown -->
         <div class="mobile-menu" id="mobile-menu">
             <ul class="mobile-nav-list">
+                <!-- User Info Mobile (se loggato) -->
+                <li class="mobile-user-section hidden" id="mobile-user-section">
+                    <div class="mobile-user-info">
+                        <div class="mobile-user-avatar" id="mobile-user-avatar">
+                            <i class="ri-user-line"></i>
+                        </div>
+                        <div class="mobile-user-details">
+                            <span class="mobile-user-name" id="mobile-user-name">Nome</span>
+                            <span class="mobile-user-email" id="mobile-user-email">email@esempio.com</span>
+                        </div>
+                    </div>
+                </li>
                 <li><a class="mobile-link" href="#">Home</a></li>
                 <li><a class="mobile-link" href="#chi-sono">Chi Sono</a></li>
 
@@ -225,6 +312,50 @@
 
                 <li><a class="mobile-link" href="https://www.just.it/catalogo/" target="_blank">Catalogo</a></li>
                 <li><a class="mobile-link" href="#contatti">Contatti</a></li>
+                <!-- Divider -->
+                <li class="mobile-divider"></li>
+
+                <!-- Menu Utente Mobile -->
+                <li class="mobile-auth-section">
+
+                    <!-- Non loggato -->
+                    <div class="mobile-guest" id="mobile-guest">
+                        <a href="login.html" class="mobile-btn-login">
+                            <i class="ri-user-line"></i>
+                            Accedi / Registrati
+                        </a>
+                    </div>
+
+                    <!-- Loggato -->
+                    <div class="mobile-logged hidden" id="mobile-logged">
+                        <a href="profilo.html" class="mobile-link">
+                            <i class="ri-user-settings-line"></i>
+                            Il Mio Profilo
+                        </a>
+                        <a href="ordini.html" class="mobile-link">
+                            <i class="ri-shopping-bag-3-line"></i>
+                            I Miei Ordini
+                        </a>
+                        <a href="wishlist.html" class="mobile-link">
+                            <i class="ri-heart-line"></i>
+                            Preferiti
+                        </a>
+
+                        <!-- Admin Links (nascosti per clienti) -->
+                        <div class="mobile-admin-links hidden" id="mobile-admin-links">
+                            <div class="mobile-divider-small"></div>
+                            <a href="admin.html" class="mobile-link admin-link">
+                                <i class="ri-dashboard-line"></i>
+                                Dashboard Admin
+                            </a>
+                        </div>
+
+                        <button class="mobile-btn-logout" id="mobile-btn-logout">
+                            <i class="ri-logout-box-line"></i>
+                            Esci
+                        </button>
+                    </div>
+                </li>
             </ul>
         </div>
     </header>
@@ -992,6 +1123,24 @@
         </a>
     </footer>
     <!-- ===== END FOOTER ===== -->
+
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+
+<!-- Firebase Config -->
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCAt6TWblWG0uclk0723eioeBjCqfwHIp8",
+    authDomain: "just-marizete.firebaseapp.com",
+    projectId: "just-marizete",
+    storageBucket: "just-marizete.firebasestorage.app",
+    messagingSenderId: "30378126861",
+    appId: "1:30378126861:web:892aca8d5a5a4327e46f44"
+    };
+    firebase.initializeApp(firebaseConfig);
+</script>
 
     <script src="sources/js/script.js"></script>
     <script src="sources/js/products-data.js"></script>
