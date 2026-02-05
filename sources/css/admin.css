@@ -565,11 +565,30 @@ body {
     font-size: 28px;
 }
 
-.stat-icon.benessere { background: rgba(16, 185, 129, 0.1); color: #10b981; }
-.stat-icon.bellezza { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
-.stat-icon.casa { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
-.stat-icon.integratori { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
-.stat-icon.total { background: rgba(102, 126, 234, 0.1); color: #667eea; }
+.stat-icon.benessere {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.stat-icon.bellezza {
+    background: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+}
+
+.stat-icon.casa {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.stat-icon.integratori {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.stat-icon.total {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+}
 
 .stat-info h3 {
     font-size: 2rem;
@@ -707,21 +726,44 @@ body {
 }
 
 @keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
-.toast.success { border-left: 4px solid var(--admin-success); }
-.toast.error { border-left: 4px solid var(--admin-danger); }
-.toast.warning { border-left: 4px solid var(--admin-warning); }
+.toast.success {
+    border-left: 4px solid var(--admin-success);
+}
+
+.toast.error {
+    border-left: 4px solid var(--admin-danger);
+}
+
+.toast.warning {
+    border-left: 4px solid var(--admin-warning);
+}
 
 .toast i {
     font-size: 24px;
 }
 
-.toast.success i { color: var(--admin-success); }
-.toast.error i { color: var(--admin-danger); }
-.toast.warning i { color: var(--admin-warning); }
+.toast.success i {
+    color: var(--admin-success);
+}
+
+.toast.error i {
+    color: var(--admin-danger);
+}
+
+.toast.warning i {
+    color: var(--admin-warning);
+}
 
 .toast-message {
     flex: 1;
@@ -738,16 +780,16 @@ body {
         width: 80px;
         padding: 20px 10px;
     }
-    
+
     .admin-nav-btn span {
         display: none;
     }
-    
+
     .admin-nav-btn {
         justify-content: center;
         padding: 14px;
     }
-    
+
     .admin-nav-btn i {
         margin: 0;
     }
@@ -759,36 +801,655 @@ body {
         gap: 15px;
         padding: 15px;
     }
-    
+
     .admin-main {
         flex-direction: column;
     }
-    
+
     .admin-sidebar {
         width: 100%;
         flex-direction: row;
         overflow-x: auto;
     }
-    
+
     .admin-nav {
         flex-direction: row;
     }
-    
+
     .admin-content {
         padding: 20px;
     }
-    
+
     .form-row {
         grid-template-columns: 1fr;
     }
-    
+
     .section-actions {
         flex-direction: column;
         width: 100%;
     }
-    
+
     .section-actions input,
     .section-actions select {
         width: 100%;
+    }
+}
+
+/* ===================================
+   ADMIN PANEL - RESPONSIVE MOBILE
+   =================================== */
+
+/* ===================================
+   TABLET (max 1024px)
+   =================================== */
+@media (max-width: 1024px) {
+
+    /* Sidebar compatta */
+    .admin-sidebar {
+        width: 70px;
+        padding: 20px 10px;
+    }
+
+    .admin-nav-btn {
+        justify-content: center;
+        padding: 14px;
+    }
+
+    .admin-nav-btn span {
+        display: none;
+    }
+
+    .admin-nav-btn i {
+        font-size: 22px;
+        margin: 0;
+    }
+
+    /* Content più ampio */
+    .admin-content {
+        padding: 25px;
+    }
+
+    /* Form a una colonna */
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    /* Tabella scroll orizzontale */
+    .products-table-container {
+        overflow-x: auto;
+    }
+
+    .products-table {
+        min-width: 600px;
+    }
+}
+
+/* ===================================
+   MOBILE (max 768px)
+   =================================== */
+@media (max-width: 768px) {
+
+    /* ===== HEADER ===== */
+    .admin-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .admin-header-left {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .admin-header-left h1 {
+        font-size: 1.2rem;
+    }
+
+    .admin-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .admin-header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .btn-logout {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    /* ===== LAYOUT PRINCIPALE ===== */
+    .admin-main {
+        flex-direction: column;
+    }
+
+    /* ===== SIDEBAR ORIZZONTALE ===== */
+    .admin-sidebar {
+        width: 100%;
+        padding: 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .admin-nav {
+        flex-direction: row;
+        gap: 8px;
+        min-width: max-content;
+    }
+
+    .admin-nav-btn {
+        flex-shrink: 0;
+        padding: 12px 16px;
+        border-radius: 25px;
+        white-space: nowrap;
+    }
+
+    .admin-nav-btn span {
+        display: inline;
+        font-size: 13px;
+    }
+
+    .admin-nav-btn i {
+        font-size: 18px;
+    }
+
+    /* ===== CONTENT ===== */
+    .admin-content {
+        padding: 20px 15px;
+    }
+
+    /* ===== SECTION HEADER ===== */
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .section-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .section-actions {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .section-actions input,
+    .section-actions select {
+        width: 100%;
+    }
+
+    /* ===== TABELLA PRODOTTI ===== */
+    .products-table-container {
+        border-radius: 12px;
+        margin: 0 -15px;
+        width: calc(100% + 30px);
+    }
+
+    .products-table {
+        min-width: 500px;
+        font-size: 14px;
+    }
+
+    .products-table th,
+    .products-table td {
+        padding: 12px 10px;
+    }
+
+    .products-table img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    /* ===== FORM PRODOTTO ===== */
+    .product-form {
+        padding: 20px;
+        border-radius: 12px;
+        margin: 0 -15px;
+        width: calc(100% + 30px);
+    }
+
+    .product-form label {
+        font-size: 13px;
+    }
+
+    .product-form input,
+    .product-form select,
+    .product-form textarea {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .checkbox-group {
+        gap: 10px;
+    }
+
+    .checkbox-label {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        justify-content: center;
+        padding: 14px;
+    }
+
+    /* ===== STATS ===== */
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .stat-card {
+        padding: 20px 15px;
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+
+    .stat-info h3 {
+        font-size: 1.6rem;
+    }
+
+    .stat-info p {
+        font-size: 12px;
+    }
+
+    /* ===== SETTINGS ===== */
+    .settings-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .settings-card {
+        padding: 20px;
+    }
+
+    .settings-card h3 {
+        font-size: 1.1rem;
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+        padding: 15px;
+        align-items: flex-end;
+    }
+
+    .modal {
+        max-height: 85vh;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header {
+        padding: 18px 20px;
+    }
+
+    .modal-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    /* ===== TOAST ===== */
+    .toast-container {
+        left: 15px;
+        right: 15px;
+        bottom: 20px;
+    }
+
+    .toast {
+        min-width: auto;
+        width: 100%;
+    }
+}
+
+/* ===================================
+   SMALL MOBILE (max 480px)
+   =================================== */
+@media (max-width: 480px) {
+
+    /* ===== LOGIN ===== */
+    .login-container {
+        padding: 30px 20px;
+        border-radius: 16px;
+    }
+
+    .login-logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .login-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .login-header p {
+        font-size: 14px;
+    }
+
+    .login-form input {
+        padding: 12px 14px;
+        font-size: 15px;
+    }
+
+    .btn-login {
+        padding: 13px;
+        font-size: 15px;
+    }
+
+    /* ===== HEADER ===== */
+    .admin-header-left h1 {
+        font-size: 1.1rem;
+    }
+
+    .admin-logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .admin-user {
+        font-size: 12px;
+    }
+
+    .btn-logout {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .btn-logout span {
+        display: none;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .admin-sidebar {
+        padding: 8px;
+    }
+
+    .admin-nav-btn {
+        padding: 10px 14px;
+        font-size: 12px;
+    }
+
+    .admin-nav-btn i {
+        font-size: 16px;
+    }
+
+    /* ===== CONTENT ===== */
+    .admin-content {
+        padding: 15px 10px;
+    }
+
+    .section-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .section-header h2 i {
+        font-size: 20px;
+    }
+
+    /* ===== TABELLA ===== */
+    .products-table {
+        font-size: 12px;
+    }
+
+    .products-table th,
+    .products-table td {
+        padding: 10px 8px;
+    }
+
+    .products-table img {
+        width: 35px;
+        height: 35px;
+    }
+
+    /* Nascondi colonne meno importanti */
+    .products-table th:nth-child(1),
+    .products-table td:nth-child(1) {
+        display: none;
+        /* Nascondi ID */
+    }
+
+    .btn-edit,
+    .btn-delete {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .actions {
+        gap: 5px !important;
+    }
+
+    /* ===== FORM ===== */
+    .product-form {
+        padding: 15px;
+    }
+
+    .product-form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .product-form input,
+    .product-form select,
+    .product-form textarea {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    .checkbox-label {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    /* ===== STATS ===== */
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        flex-direction: row;
+        text-align: left;
+        padding: 15px;
+    }
+
+    .stat-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+
+    .stat-info h3 {
+        font-size: 1.4rem;
+    }
+
+    /* ===== MODAL ===== */
+    .modal {
+        max-height: 90vh;
+    }
+
+    .modal-header {
+        padding: 15px;
+    }
+
+    .modal-body {
+        padding: 15px;
+    }
+
+    .modal-close {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+    }
+}
+
+/* ===================================
+   EXTRA SMALL (max 360px)
+   =================================== */
+@media (max-width: 360px) {
+
+    .login-container {
+        padding: 25px 15px;
+    }
+
+    .login-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .admin-nav-btn span {
+        display: none;
+    }
+
+    .admin-nav-btn {
+        padding: 10px;
+    }
+
+    .stats-grid {
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 12px;
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .stat-info h3 {
+        font-size: 1.2rem;
+    }
+}
+
+/* ===================================
+   LANDSCAPE MOBILE
+   =================================== */
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .admin-login {
+        padding: 10px;
+    }
+
+    .login-container {
+        padding: 20px;
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+
+    .login-logo {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+
+    .login-header h1 {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+    }
+
+    .login-header p {
+        margin-bottom: 15px;
+    }
+
+    .login-form .form-group {
+        margin-bottom: 12px;
+    }
+
+    .modal {
+        max-height: 95vh;
+    }
+}
+
+/* ===================================
+   TOUCH IMPROVEMENTS
+   =================================== */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Bottoni più grandi per touch */
+    .btn-edit,
+    .btn-delete {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .admin-nav-btn {
+        min-height: 44px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        min-height: 48px;
+    }
+
+    /* Rimuovi hover effects su touch */
+    .products-table tr:hover {
+        background: transparent;
+    }
+
+    .products-table tr:active {
+        background: var(--admin-light);
+    }
+
+    /* Scrollbar sottile */
+    .admin-sidebar::-webkit-scrollbar,
+    .products-table-container::-webkit-scrollbar {
+        height: 4px;
+    }
+}
+
+/* ===================================
+   DARK MODE (Opzionale)
+   =================================== */
+@media (prefers-color-scheme: dark) {
+    /* Aggiungi qui stili dark mode se vuoi */
+}
+
+/* ===================================
+   PRINT STYLES
+   =================================== */
+@media print {
+
+    .admin-sidebar,
+    .admin-header,
+    .section-actions,
+    .actions,
+    .btn-primary,
+    .btn-secondary,
+    .toast-container {
+        display: none !important;
+    }
+
+    .admin-content {
+        padding: 0;
+    }
+
+    .products-table-container {
+        box-shadow: none;
     }
 }

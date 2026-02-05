@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="sources/css/admin.css">
 </head>
+
 <body>
 
     <!-- ===== LOGIN FORM ===== -->
@@ -18,7 +20,7 @@
                 <h1>Area Admin</h1>
                 <p>Accedi per gestire i prodotti</p>
             </div>
-            
+
             <form class="login-form" id="login-form">
                 <div class="form-group">
                     <label for="username">
@@ -27,7 +29,7 @@
                     </label>
                     <input type="text" id="username" name="username" required autocomplete="username">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="password">
                         <i class="ri-lock-line"></i>
@@ -40,15 +42,15 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="form-error" id="login-error"></div>
-                
+
                 <button type="submit" class="btn-login">
                     <i class="ri-login-box-line"></i>
                     Accedi
                 </button>
             </form>
-            
+
             <a href="index.html" class="back-link">
                 <i class="ri-arrow-left-line"></i>
                 Torna al sito
@@ -58,7 +60,7 @@
 
     <!-- ===== ADMIN DASHBOARD ===== -->
     <div class="admin-dashboard" id="admin-dashboard" style="display: none;">
-        
+
         <!-- Header Admin -->
         <header class="admin-header">
             <div class="admin-header-left">
@@ -79,7 +81,7 @@
 
         <!-- Main Content -->
         <main class="admin-main">
-            
+
             <!-- Sidebar -->
             <aside class="admin-sidebar">
                 <nav class="admin-nav">
@@ -104,7 +106,7 @@
 
             <!-- Content Area -->
             <div class="admin-content">
-                
+
                 <!-- Sezione: Lista Prodotti -->
                 <section class="admin-section active" id="section-products">
                     <div class="section-header">
@@ -120,7 +122,7 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="products-table-container">
                         <table class="products-table" id="products-table">
                             <thead>
@@ -145,7 +147,7 @@
                     <div class="section-header">
                         <h2><i class="ri-add-circle-line"></i> Aggiungi Nuovo Prodotto</h2>
                     </div>
-                    
+
                     <form class="product-form" id="product-form">
                         <div class="form-row">
                             <div class="form-group">
@@ -157,7 +159,7 @@
                                 <input type="number" id="product-price" step="0.01" min="0" required>
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="product-line">Linea *</label>
@@ -176,12 +178,12 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="product-description">Descrizione *</label>
                             <textarea id="product-description" rows="3" required></textarea>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="product-image">URL Immagine</label>
@@ -192,7 +194,7 @@
                                 <input type="number" id="product-rating" min="1" max="5" step="0.5" value="4">
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label>Badge</label>
                             <div class="checkbox-group">
@@ -214,7 +216,7 @@
                                 </label>
                             </div>
                         </div>
-                        
+
                         <div class="form-actions">
                             <button type="reset" class="btn-secondary">
                                 <i class="ri-refresh-line"></i>
@@ -233,7 +235,7 @@
                     <div class="section-header">
                         <h2><i class="ri-bar-chart-box-line"></i> Statistiche</h2>
                     </div>
-                    
+
                     <div class="stats-grid" id="stats-grid">
                         <!-- Stats inserite da JS -->
                     </div>
@@ -244,7 +246,7 @@
                     <div class="section-header">
                         <h2><i class="ri-settings-3-line"></i> Impostazioni</h2>
                     </div>
-                    
+
                     <div class="settings-content">
                         <div class="settings-card">
                             <h3><i class="ri-lock-password-line"></i> Cambia Password</h3>
@@ -267,7 +269,7 @@
                                 </button>
                             </form>
                         </div>
-                        
+
                         <div class="settings-card">
                             <h3><i class="ri-download-2-line"></i> Esporta Prodotti</h3>
                             <p>Scarica tutti i prodotti in formato JSON</p>
@@ -305,4 +307,5 @@
     <script src="sources/js/products-data.js"></script>
     <script src="sources/js/admin.js"></script>
 </body>
+
 </html>
