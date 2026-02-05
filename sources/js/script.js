@@ -2019,3 +2019,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setupUserDropdown();
     setupLogout();
 });
+

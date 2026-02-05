@@ -1484,3 +1484,5 @@ const stats = {
 };
 
 console.log('📦 Just Marizete - Prodotti caricati:', stats);
+
+

@@ -521,6 +521,42 @@
         </div>
         <!-- End Information Section-->
 
+        <!-- ===== SEZIONE NOVITÀ ===== -->
+        <section class="novita-section" id="novita">
+            <div class="novita-container">
+
+                <!-- Header -->
+                <div class="novita-header">
+                    <div class="novita-badge">🆕 Appena Arrivati</div>
+                    <h2 class="novita-title">Novità</h2>
+                    <p class="novita-subtitle">Scopri i nostri ultimi prodotti</p>
+                </div>
+
+                <!-- Slider/Grid Prodotti -->
+                <div class="novita-slider" id="novita-slider">
+                    <!-- Prodotti inseriti da JavaScript -->
+                </div>
+
+                <!-- Controlli Slider -->
+                <div class="novita-controls">
+                    <button class="novita-arrow prev" id="novita-prev">
+                        <i class="ri-arrow-left-s-line"></i>
+                    </button>
+                    <button class="novita-arrow next" id="novita-next">
+                        <i class="ri-arrow-right-s-line"></i>
+                    </button>
+                </div>
+
+                <!-- Link Vedi Tutti -->
+                <a href="#prodotti" class="novita-link">
+                    Vedi Tutti i Prodotti
+                    <i class="ri-arrow-right-line"></i>
+                </a>
+
+            </div>
+        </section>
+        <!-- ===== END NOVITÀ ===== -->
+
 
         <!-- ===== SEZIONE PRODOTTI ===== -->
         <section id="prodotti" class="products-section">
@@ -1125,25 +1161,26 @@
     <!-- ===== END FOOTER ===== -->
 
     <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 
-<!-- Firebase Config -->
-<script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyCAt6TWblWG0uclk0723eioeBjCqfwHIp8",
-    authDomain: "just-marizete.firebaseapp.com",
-    projectId: "just-marizete",
-    storageBucket: "just-marizete.firebasestorage.app",
-    messagingSenderId: "30378126861",
-    appId: "1:30378126861:web:892aca8d5a5a4327e46f44"
-    };
-    firebase.initializeApp(firebaseConfig);
-</script>
+    <!-- Firebase Config -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCAt6TWblWG0uclk0723eioeBjCqfwHIp8",
+            authDomain: "just-marizete.firebaseapp.com",
+            projectId: "just-marizete",
+            storageBucket: "just-marizete.firebasestorage.app",
+            messagingSenderId: "30378126861",
+            appId: "1:30378126861:web:892aca8d5a5a4327e46f44"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
 
-    <script src="sources/js/script.js"></script>
     <script src="sources/js/products-data.js"></script>
+    <script src="sources/js/script.js"></script>
+
 </body>
 
 </html>

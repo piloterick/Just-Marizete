@@ -4435,3 +4435,277 @@ header {
         display: none;
     }
 }
+
+/* ===================================
+   SEZIONE NOVITÀ
+   =================================== */
+
+.novita-section {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorazione sfondo */
+.novita-section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.novita-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header */
+.novita-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.novita-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.novita-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: white;
+    margin-bottom: 10px;
+}
+
+.novita-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Slider */
+.novita-slider {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 20px 10px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Nasconde scrollbar ma mantiene funzionalità */
+.novita-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.novita-slider {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Card Prodotto Novità */
+.novita-card {
+    flex: 0 0 280px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    scroll-snap-align: start;
+    transition: transform 0.3s ease;
+}
+
+.novita-card:hover {
+    transform: translateY(-10px);
+}
+
+.novita-card-image {
+    position: relative;
+    background: linear-gradient(180deg, #f8f9ff 0%, #e8eaf6 100%);
+    padding: 30px;
+    text-align: center;
+}
+
+.novita-card-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.novita-card:hover .novita-card-image img {
+    transform: scale(1.1);
+}
+
+.novita-card-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.novita-card-info {
+    padding: 20px;
+}
+
+.novita-card-category {
+    font-size: 12px;
+    color: #667eea;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.novita-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.novita-card-price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+.novita-card-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.novita-card-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Controlli Slider */
+.novita-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.novita-arrow {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.novita-arrow:hover {
+    background: white;
+    color: #667eea;
+    transform: scale(1.1);
+}
+
+/* Link Vedi Tutti */
+.novita-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 40px;
+    padding: 15px 30px;
+    background: white;
+    color: #667eea;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.novita-link:hover {
+    background: #1a1a2e;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.novita-link i {
+    transition: transform 0.3s ease;
+}
+
+.novita-link:hover i {
+    transform: translateX(5px);
+}
+
+/* ===================================
+   RESPONSIVE
+   =================================== */
+
+@media (max-width: 768px) {
+    .novita-section {
+        padding: 60px 15px;
+    }
+    
+    .novita-card {
+        flex: 0 0 250px;
+    }
+    
+    .novita-card-image {
+        padding: 20px;
+    }
+    
+    .novita-card-image img {
+        height: 140px;
+    }
+    
+    .novita-controls {
+        display: none; /* Nascondi su mobile, usa swipe */
+    }
+}
+
+@media (max-width: 480px) {
+    .novita-card {
+        flex: 0 0 220px;
+    }
+    
+    .novita-title {
+        font-size: 1.8rem;
+    }
+}
