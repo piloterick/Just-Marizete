@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Just Marizete</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="sources/css/admin.css">
+</head>
+<body>
+
+    <!-- ===== LOGIN FORM ===== -->
+    <div class="admin-login" id="admin-login">
+        <div class="login-container">
+            <div class="login-header">
+                <img src="./sources/images/Logo_Just.svg" alt="Logo Just" class="login-logo">
+                <h1>Area Admin</h1>
+                <p>Accedi per gestire i prodotti</p>
+            </div>
+            
+            <form class="login-form" id="login-form">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="ri-user-line"></i>
+                        Username
+                    </label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <i class="ri-lock-line"></i>
+                        Password
+                    </label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" required autocomplete="current-password">
+                        <button type="button" class="toggle-password" id="toggle-password">
+                            <i class="ri-eye-line"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-error" id="login-error"></div>
+                
+                <button type="submit" class="btn-login">
+                    <i class="ri-login-box-line"></i>
+                    Accedi
+                </button>
+            </form>
+            
+            <a href="index.html" class="back-link">
+                <i class="ri-arrow-left-line"></i>
+                Torna al sito
+            </a>
+        </div>
+    </div>
+
+    <!-- ===== ADMIN DASHBOARD ===== -->
+    <div class="admin-dashboard" id="admin-dashboard" style="display: none;">
+        
+        <!-- Header Admin -->
+        <header class="admin-header">
+            <div class="admin-header-left">
+                <img src="./sources/images/Logo_Just.svg" alt="Logo" class="admin-logo">
+                <h1>Dashboard Admin</h1>
+            </div>
+            <div class="admin-header-right">
+                <span class="admin-user">
+                    <i class="ri-admin-line"></i>
+                    <span id="admin-username">Admin</span>
+                </span>
+                <button class="btn-logout" id="btn-logout">
+                    <i class="ri-logout-box-line"></i>
+                    Esci
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <nav class="admin-nav">
+                    <button class="admin-nav-btn active" data-section="products">
+                        <i class="ri-shopping-bag-3-line"></i>
+                        Prodotti
+                    </button>
+                    <button class="admin-nav-btn" data-section="add-product">
+                        <i class="ri-add-circle-line"></i>
+                        Aggiungi Prodotto
+                    </button>
+                    <button class="admin-nav-btn" data-section="stats">
+                        <i class="ri-bar-chart-box-line"></i>
+                        Statistiche
+                    </button>
+                    <button class="admin-nav-btn" data-section="settings">
+                        <i class="ri-settings-3-line"></i>
+                        Impostazioni
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <div class="admin-content">
+                
+                <!-- Sezione: Lista Prodotti -->
+                <section class="admin-section active" id="section-products">
+                    <div class="section-header">
+                        <h2><i class="ri-shopping-bag-3-line"></i> Gestione Prodotti</h2>
+                        <div class="section-actions">
+                            <input type="text" id="search-products" placeholder="Cerca prodotto...">
+                            <select id="filter-category">
+                                <option value="">Tutte le categorie</option>
+                                <option value="benessere">Linea Benessere</option>
+                                <option value="bellezza">Linea Bellezza</option>
+                                <option value="casa">Linea Casa</option>
+                                <option value="integratori">Integratori</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="products-table-container">
+                        <table class="products-table" id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Immagine</th>
+                                    <th>Nome</th>
+                                    <th>Categoria</th>
+                                    <th>Prezzo</th>
+                                    <th>Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-tbody">
+                                <!-- Prodotti inseriti da JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Sezione: Aggiungi Prodotto -->
+                <section class="admin-section" id="section-add-product">
+                    <div class="section-header">
+                        <h2><i class="ri-add-circle-line"></i> Aggiungi Nuovo Prodotto</h2>
+                    </div>
+                    
+                    <form class="product-form" id="product-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-name">Nome Prodotto *</label>
+                                <input type="text" id="product-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-price">Prezzo (€) *</label>
+                                <input type="number" id="product-price" step="0.01" min="0" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-line">Linea *</label>
+                                <select id="product-line" required>
+                                    <option value="">Seleziona linea</option>
+                                    <option value="benessere">🌿 Benessere</option>
+                                    <option value="bellezza">✨ Bellezza</option>
+                                    <option value="casa">🏠 Casa</option>
+                                    <option value="integratori">💊 Integratori</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-subcategory">Sottocategoria *</label>
+                                <select id="product-subcategory" required>
+                                    <option value="">Prima seleziona la linea</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product-description">Descrizione *</label>
+                            <textarea id="product-description" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-image">URL Immagine</label>
+                                <input type="text" id="product-image" placeholder="./sources/images/...">
+                            </div>
+                            <div class="form-group">
+                                <label for="product-rating">Rating (1-5)</label>
+                                <input type="number" id="product-rating" min="1" max="5" step="0.5" value="4">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Badge</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="badges" value="bestseller">
+                                    ⭐ Bestseller
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="badges" value="new">
+                                    🆕 Nuovo
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="badges" value="hot">
+                                    🔥 Hot
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="badges" value="sale">
+                                    💰 Saldi
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="reset" class="btn-secondary">
+                                <i class="ri-refresh-line"></i>
+                                Resetta
+                            </button>
+                            <button type="submit" class="btn-primary">
+                                <i class="ri-add-line"></i>
+                                Aggiungi Prodotto
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Sezione: Statistiche -->
+                <section class="admin-section" id="section-stats">
+                    <div class="section-header">
+                        <h2><i class="ri-bar-chart-box-line"></i> Statistiche</h2>
+                    </div>
+                    
+                    <div class="stats-grid" id="stats-grid">
+                        <!-- Stats inserite da JS -->
+                    </div>
+                </section>
+
+                <!-- Sezione: Impostazioni -->
+                <section class="admin-section" id="section-settings">
+                    <div class="section-header">
+                        <h2><i class="ri-settings-3-line"></i> Impostazioni</h2>
+                    </div>
+                    
+                    <div class="settings-content">
+                        <div class="settings-card">
+                            <h3><i class="ri-lock-password-line"></i> Cambia Password</h3>
+                            <form id="change-password-form">
+                                <div class="form-group">
+                                    <label for="current-password">Password Attuale</label>
+                                    <input type="password" id="current-password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-password">Nuova Password</label>
+                                    <input type="password" id="new-password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-password">Conferma Password</label>
+                                    <input type="password" id="confirm-password" required>
+                                </div>
+                                <button type="submit" class="btn-primary">
+                                    <i class="ri-save-line"></i>
+                                    Salva Password
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <h3><i class="ri-download-2-line"></i> Esporta Prodotti</h3>
+                            <p>Scarica tutti i prodotti in formato JSON</p>
+                            <button class="btn-secondary" id="export-products">
+                                <i class="ri-file-download-line"></i>
+                                Esporta JSON
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Modifica Prodotto -->
+    <div class="modal-overlay" id="edit-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="ri-edit-line"></i> Modifica Prodotto</h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <form class="modal-body" id="edit-product-form">
+                <!-- Form copiato da JS -->
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="sources/js/products-data.js"></script>
+    <script src="sources/js/admin.js"></script>
+</body>
+</html>
