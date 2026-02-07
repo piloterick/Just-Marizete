@@ -22,14 +22,7 @@ const mobileMenu = document.querySelector('.mobile-menu');
 // ==========================================
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-// ==========================================
-// INITIALIZE
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-    initializeCart();
-    setupEventListeners();
-    renderCart();
-});
+
 
 // ==========================================
 // EVENT LISTENERS SETUP
@@ -595,16 +588,13 @@ function animateCounters() {
     counters.forEach(counter => observer.observe(counter));
 }
 
-// Inizializza quando il DOM è pronto
-document.addEventListener('DOMContentLoaded', animateCounters);
+
 
 /* ===================================
    PRODUCTS SECTION - FUNCTIONALITY
    =================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-    initProductsSection();
-});
+
 
 function initProductsSection() {
     // Category Buttons
@@ -1184,15 +1174,7 @@ function updateWishlistUI() {
     });
 }
 
-// ==========================================
-// INIZIALIZZAZIONE RENDER PRODOTTI
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-    // Aspetta un attimo per assicurarsi che products-data.js sia caricato
-    setTimeout(() => {
-        renderAllProducts();
-    }, 100);
-});
+
 
 
 // ==========================================
@@ -1658,24 +1640,9 @@ function updateProductCounts() {
         }
     });
 
-    // ==========================================
-    // AGGIORNA HEADER SEZIONE PRODOTTI
-    // ==========================================
-
     const totalProducts = products.length;
-    const sectionSubtitle = document.querySelector('.products-section .section-subtitle');
-    if (sectionSubtitle) {
-        sectionSubtitle.textContent = `Scopri oltre ${totalProducts} prodotti naturali svizzeri per il tuo benessere quotidiano`;
-    }
+    
 
-    // ==========================================
-    // AGGIORNA STATS (Chi Sono)
-    // ==========================================
-
-    const productsStatNumber = document.querySelector('.stat-item:nth-child(3) .stat-number');
-    if (productsStatNumber) {
-        productsStatNumber.setAttribute('data-target', totalProducts);
-    }
 
     // Log per debug
     console.log('📊 Conteggi aggiornati:', {
@@ -1722,18 +1689,7 @@ function updateMobileMenuCounts() {
     });
 }
 
-// ==========================================
-// INIZIALIZZAZIONE
-// ==========================================
 
-// Chiama all'avvio
-document.addEventListener('DOMContentLoaded', () => {
-    // ... altro codice esistente ...
-
-    // 🔄 Aggiorna conteggi prodotti
-    updateProductCounts();
-    updateMobileMenuCounts();
-});
 
 // Esporta funzione per uso esterno (opzionale)
 window.updateProductCounts = updateProductCounts;
@@ -2011,12 +1967,136 @@ function showToast(message, type = 'success') {
 }
 
 // ==========================================
-// INIZIALIZZA TUTTO
+// SEZIONE NOVITÀ
 // ==========================================
 
-document.addEventListener('DOMContentLoaded', () => {
-    initAuthState();
-    setupUserDropdown();
-    setupLogout();
+function loadNovitaProducts() {
+    var slider = document.getElementById('novita-slider');
+    if (!slider) return;
+    
+    if (typeof products === 'undefined') return;
+    
+    // Filtra prodotti con badge "new"
+    var newProducts = products.filter(function(p) {
+        return p.badges && p.badges.indexOf('new') !== -1;
+    });
+    
+    // Se non ci sono novità, nascondi la sezione
+    if (newProducts.length === 0) {
+        var section = document.querySelector('.novita-section');
+        if (section) section.style.display = 'none';
+        return;
+    }
+    
+    // Genera HTML
+    var html = '';
+    newProducts.forEach(function(p) {
+        html += '<div class="novita-card">';
+        html += '<div class="novita-card-image">';
+        html += '<span class="novita-card-badge">Nuovo</span>';
+        html += '<img src="' + p.image + '" alt="' + p.name + '" onerror="this.src=\'./sources/images/placeholder.png\'">';
+        html += '</div>';
+        html += '<div class="novita-card-info">';
+        html += '<div class="novita-card-category">' + p.category + '</div>';
+        html += '<h3 class="novita-card-title">' + p.name + '</h3>';
+        html += '<div class="novita-card-price">€ ' + p.price.toFixed(2) + '</div>';
+        html += '</div>';
+        html += '</div>';
+    });
+    
+    slider.innerHTML = html;
+    
+    // Setup controlli slider
+    var prevBtn = document.getElementById('novita-prev');
+    var nextBtn = document.getElementById('novita-next');
+    
+    if (prevBtn) {
+        prevBtn.onclick = function() {
+            slider.scrollBy({ left: -300, behavior: 'smooth' });
+        };
+    }
+    
+    if (nextBtn) {
+        nextBtn.onclick = function() {
+            slider.scrollBy({ left: 300, behavior: 'smooth' });
+        };
+    }
+    
+    console.log('🆕 ' + newProducts.length + ' novità caricate');
+}
+
+
+// ==========================================
+// UNICO DOMContentLoaded - INIZIALIZZAZIONE
+// ==========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Inizializzazione sito...');
+    
+    // 1. CARRELLO (prima di tutto)
+    if (typeof initializeCart === 'function') {
+        initializeCart();
+    }
+    
+    if (typeof setupEventListeners === 'function') {
+        setupEventListeners();
+    }
+    
+    if (typeof renderCart === 'function') {
+        renderCart();
+    }
+    
+    // 2. PRODOTTI
+    if (typeof renderAllProducts === 'function') {
+        renderAllProducts();
+        console.log('✅ Prodotti caricati');
+    }
+    
+    // 3. SEZIONE PRODOTTI (filtri, ecc.)
+    if (typeof initProductsSection === 'function') {
+        initProductsSection();
+    }
+    
+    // 4. CONTEGGI
+    if (typeof updateProductCounts === 'function') {
+        updateProductCounts();
+    }
+    
+    if (typeof updateMobileMenuCounts === 'function') {
+        updateMobileMenuCounts();
+    }
+    
+    // 5. ANIMAZIONE CONTATORI (Chi Sono)
+    if (typeof animateCounters === 'function') {
+        animateCounters();
+    }
+    
+    // 6. AUTH (Firebase)
+    if (typeof firebase !== 'undefined') {
+        if (typeof initAuthState === 'function') {
+            initAuthState();
+        }
+        if (typeof setupUserDropdown === 'function') {
+            setupUserDropdown();
+        }
+        if (typeof setupLogout === 'function') {
+            setupLogout();
+        }
+        console.log('✅ Auth inizializzato');
+    }
+    
+    // 7. SEARCH (se esiste)
+    if (typeof setupSearch === 'function') {
+        setupSearch();
+    }
+    
+      // 8. NOVITÀ
+    if (typeof loadNovitaProducts === 'function') {
+        loadNovitaProducts();
+    }
+    
+    console.log('✅ Sito caricato correttamente!');
 });
+
+
 
