@@ -217,295 +217,340 @@
         </div>
     </div>
 
-        <!-- Firebase SDK -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 
     <!-- Firebase Config + Login Logic -->
     <script>
-    // ==========================================
-    // FIREBASE CONFIG
-    // ==========================================
-    const firebaseConfig = {
-        apiKey: "AIzaSyCAt6TWblWG0uclk0723eioeBjCqfwHIp8",
-    authDomain: "just-marizete.firebaseapp.com",
-    projectId: "just-marizete",
-    storageBucket: "just-marizete.firebasestorage.app",
-    messagingSenderId: "30378126861",
-    appId: "1:30378126861:web:892aca8d5a5a4327e46f44"
-    };
-    firebase.initializeApp(firebaseConfig);
+        // ==========================================
+        // FIREBASE CONFIG
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyCAt6TWblWG0uclk0723eioeBjCqfwHIp8",
+            authDomain: "just-marizete.firebaseapp.com",
+            projectId: "just-marizete",
+            storageBucket: "just-marizete.firebasestorage.app",
+            messagingSenderId: "30378126861",
+            appId: "1:30378126861:web:892aca8d5a5a4327e46f44"
+        };
+        firebase.initializeApp(firebaseConfig);
 
-    // ==========================================
-    // LOGIN PAGE LOGIC
-    // ==========================================
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        // DOM Elements
-        const loginCard = document.getElementById('login-card');
-        const registerCard = document.getElementById('register-card');
-        const forgotCard = document.getElementById('forgot-card');
-        
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        const forgotForm = document.getElementById('forgot-form');
-        
-        const loginError = document.getElementById('login-error');
-        const registerError = document.getElementById('register-error');
-        const forgotError = document.getElementById('forgot-error');
-        const forgotSuccess = document.getElementById('forgot-success');
-        
-        // Admin emails
-        const ADMIN_EMAILS = [
-            'marizete@justmarizete.com',
-            'piloterick4@gmail.com'
-        ];
-        
         // ==========================================
-        // TOGGLE FORMS
+        // LOGIN PAGE LOGIC
         // ==========================================
-        
-        // Mostra Registrazione
-        document.getElementById('show-register').addEventListener('click', function(e) {
-            e.preventDefault();
-            loginCard.classList.add('hidden');
-            registerCard.classList.remove('hidden');
-            forgotCard.classList.add('hidden');
-            clearErrors();
-        });
-        
-        // Mostra Login
-        document.getElementById('show-login').addEventListener('click', function(e) {
-            e.preventDefault();
-            registerCard.classList.add('hidden');
-            loginCard.classList.remove('hidden');
-            forgotCard.classList.add('hidden');
-            clearErrors();
-        });
-        
-        // Mostra Password Dimenticata
-        document.getElementById('forgot-password-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            loginCard.classList.add('hidden');
-            forgotCard.classList.remove('hidden');
-            clearErrors();
-        });
-        
-        // Torna al Login
-        document.getElementById('back-to-login').addEventListener('click', function(e) {
-            e.preventDefault();
-            forgotCard.classList.add('hidden');
-            loginCard.classList.remove('hidden');
-            clearErrors();
-        });
-        
-        // ==========================================
-        // CLEAR ERRORS
-        // ==========================================
-        function clearErrors() {
-            document.querySelectorAll('.form-error, .form-success').forEach(el => {
-                el.classList.remove('show');
-                el.textContent = '';
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // DOM Elements
+            const loginCard = document.getElementById('login-card');
+            const registerCard = document.getElementById('register-card');
+            const forgotCard = document.getElementById('forgot-card');
+
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const forgotForm = document.getElementById('forgot-form');
+
+            const loginError = document.getElementById('login-error');
+            const registerError = document.getElementById('register-error');
+            const forgotError = document.getElementById('forgot-error');
+            const forgotSuccess = document.getElementById('forgot-success');
+
+            // Admin emails
+            const ADMIN_EMAILS = [
+                'piloterick4@gmail.com',
+                'justmarizete@gmail.com'
+            ];
+
+            // ==========================================
+            // TOGGLE FORMS
+            // ==========================================
+
+            // Mostra Registrazione
+            document.getElementById('show-register').addEventListener('click', function (e) {
+                e.preventDefault();
+                loginCard.classList.add('hidden');
+                registerCard.classList.remove('hidden');
+                forgotCard.classList.add('hidden');
+                clearErrors();
             });
-        }
-        
-        // ==========================================
-        // AUTH STATE CHECK
-        // ==========================================
-        firebase.auth().onAuthStateChanged(async (user) => {
-            if (user) {
-                const role = await getUserRole(user.uid);
-                redirectByRole(role);
-            }
-        });
-        
-        // ==========================================
-        // HELPERS
-        // ==========================================
-        async function getUserRole(userId) {
-            try {
-                const doc = await firebase.firestore().collection('users').doc(userId).get();
-                return doc.exists ? (doc.data().role || 'customer') : 'customer';
-            } catch (e) {
-                return 'customer';
-            }
-        }
-        
-        function redirectByRole(role) {
-            window.location.href = role === 'admin' ? 'admin.html' : 'index.html';
-        }
-        
-        function getErrorMessage(code) {
-            const messages = {
-                'auth/email-already-in-use': 'Email già registrata',
-                'auth/invalid-email': 'Email non valida',
-                'auth/weak-password': 'Password troppo debole',
-                'auth/user-not-found': 'Nessun account con questa email',
-                'auth/wrong-password': 'Password non corretta',
-                'auth/too-many-requests': 'Troppi tentativi. Riprova più tardi'
-            };
-            return messages[code] || 'Errore. Riprova.';
-        }
-        
-        // ==========================================
-        // LOGIN
-        // ==========================================
-        loginForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const btn = this.querySelector('button[type="submit"]');
-            
-            btn.disabled = true;
-            btn.innerHTML = '<i class="ri-loader-4-line spinning"></i> Attendere...';
-            clearErrors();
-            
-            try {
-                const { user } = await firebase.auth().signInWithEmailAndPassword(email, password);
-                const role = await getUserRole(user.uid);
-                redirectByRole(role);
-            } catch (error) {
-                loginError.textContent = '❌ ' + getErrorMessage(error.code);
-                loginError.classList.add('show');
-                btn.disabled = false;
-                btn.innerHTML = '<i class="ri-login-box-line"></i> Accedi';
-            }
-        });
-        
-        // ==========================================
-        // REGISTER
-        // ==========================================
-        registerForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('register-name').value;
-            const surname = document.getElementById('register-surname').value;
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-            const acceptTerms = document.getElementById('accept-terms').checked;
-            
-            const btn = this.querySelector('button[type="submit"]');
-            
-            if (!acceptTerms) {
-                registerError.textContent = '❌ Devi accettare i termini';
-                registerError.classList.add('show');
-                return;
-            }
-            
-            btn.disabled = true;
-            btn.innerHTML = '<i class="ri-loader-4-line spinning"></i> Attendere...';
-            clearErrors();
-            
-            try {
-                const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password);
-                
-                await user.updateProfile({ displayName: `${name} ${surname}` });
-                
-                const role = ADMIN_EMAILS.includes(email.toLowerCase()) ? 'admin' : 'customer';
-                
-                await firebase.firestore().collection('users').doc(user.uid).set({
-                    name, surname, email, phone, role,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    orders: [], wishlist: [], addresses: []
+
+            // Mostra Login
+            document.getElementById('show-login').addEventListener('click', function (e) {
+                e.preventDefault();
+                registerCard.classList.add('hidden');
+                loginCard.classList.remove('hidden');
+                forgotCard.classList.add('hidden');
+                clearErrors();
+            });
+
+            // Mostra Password Dimenticata
+            document.getElementById('forgot-password-link').addEventListener('click', function (e) {
+                e.preventDefault();
+                loginCard.classList.add('hidden');
+                forgotCard.classList.remove('hidden');
+                clearErrors();
+            });
+
+            // Torna al Login
+            document.getElementById('back-to-login').addEventListener('click', function (e) {
+                e.preventDefault();
+                forgotCard.classList.add('hidden');
+                loginCard.classList.remove('hidden');
+                clearErrors();
+            });
+
+            // ==========================================
+            // CLEAR ERRORS
+            // ==========================================
+            function clearErrors() {
+                document.querySelectorAll('.form-error, .form-success').forEach(el => {
+                    el.classList.remove('show');
+                    el.textContent = '';
                 });
-                
-                redirectByRole(role);
-            } catch (error) {
-                registerError.textContent = '❌ ' + getErrorMessage(error.code);
-                registerError.classList.add('show');
-                btn.disabled = false;
-                btn.innerHTML = '<i class="ri-user-add-line"></i> Crea Account';
             }
-        });
-        
-        // ==========================================
-        // FORGOT PASSWORD
-        // ==========================================
-        forgotForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('forgot-email').value;
-            const btn = this.querySelector('button[type="submit"]');
-            
-            btn.disabled = true;
-            clearErrors();
-            
-            try {
-                await firebase.auth().sendPasswordResetEmail(email);
-                forgotSuccess.textContent = '✅ Email inviata! Controlla la casella.';
-                forgotSuccess.classList.add('show');
-                this.reset();
-            } catch (error) {
-                forgotError.textContent = '❌ ' + getErrorMessage(error.code);
-                forgotError.classList.add('show');
+
+            // ==========================================
+            // AUTH STATE CHECK
+            // ==========================================
+            firebase.auth().onAuthStateChanged(async (user) => {
+                if (user) {
+                    const role = await getUserRole(user.uid);
+                    redirectByRole(role);
+                }
+            });
+
+            // ==========================================
+            // HELPERS
+            // ==========================================
+            async function getUserRole(userId) {
+                try {
+                    console.log('🔍 Cerco utente con ID:', userId);
+
+                    const doc = await firebase.firestore().collection('users').doc(userId).get();
+
+                    console.log('📄 Documento esiste?', doc.exists);
+
+                    if (doc.exists) {
+                        console.log('📋 Dati utente:', doc.data());
+                        console.log('👤 Ruolo:', doc.data().role);
+                    }
+
+                    return doc.exists ? (doc.data().role || 'customer') : 'customer';
+                } catch (e) {
+                    console.error('❌ Errore getUserRole:', e);
+                    return 'customer';
+                }
             }
-            
-            btn.disabled = false;
-        });
-        
-        // ==========================================
-        // GOOGLE LOGIN
-        // ==========================================
-        async function handleGoogleLogin() {
-            try {
-                const provider = new firebase.auth.GoogleAuthProvider();
-                const result = await firebase.auth().signInWithPopup(provider);
-                const user = result.user;
+
+            function redirectByRole(role) {
+                console.log('🚀 Ruolo finale:', role);
+                console.log('➡️ Redirect a:', role === 'admin' ? 'admin.html' : 'index.html');
+
                 
-                let role = 'customer';
-                
-                if (result.additionalUserInfo?.isNewUser) {
-                    role = ADMIN_EMAILS.includes(user.email.toLowerCase()) ? 'admin' : 'customer';
-                    
+
+                window.location.href = role === 'admin' ? 'admin.html' : 'index.html';
+            }
+
+            function getErrorMessage(code) {
+                const messages = {
+                    'auth/email-already-in-use': 'Email già registrata',
+                    'auth/invalid-email': 'Email non valida',
+                    'auth/weak-password': 'Password troppo debole',
+                    'auth/user-not-found': 'Nessun account con questa email',
+                    'auth/wrong-password': 'Password non corretta',
+                    'auth/too-many-requests': 'Troppi tentativi. Riprova più tardi'
+                };
+                return messages[code] || 'Errore. Riprova.';
+            }
+
+            // ==========================================
+            // LOGIN
+            // ==========================================
+            loginForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                const btn = this.querySelector('button[type="submit"]');
+
+                console.log('📧 Email inserita:', email);
+
+                btn.disabled = true;
+                btn.innerHTML = '<i class="ri-loader-4-line spinning"></i> Attendere...';
+                clearErrors();
+
+                try {
+                    const { user } = await firebase.auth().signInWithEmailAndPassword(email, password);
+
+                    console.log('✅ Login OK! User ID:', user.uid);
+                    console.log('📧 Email utente:', user.email);
+
+                    const role = await getUserRole(user.uid);
+
+                    console.log('👤 Ruolo ottenuto:', role);
+
+                    redirectByRole(role);
+                } catch (error) {
+                    console.error('❌ Errore login:', error);
+                    loginError.textContent = '❌ ' + getErrorMessage(error.code);
+                    loginError.classList.add('show');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="ri-login-box-line"></i> Accedi';
+                }
+            });
+
+            // ==========================================
+            // REGISTER
+            // ==========================================
+            registerForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const name = document.getElementById('register-name').value;
+                const surname = document.getElementById('register-surname').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                const acceptTerms = document.getElementById('accept-terms').checked;
+
+                const btn = this.querySelector('button[type="submit"]');
+
+                if (!acceptTerms) {
+                    registerError.textContent = '❌ Devi accettare i termini';
+                    registerError.classList.add('show');
+                    return;
+                }
+
+                btn.disabled = true;
+                btn.innerHTML = '<i class="ri-loader-4-line spinning"></i> Attendere...';
+                clearErrors();
+
+                try {
+                    const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password);
+
+                    await user.updateProfile({ displayName: `${name} ${surname}` });
+
+                    const role = ADMIN_EMAILS.includes(email.toLowerCase()) ? 'admin' : 'customer';
+
                     await firebase.firestore().collection('users').doc(user.uid).set({
-                        name: user.displayName?.split(' ')[0] || '',
-                        surname: user.displayName?.split(' ').slice(1).join(' ') || '',
-                        email: user.email,
-                        phone: '',
-                        photoURL: user.photoURL,
-                        role,
+                        name, surname, email, phone, role,
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                         orders: [], wishlist: [], addresses: []
                     });
-                } else {
-                    role = await getUserRole(user.uid);
+
+                    redirectByRole(role);
+                } catch (error) {
+                    registerError.textContent = '❌ ' + getErrorMessage(error.code);
+                    registerError.classList.add('show');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="ri-user-add-line"></i> Crea Account';
                 }
-                
-                redirectByRole(role);
-            } catch (error) {
-                loginError.textContent = '❌ ' + getErrorMessage(error.code);
-                loginError.classList.add('show');
-            }
-        }
-        
-        document.getElementById('google-login').addEventListener('click', handleGoogleLogin);
-        document.getElementById('google-register').addEventListener('click', handleGoogleLogin);
-        
-        // ==========================================
-        // TOGGLE PASSWORD
-        // ==========================================
-        document.querySelectorAll('.toggle-password').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const input = this.parentElement.querySelector('input');
-                const icon = this.querySelector('i');
-                input.type = input.type === 'password' ? 'text' : 'password';
-                icon.className = input.type === 'password' ? 'ri-eye-line' : 'ri-eye-off-line';
             });
+
+            // ==========================================
+            // FORGOT PASSWORD
+            // ==========================================
+            forgotForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const email = document.getElementById('forgot-email').value;
+                const btn = this.querySelector('button[type="submit"]');
+
+                btn.disabled = true;
+                clearErrors();
+
+                try {
+                    await firebase.auth().sendPasswordResetEmail(email);
+                    forgotSuccess.textContent = '✅ Email inviata! Controlla la casella.';
+                    forgotSuccess.classList.add('show');
+                    this.reset();
+                } catch (error) {
+                    forgotError.textContent = '❌ ' + getErrorMessage(error.code);
+                    forgotError.classList.add('show');
+                }
+
+                btn.disabled = false;
+            });
+
+            // ==========================================
+            // GOOGLE LOGIN
+            // ==========================================
+            async function handleGoogleLogin() {
+                try {
+                    const provider = new firebase.auth.GoogleAuthProvider();
+                    const result = await firebase.auth().signInWithPopup(provider);
+                    const user = result.user;
+
+                    let role = 'customer';
+
+                    if (result.additionalUserInfo?.isNewUser) {
+                        role = ADMIN_EMAILS.includes(user.email.toLowerCase()) ? 'admin' : 'customer';
+
+                        await firebase.firestore().collection('users').doc(user.uid).set({
+                            name: user.displayName?.split(' ')[0] || '',
+                            surname: user.displayName?.split(' ').slice(1).join(' ') || '',
+                            email: user.email,
+                            phone: '',
+                            photoURL: user.photoURL,
+                            role,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            orders: [], wishlist: [], addresses: []
+                        });
+                    } else {
+                        role = await getUserRole(user.uid);
+                    }
+
+                    redirectByRole(role);
+                } catch (error) {
+                    loginError.textContent = '❌ ' + getErrorMessage(error.code);
+                    loginError.classList.add('show');
+                }
+            }
+
+            document.getElementById('google-login').addEventListener('click', handleGoogleLogin);
+            document.getElementById('google-register').addEventListener('click', handleGoogleLogin);
+
+            // ==========================================
+            // TOGGLE PASSWORD
+            // ==========================================
+            document.querySelectorAll('.toggle-password').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const input = this.parentElement.querySelector('input');
+                    const icon = this.querySelector('i');
+                    input.type = input.type === 'password' ? 'text' : 'password';
+                    icon.className = input.type === 'password' ? 'ri-eye-line' : 'ri-eye-off-line';
+                });
+            });
+
+            console.log('✅ Login page ready');
         });
-        
-        console.log('✅ Login page ready');
-    });
     </script>
 
     <style>
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    .spinning { animation: spin 1s linear infinite; }
-    .hidden { display: none !important; }
-    .form-error.show, .form-success.show { display: block; }
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinning {
+            animation: spin 1s linear infinite;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .form-error.show,
+        .form-success.show {
+            display: block;
+        }
     </style>
 </body>
+
 </html>
 </body>
 
