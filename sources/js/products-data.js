@@ -2747,7 +2747,7 @@ const products = [
         image: "./sources/images/Infiore/just-infiore-latte-corpo-vellutante.png",
         rating: 4,
         reviews: 27,
-        badges: []
+        badges: ["new"]
     },
 
     // --- SOLARI (6 prodotti) ---
