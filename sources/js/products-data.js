@@ -297,7 +297,7 @@ const products = [
         image: "./sources/images/Oli Essenziali/Olio-essenz-Teatree.png",
         rating: 4,
         reviews: 33,
-        badges: ["new"]
+        badges: []
     },
     {
         id: 10,
@@ -1045,7 +1045,7 @@ const products = [
         image: "./sources/images/Bagni Caldi ed Essenze/Scrub-detox-Vivisal.png",
         rating: 4.5,
         reviews: 33,
-        badges: ["new"]
+        badges: []
     },
     {
         id: 34,
@@ -3193,6 +3193,72 @@ const products = [
         image: "./sources/images/Integrazione Alimentare/just-linea-integrazione-alimentare-piu-energy.png",
         rating: 4.5,
         reviews: 29,
+        badges: ["new"]
+    },
+
+    // NUOVI PRODOTTI
+
+    {
+        id: 102,
+        name: "Risveglio del Bosco - Spray Ambiente",
+        category: "Casa",
+        subcategory: "prodotti-casa",
+        line: "casa",
+        price: 24.00,
+        description: "",
+        fullDescription: `
+    <h3>🌿 Descrizione</h3>
+    <p>Lo spray aromatico Risveglio del Bosco Just (novità 2026) offre una sensazione rigenerante e vivificante di "aria pulita", ricreando l'atmosfera di un bosco alpino.</p>
+    
+    <h3>✨ Benefici</h3>
+    <ul>
+        <li>Azione Aromatico-Rilassante</li>
+        <li>Sensazione di natura</li>
+        <li>Non contiene gas propellenti</li>
+        <li>Formula naturale</li>
+    </ul>
+    
+    <h3>📋 Modo d'uso</h3>
+    <p>Si usa vaporizzando il prodotto nell'aria di casa, ufficio o auto, per un effetto rinfrescante</p>
+    
+    <h3>🧴 Ingredienti</h3>
+    <p>Miscela di 6 oli essenziali, tra cui pino mugo, pino cembro e abete bianco.</p>
+`,
+        image: "./sources/images/risveglio-del-bosco.jpg",
+        rating: 4,
+        reviews: 23,
+        badges: ["new"]
+    },
+
+    {
+        id: 102,
+        name: "Alpencreme",
+        category: "Malva",
+        subcategory: "malva",
+        line: "benessere",
+        price: 17.00,
+        description: "",
+        fullDescription: `
+    <h3>🌿 Descrizione</h3>
+    <p>L'Alpencreme è una crema multiuso idratante e nutriente.</p>
+    
+    <h3>✨ Benefici</h3>
+    <ul>
+        <li>Idratazione Intensa</li>
+        <li>Protezione</li>
+        <li>Azione Riequilibrante</li>
+        <li>Multiuso</li>
+    </ul>
+    
+    <h3>📋 Modo d'uso</h3>
+    <p>Crema multiuso per viso, mani e corpo, ideale per nutrire, idratare e riequilibrare la pelle secca o stressata. Si applica al bisogno, massaggiando una piccola quantità fino a completo assorbimento per un effetto emolliente e profumato.</p>
+    
+    <h3>🧴 Ingredienti</h3>
+    <p>Arricchita con estratti di piante alpine e burro di karité</p>
+`,
+        image: "./sources/images/alpencreme.png",
+        rating: 4,
+        reviews: 23,
         badges: ["new"]
     },
 

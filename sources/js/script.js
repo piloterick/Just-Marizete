@@ -1012,7 +1012,8 @@ function getBadgeText(badge) {
         'bestseller': 'Bestseller',
         'new': 'Nuovo',
         'hot': '🔥 Hot',
-        'sale': 'Offerta'
+        'sale': 'Offerta',
+        'special': 'Vendita Speciale'
     };
     return badges[badge] || badge;
 }
