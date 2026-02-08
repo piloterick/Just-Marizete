@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettaglio Prodotto - Just Marizete</title>
+    <link rel="stylesheet" href="sources/css/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="product-header">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <i class="ri-arrow-left-line"></i> Torna ai prodotti
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenuto Prodotto -->
+    <main class="product-page">
+        <div class="container">
+            
+            <!-- Loading -->
+            <div id="product-loading" class="loading">
+                <p>Caricamento prodotto...</p>
+            </div>
+            
+            <!-- Prodotto non trovato -->
+            <div id="product-not-found" class="not-found" style="display: none;">
+                <h2>😕 Prodotto non trovato</h2>
+                <p>Il prodotto che cerchi non esiste.</p>
+                <a href="index.html" class="btn-shop">Torna allo shop</a>
+            </div>
+            
+            <!-- Dettaglio Prodotto -->
+            <div id="product-detail" class="product-detail" style="display: none;">
+                
+                <div class="product-gallery">
+                    <img id="product-image" src="" alt="" class="main-image">
+                </div>
+                
+                <div class="product-info-full">
+                    <span id="product-category" class="product-category-tag"></span>
+                    <h1 id="product-name"></h1>
+                    
+                    <div class="product-rating-full">
+                        <div id="product-stars" class="stars"></div>
+                        <span id="product-reviews"></span>
+                    </div>
+                    
+                    <p id="product-description" class="product-description-full"></p>
+                    
+                    <div class="product-price-full">
+                        <span id="product-price"></span>
+                    </div>
+                    
+                    <!-- Info aggiuntive -->
+                    <div class="product-extra-info">
+                        <div class="info-item">
+                            <i class="ri-leaf-line"></i>
+                            <span>Ingredienti naturali</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="ri-truck-line"></i>
+                            <span>Spedizione gratuita sopra €50</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="ri-shield-check-line"></i>
+                            <span>Garanzia 30 giorni</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Azioni -->
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <button id="qty-minus" class="qty-btn">−</button>
+                            <span id="qty-value">1</span>
+                            <button id="qty-plus" class="qty-btn">+</button>
+                        </div>
+                        <button id="add-to-cart-btn" class="btn-add-to-cart">
+                            <i class="ri-shopping-cart-line"></i> Aggiungi al Carrello
+                        </button>
+                        <button id="add-to-wishlist-btn" class="btn-wishlist-full">
+                            <i class="ri-heart-line"></i>
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="sources/js/products-data.js"></script>
+    <script src="sources/js/product.js"></script>
+    
+</body>
+</html>

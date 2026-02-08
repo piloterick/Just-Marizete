@@ -36,6 +36,17 @@ function setupEventListeners() {
     // search functionality
     setupSearch();
 
+    // clica sulla card per vedere i dettagli
+    document.addEventListener('click', function(e) {
+    const card = e.target.closest('.product-card');
+    
+    // Se clicchi sulla card (ma non sui pulsanti)
+    if (card && !e.target.closest('button')) {
+        const productId = card.dataset.id;
+        window.location.href = `product.html?id=${productId}`;
+    }
+});
+
     // Click su pulsante wishlist
 document.addEventListener('click', function(e) {
     const wishlistBtn = e.target.closest('.wishlist-btn');
