@@ -114,21 +114,18 @@ function setupEventListeners() {
     function initCartButtons() {
     const cart = JSON.parse(localStorage.getItem('cartItems') || '[]');
     
-    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-        const productId = button.dataset.id;
-        const productCard = button.closest('.product-card');
-        const productName = productCard?.querySelector('.product-title')?.textContent;
+    document.querySelectorAll('.product-card').forEach(card => {
+        const title = card.querySelector('.product-title')?.textContent;
         
-        // Controlla se già nel carrello
-        const inCart = cart.some(item => 
-            String(item.id) === String(productId) || 
-            item.name === productName
-        );
+        const inCart = cart.some(item => item.name === title);
         
         if (inCart) {
-            button.classList.add('added');
-            button.innerHTML = '<i class="ri-check-line"></i><span>Aggiunto</span>';
-            button.disabled = true;
+            const btn = card.querySelector('.add-to-cart-btn');
+            if (btn) {
+                btn.classList.add('added');
+                btn.innerHTML = '<i class="ri-check-line"></i><span>Aggiunto</span>';
+                btn.disabled = true;
+            }
         }
     });
 }
@@ -2148,23 +2145,6 @@ document.addEventListener('DOMContentLoaded', function() {
         renderAllProducts();
         console.log('✅ Prodotti caricati');
     }
-
-    document.addEventListener('DOMContentLoaded', function() {
-    
-    // ✅ Quick View - Event Delegation
-    document.addEventListener('click', function(e) {
-        const quickViewBtn = e.target.closest('.quick-view-btn');
-        
-        if (quickViewBtn) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const card = quickViewBtn.closest('.product-card');
-            openQuickView(card);
-        }
-    });
-    
-});
     
     // 3. SEZIONE PRODOTTI (filtri, ecc.)
     if (typeof initProductsSection === 'function') {
@@ -2204,14 +2184,53 @@ document.addEventListener('DOMContentLoaded', function() {
         setupSearch();
     }
     
-      // 8. NOVITÀ
+    // 8. NOVITÀ
     if (typeof loadNovitaProducts === 'function') {
         loadNovitaProducts();
     }
 
-    updateWishlistUI();
-    updateWishlistCount();
-    initCartButtons()
+    // 9. WISHLIST E CARRELLO UI
+    if (typeof updateWishlistUI === 'function') {
+        updateWishlistUI();
+    }
+    
+    if (typeof updateWishlistCount === 'function') {
+        updateWishlistCount();
+    }
+    
+    if (typeof initCartButtons === 'function') {
+        initCartButtons();
+    }
     
     console.log('✅ Sito caricato correttamente!');
 });
+
+// ✅ Quick View - Event Delegation (FUORI dal DOMContentLoaded)
+document.addEventListener('click', function(e) {
+    const quickViewBtn = e.target.closest('.quick-view-btn');
+    
+    if (quickViewBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const card = quickViewBtn.closest('.product-card');
+        if (typeof openQuickView === 'function') {
+            openQuickView(card);
+        }
+    }
+});
+
+// ==========================================
+// REGISTRA SERVICE WORKER (PWA)
+// ==========================================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+                console.log('✅ PWA: Service Worker registrato!', registration);
+            })
+            .catch(error => {
+                console.log('❌ PWA: Registrazione fallita:', error);
+            });
+    });
+}
