@@ -1628,14 +1628,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    opacity: 0;
-    transform: translateX(20px);
-    transition: all 0.3s ease;
-}
-
-.product-card:hover .product-overlay {
     opacity: 1;
-    transform: translateX(0);
 }
 
 .quick-view-btn,
@@ -1665,11 +1658,6 @@ header {
 .wishlist-btn.active {
     background: #eb3349;
     color: white;
-}
-
-.wishlist-btn.active i::before {
-    content: "\EF52";
-    /* ri-heart-fill */
 }
 
 /* Product Info */
@@ -5014,4 +5002,7 @@ header {
 .toast-warning {
     background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
 }
+
+
+
 
