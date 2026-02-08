@@ -185,6 +185,7 @@
                             <a href="wishlist.html" class="user-dropdown-item">
                                 <i class="ri-heart-line"></i>
                                 Preferiti
+                                <span class="wishlist-badge" id="wishlist-count" style="display: none;">0</span>
                             </a>
                         </div>
 
@@ -195,10 +196,6 @@
                             <a href="admin.html" class="user-dropdown-item admin-item">
                                 <i class="ri-dashboard-line"></i>
                                 Dashboard Admin
-                            </a>
-                            <a href="admin.html#add-product" class="user-dropdown-item admin-item">
-                                <i class="ri-add-circle-line"></i>
-                                Aggiungi Prodotto
                             </a>
                         </div>
 
@@ -476,9 +473,6 @@
                     <a href="#" class="social-icon" aria-label="Instagram">
                         <i class="ri-instagram-line"></i>
                     </a>
-                    <a href="#" class="social-icon" aria-label="WhatsApp">
-                        <i class="ri-whatsapp-line"></i>
-                    </a>
                 </div>
             </div>
         </div>
@@ -506,20 +500,6 @@
     <!-- END CHI SONO -->
 
     <main>
-
-        <!-- Information Section-->
-        <div class="image-text">
-            <div class="image">
-                <img class="main-image" src="./sources/images/just-background.webp" alt="immagine prodotti just">
-            </div>
-            <div class="information">
-                <h2>Tradizione Naturale, Metodo e Sapienza</h2>
-                <p>Scopri la perfetta sinergia tra Natura e scienza. Il binomio che da 90 anni ci permette di portare
-                    nelle case un patrimonio di eccellenza svizzera attraverso le formule Just, ricche in ingredienti
-                    vegetali, minerali e marini, ideali per il tuo benessere.</p>
-            </div>
-        </div>
-        <!-- End Information Section-->
 
         <!-- ===== SEZIONE NOVITÀ ===== -->
         <section class="novita-section" id="novita">
@@ -556,6 +536,20 @@
             </div>
         </section>
         <!-- ===== END NOVITÀ ===== -->
+
+        <!-- Information Section-->
+        <div class="image-text">
+            <div class="image">
+                <img class="main-image" src="./sources/images/just-background.webp" alt="immagine prodotti just">
+            </div>
+            <div class="information">
+                <h2>Tradizione Naturale, Metodo e Sapienza</h2>
+                <p>Scopri la perfetta sinergia tra Natura e scienza. Il binomio che da 90 anni ci permette di portare
+                    nelle case un patrimonio di eccellenza svizzera attraverso le formule Just, ricche in ingredienti
+                    vegetali, minerali e marini, ideali per il tuo benessere.</p>
+            </div>
+        </div>
+        <!-- End Information Section-->
 
 
         <!-- ===== SEZIONE PRODOTTI ===== -->
@@ -1034,13 +1028,6 @@
                             aria-label="Instagram">
                             <i class="ri-instagram-line"></i>
                         </a>
-                        <a href="https://wa.me/39XXXXXXXXXX" class="social-link whatsapp" target="_blank"
-                            aria-label="WhatsApp">
-                            <i class="ri-whatsapp-line"></i>
-                        </a>
-                        <a href="https://t.me/tuousername" class="social-link" target="_blank" aria-label="Telegram">
-                            <i class="ri-telegram-line"></i>
-                        </a>
                     </div>
                 </div>
 
@@ -1179,6 +1166,7 @@
     </script>
 
     <script src="sources/js/products-data.js"></script>
+    <script src="sources/js/wishlist.js"></script>
     <script src="sources/js/script.js"></script>
 
 </body>

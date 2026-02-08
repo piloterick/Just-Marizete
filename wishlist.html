@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Mia Wishlist - Just Marizete</title>
+    <link rel="stylesheet" href="sources/css/wishlist.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="wishlist-header">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <i class="ri-arrow-left-line"></i> Torna al negozio
+            </a>
+            <h1>❤️ La Mia Wishlist</h1>
+        </div>
+    </header>
+
+    <!-- Contenuto Wishlist -->
+    <main class="wishlist-main">
+        <div class="container">
+            
+            <!-- Wishlist vuota -->
+            <div id="wishlist-empty" class="wishlist-empty" style="display: none;">
+                <div class="empty-icon">💔</div>
+                <h2>La tua wishlist è vuota</h2>
+                <p>Aggiungi i tuoi prodotti preferiti cliccando sul cuore ❤️</p>
+                <a href="index.html" class="btn-shop">
+                    <i class="ri-shopping-bag-line"></i> Inizia lo Shopping
+                </a>
+            </div>
+            
+            <!-- Lista prodotti wishlist -->
+            <div id="wishlist-container" class="wishlist-grid">
+                <!-- Prodotti caricati da JS -->
+            </div>
+            
+            <!-- Azioni -->
+            <div id="wishlist-actions" class="wishlist-actions" style="display: none;">
+                <button id="btn-clear-wishlist" class="btn-clear">
+                    <i class="ri-delete-bin-line"></i> Svuota Wishlist
+                </button>
+                <button id="btn-add-all-cart" class="btn-add-all">
+                    <i class="ri-shopping-cart-line"></i> Aggiungi Tutti al Carrello
+                </button>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="sources/js/products-data.js"></script>
+    <script src="sources/js/wishlist.js"></script>
+    
+</body>
+</html>

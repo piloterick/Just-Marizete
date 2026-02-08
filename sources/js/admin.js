@@ -1,19 +1,9 @@
+
 // ==========================================
 // ADMIN PANEL - JUST MARIZETE
 // ==========================================
 
-// ==========================================
-// CONFIGURAZIONE (CAMBIA QUESTE CREDENZIALI!)
-// ==========================================
-const ADMIN_CONFIG = {
-    // ⚠️ CAMBIA QUESTE CREDENZIALI!
-    username: 'admin',
-    password: 'JustMarizete2024!',
 
-    // Chiave per localStorage
-    sessionKey: 'just_admin_session',
-    sessionDuration: 24 * 60 * 60 * 1000 // 24 ore
-};
 
 // Sottocategorie per linea
 const SUBCATEGORIES = {
@@ -49,10 +39,10 @@ const SUBCATEGORIES = {
 // ==========================================
 // DOM ELEMENTS
 // ==========================================
-const loginSection = document.getElementById('admin-login');
+
 const dashboardSection = document.getElementById('admin-dashboard');
-const loginForm = document.getElementById('login-form');
-const loginError = document.getElementById('login-error');
+
+
 const logoutBtn = document.getElementById('btn-logout');
 const adminUsername = document.getElementById('admin-username');
 
@@ -60,81 +50,107 @@ const adminUsername = document.getElementById('admin-username');
 // INIZIALIZZAZIONE
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-    checkSession();
-    setupEventListeners();
+
+    // ✅ Verifica autenticazione admin
+    firebase.auth().onAuthStateChanged(async function (user) {
+        const loadingEl = document.getElementById('admin-loading');
+        const deniedEl = document.getElementById('access-denied');
+        const dashboardEl = document.getElementById('admin-dashboard');
+
+        if (!user) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        try {
+            const doc = await firebase.firestore().collection('users').doc(user.uid).get();
+
+            if (doc.exists && doc.data().role === 'admin') {
+                // ✅ È admin
+                if (loadingEl) loadingEl.style.display = 'none';
+                if (dashboardEl) dashboardEl.style.display = 'block';
+
+                if (adminUsername) {
+                    adminUsername.textContent = doc.data().name || user.email;
+                }
+
+                // Carica prodotti e setup
+                loadProducts();
+                loadProductsFromLocal();
+                setupEventListeners();
+
+            } else {
+                // ❌ Non è admin
+                if (loadingEl) loadingEl.style.display = 'none';
+                if (deniedEl) deniedEl.style.display = 'flex';
+            }
+        } catch (error) {
+            console.error('Errore:', error);
+            if (loadingEl) loadingEl.style.display = 'none';
+            if (deniedEl) deniedEl.style.display = 'flex';
+        }
+    });
 });
 
+
 // ==========================================
-// AUTENTICAZIONE
+// CARICA PRODOTTI (da products-data.js)
 // ==========================================
+function loadProducts() {
+    const tbody = document.getElementById('products-tbody');
 
-function checkSession() {
-    const session = localStorage.getItem(ADMIN_CONFIG.sessionKey);
-
-    if (session) {
-        const sessionData = JSON.parse(session);
-        const now = Date.now();
-
-        if (now < sessionData.expires) {
-            // Sessione valida
-            showDashboard(sessionData.username);
-            return;
-        } else {
-            // Sessione scaduta
-            localStorage.removeItem(ADMIN_CONFIG.sessionKey);
-        }
+    if (!tbody) {
+        console.error('❌ products-tbody non trovato!');
+        return;
     }
 
-    // Mostra login
-    showLogin();
+    tbody.innerHTML = '<tr><td colspan="6">Caricamento...</td></tr>';
+
+    // ✅ Usa la variabile 'products' da products-data.js
+    if (typeof products === 'undefined' || products.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6">Nessun prodotto trovato</td></tr>';
+        console.error('❌ Variabile products non trovata!');
+        return;
+    }
+
+    console.log('📦 Prodotti trovati:', products.length);
+
+    tbody.innerHTML = '';
+
+    products.forEach(p => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${p.id}</td>
+                <td><img src="${p.image || ''}" width="50" onerror="this.style.display='none'"></td>
+                <td>${p.name}</td>
+                <td>${p.category}</td>
+                <td>€${p.price.toFixed(2)}</td>
+                <td>
+                    <button onclick="editProduct(${p.id})" title="Modifica">✏️</button>
+                    <button onclick="deleteProduct(${p.id})" title="Elimina">🗑️</button>
+                </td>
+            </tr>
+        `;
+    });
+
+    console.log('✅ Prodotti caricati nella tabella!');
 }
 
-function handleLogin(e) {
-    e.preventDefault();
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    // Verifica credenziali
-    if (username === ADMIN_CONFIG.username && password === ADMIN_CONFIG.password) {
-        // Crea sessione
-        const session = {
-            username: username,
-            expires: Date.now() + ADMIN_CONFIG.sessionDuration,
-            loginTime: new Date().toISOString()
-        };
-
-        localStorage.setItem(ADMIN_CONFIG.sessionKey, JSON.stringify(session));
-
-        showDashboard(username);
-        showToast('Accesso effettuato con successo!', 'success');
-    } else {
-        loginError.textContent = '❌ Username o password non corretti';
-        shakeElement(loginForm);
+// ==========================================
+// GESTIONE MODAL
+// ==========================================
+function closeModal() {
+    const modal = document.getElementById('edit-modal');
+    if (modal) {
+        modal.style.display = 'none';
     }
 }
 
-function handleLogout() {
-    localStorage.removeItem(ADMIN_CONFIG.sessionKey);
-    showLogin();
-    showToast('Logout effettuato', 'success');
-}
-
-function showLogin() {
-    loginSection.style.display = 'flex';
-    dashboardSection.style.display = 'none';
-    loginForm.reset();
-    loginError.textContent = '';
-}
-
-function showDashboard(username) {
-    loginSection.style.display = 'none';
-    dashboardSection.style.display = 'flex';
-    adminUsername.textContent = username;
-
-    // Carica dati
-    loadProductsTable();
-    loadStats();
+function openModal() {
+    const modal = document.getElementById('edit-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
 }
 
 // ==========================================
@@ -142,23 +158,25 @@ function showDashboard(username) {
 // ==========================================
 
 function setupEventListeners() {
-    // Login
-    loginForm?.addEventListener('submit', handleLogin);
-    logoutBtn?.addEventListener('click', handleLogout);
 
-    // Toggle password visibility
-    document.getElementById('toggle-password')?.addEventListener('click', function () {
-        const passwordInput = document.getElementById('password');
-        const icon = this.querySelector('i');
-
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            icon.className = 'ri-eye-off-line';
-        } else {
-            passwordInput.type = 'password';
-            icon.className = 'ri-eye-line';
-        }
+    // Modal
+    document.getElementById('modal-close')?.addEventListener('click', closeModal);
+    document.getElementById('edit-modal')?.addEventListener('click', function (e) {
+        if (e.target === this) closeModal();
     });
+
+    // Torna al sito
+    document.getElementById('btn-back-to-site')?.addEventListener('click', function () {
+        window.location.href = 'index.html';
+    });
+
+    // Logout - torna a index.html
+    document.getElementById('btn-logout')?.addEventListener('click', function () {
+        firebase.auth().signOut().then(function () {
+            window.location.href = 'index.html';
+        });
+    });
+
 
     // Navigation
     document.querySelectorAll('.admin-nav-btn').forEach(btn => {
@@ -181,14 +199,18 @@ function setupEventListeners() {
     // Export
     document.getElementById('export-products')?.addEventListener('click', exportProducts);
 
-    // Change Password
-    document.getElementById('change-password-form')?.addEventListener('submit', handleChangePassword);
 
-    // Modal
-    document.getElementById('modal-close')?.addEventListener('click', closeModal);
-    document.getElementById('edit-modal')?.addEventListener('click', function (e) {
-        if (e.target === this) closeModal();
-    });
+}
+
+function showStats() {
+    const statsContainer = document.getElementById('stats-container');
+    
+    if (statsContainer.style.display === 'none') {
+        statsContainer.style.display = 'grid';
+        loadStats();
+    } else {
+        statsContainer.style.display = 'none';
+    }
 }
 
 // ==========================================
@@ -205,7 +227,15 @@ function switchSection(sectionName) {
     document.querySelectorAll('.admin-section').forEach(section => {
         section.classList.toggle('active', section.id === `section-${sectionName}`);
     });
+
+    // ✅ AGGIUNGI QUESTA PARTE - Nascondi statistiche quando cambi sezione
+    const statsContainer = document.getElementById('stats-container');
+    if (statsContainer && sectionName !== 'stats') {
+        statsContainer.style.display = 'none';
+    }
 }
+
+
 
 // ==========================================
 // PRODUCTS TABLE
@@ -219,8 +249,7 @@ function loadProductsTable(productsToShow = products) {
         <tr data-id="${product.id}">
             <td>${product.id}</td>
             <td>
-                <img src="${product.image}" alt="${product.name}" 
-                     onerror="this.src='./sources/images/placeholder.png'">
+                <img src="${product.image}" alt="${product.name}"onerror="this.src='./sources/images/placeholder.png'">
             </td>
             <td><strong>${product.name}</strong></td>
             <td>${product.category}</td>
@@ -286,7 +315,7 @@ function handleAddProduct(e) {
     const line = document.getElementById('product-line').value;
     const subcategory = document.getElementById('product-subcategory').value;
     const description = document.getElementById('product-description').value;
-    const image = document.getElementById('product-image').value || './sources/images/placeholder.png';
+    const image = getImageUrl() || './sources/images/placeholder.png';
     const rating = parseFloat(document.getElementById('product-rating').value) || 4;
 
     // Raccogli badges
@@ -335,6 +364,16 @@ function handleAddProduct(e) {
 
     // Mostra codice da copiare
     showProductCode(newProduct);
+}
+
+function getImageUrl() {
+    const type = document.querySelector('input[name="image-type"]:checked')?.value || 'local';
+
+    if (type === 'local') {
+        return document.getElementById('product-image-local')?.value || '';
+    } else {
+        return document.getElementById('product-image-url')?.value || '';
+    }
 }
 
 function showProductCode(product) {
@@ -442,6 +481,7 @@ function saveProductEdit(id) {
 
     // Aggiorna UI
     loadProductsTable();
+    loadStats();
     closeModal();
 
     showToast(`✅ Prodotto "${product.name}" modificato!`, 'success');
@@ -468,57 +508,115 @@ function deleteProduct(id) {
 }
 
 // ==========================================
-// STATS
+// SALVATAGGIO LOCALSTORAGE
 // ==========================================
+function saveProductsToLocal() {
+    localStorage.setItem('justMarizete_products', JSON.stringify(products));
+    console.log('💾 Prodotti salvati in localStorage');
+}
 
-function loadStats() {
-    const statsGrid = document.getElementById('stats-grid');
-    if (!statsGrid) return;
+function loadProductsFromLocal() {
+    const saved = localStorage.getItem('justMarizete_products');
+    if (saved) {
+        // Sostituisci l'array products con quello salvato
+        const savedProducts = JSON.parse(saved);
+        products.length = 0; // Svuota array
+        savedProducts.forEach(p => products.push(p)); // Riempi con dati salvati
+        console.log('📦 Prodotti caricati da localStorage:', products.length);
+    }
+}
 
-    const stats = [
-        {
-            icon: 'ri-shopping-bag-3-line',
-            class: 'total',
-            value: products.length,
-            label: 'Prodotti Totali'
-        },
-        {
-            icon: 'ri-leaf-line',
-            class: 'benessere',
-            value: getProductsByLine('benessere').length,
-            label: 'Linea Benessere'
-        },
-        {
-            icon: 'ri-sparkling-line',
-            class: 'bellezza',
-            value: getProductsByLine('bellezza').length,
-            label: 'Linea Bellezza'
-        },
-        {
-            icon: 'ri-home-heart-line',
-            class: 'casa',
-            value: getProductsByLine('casa').length,
-            label: 'Linea Casa'
-        },
-        {
-            icon: 'ri-capsule-line',
-            class: 'integratori',
-            value: getProductsByLine('integratori').length,
-            label: 'Integratori'
+// ==========================================
+// GESTIONE INPUT IMMAGINE
+// ==========================================
+function toggleImageInput() {
+    const type = document.querySelector('input[name="image-type"]:checked').value;
+    const localInput = document.getElementById('product-image-local');
+    const urlInput = document.getElementById('product-image-url');
+
+    if (type === 'local') {
+        localInput.style.display = 'block';
+        urlInput.style.display = 'none';
+    } else {
+        localInput.style.display = 'none';
+        urlInput.style.display = 'block';
+    }
+
+    updateImagePreview();
+}
+
+function updateImagePreview() {
+    const type = document.querySelector('input[name="image-type"]:checked')?.value || 'local';
+    const localInput = document.getElementById('product-image-local');
+    const urlInput = document.getElementById('product-image-url');
+    const preview = document.getElementById('image-preview');
+    const hiddenInput = document.getElementById('product-image');
+
+    let imageUrl = '';
+
+    if (type === 'local') {
+        imageUrl = localInput?.value || '';
+    } else {
+        imageUrl = urlInput?.value || '';
+    }
+
+    // Salva nel campo nascosto
+    if (hiddenInput) {
+        hiddenInput.value = imageUrl;
+    }
+
+    // Mostra anteprima
+    if (preview) {
+        if (imageUrl) {
+            preview.innerHTML = `
+                <img src="${imageUrl}" 
+                     style="max-width: 100%; max-height: 120px; border-radius: 8px;" 
+                     onerror="this.parentElement.innerHTML='<span style=\\'color: #e74c3c;\\'>❌ Immagine non trovata</span>'">
+            `;
+        } else {
+            preview.innerHTML = '<span style="color: #999;">Anteprima immagine</span>';
         }
-    ];
+    }
+}
 
-    statsGrid.innerHTML = stats.map(stat => `
-        <div class="stat-card">
-            <div class="stat-icon ${stat.class}">
-                <i class="${stat.icon}"></i>
-            </div>
-            <div class="stat-info">
-                <h3>${stat.value}</h3>
-                <p>${stat.label}</p>
-            </div>
-        </div>
-    `).join('');
+// ==========================================
+// STATISTICHE
+// ==========================================
+function loadStats() {
+    // Prendi i prodotti (da localStorage o array)
+    let allProducts = [];
+    
+    const saved = localStorage.getItem('justMarizete_products');
+    if (saved) {
+        allProducts = JSON.parse(saved);
+    } else if (typeof products !== 'undefined') {
+        allProducts = products;
+    }
+    
+    // Calcola statistiche
+    const stats = {
+        total: allProducts.length,
+        benessere: allProducts.filter(p => p.line === 'benessere').length,
+        bellezza: allProducts.filter(p => p.line === 'bellezza').length,
+        casa: allProducts.filter(p => p.line === 'casa').length,
+        integratori: allProducts.filter(p => p.line === 'integratori').length,
+        valore: allProducts.reduce((sum, p) => sum + (parseFloat(p.price) || 0), 0)
+    };
+    
+    // Aggiorna DOM
+    const setStatSafe = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    };
+    
+    setStatSafe('stat-total', stats.total);
+    setStatSafe('stat-benessere', stats.benessere);
+    setStatSafe('stat-bellezza', stats.bellezza);
+    setStatSafe('stat-casa', stats.casa);
+    setStatSafe('stat-integratori', stats.integratori);
+    setStatSafe('stat-valore', '€' + stats.valore.toFixed(2));
+    
+    console.log('📊 Statistiche aggiornate:', stats);
 }
 
 // ==========================================
@@ -555,45 +653,7 @@ function exportProducts() {
     showToast('📥 File esportato con successo!', 'success');
 }
 
-// ==========================================
-// CHANGE PASSWORD
-// ==========================================
 
-function handleChangePassword(e) {
-    e.preventDefault();
-
-    const current = document.getElementById('current-password').value;
-    const newPass = document.getElementById('new-password').value;
-    const confirm = document.getElementById('confirm-password').value;
-
-    if (current !== ADMIN_CONFIG.password) {
-        showToast('❌ Password attuale non corretta', 'error');
-        return;
-    }
-
-    if (newPass !== confirm) {
-        showToast('❌ Le password non coincidono', 'error');
-        return;
-    }
-
-    if (newPass.length < 8) {
-        showToast('❌ La password deve avere almeno 8 caratteri', 'error');
-        return;
-    }
-
-    // In un sistema reale, salveresti la nuova password sul server
-    // Qui mostriamo solo un messaggio informativo
-    showToast('⚠️ Per cambiare la password, modifica ADMIN_CONFIG in admin.js', 'warning');
-    e.target.reset();
-}
-
-// ==========================================
-// MODAL
-// ==========================================
-
-function closeModal() {
-    document.getElementById('edit-modal')?.classList.remove('active');
-}
 
 // ==========================================
 // UTILITIES

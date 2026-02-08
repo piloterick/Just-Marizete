@@ -5,61 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Just Marizete</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="sources/css/admin.css">
 </head>
 
 <body>
 
-    <!-- ===== LOGIN FORM ===== -->
-    <div class="admin-login" id="admin-login">
-        <div class="login-container">
-            <div class="login-header">
-                <img src="./sources/images/Logo_Just.svg" alt="Logo Just" class="login-logo">
-                <h1>Area Admin</h1>
-                <p>Accedi per gestire i prodotti</p>
-            </div>
 
-            <form class="login-form" id="login-form">
-                <div class="form-group">
-                    <label for="username">
-                        <i class="ri-user-line"></i>
-                        Username
-                    </label>
-                    <input type="text" id="username" name="username" required autocomplete="username">
-                </div>
-
-                <div class="form-group">
-                    <label for="password">
-                        <i class="ri-lock-line"></i>
-                        Password
-                    </label>
-                    <div class="password-wrapper">
-                        <input type="password" id="password" name="password" required autocomplete="current-password">
-                        <button type="button" class="toggle-password" id="toggle-password">
-                            <i class="ri-eye-line"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="form-error" id="login-error"></div>
-
-                <button type="submit" class="btn-login">
-                    <i class="ri-login-box-line"></i>
-                    Accedi
-                </button>
-            </form>
-
-            <a href="index.html" class="back-link">
-                <i class="ri-arrow-left-line"></i>
-                Torna al sito
-            </a>
-        </div>
-    </div>
 
     <!-- ===== ADMIN DASHBOARD ===== -->
-    <div class="admin-dashboard" id="admin-dashboard" style="display: none;">
+    <div class="admin-dashboard" id="admin-dashboard">
 
         <!-- Header Admin -->
         <header class="admin-header">
@@ -72,9 +27,13 @@
                     <i class="ri-admin-line"></i>
                     <span id="admin-username">Admin</span>
                 </span>
-                <button class="btn-logout" id="btn-logout">
+                <button id="btn-back-to-site">
+                    <i class="ri-arrow-left-line"></i>
+                    Torna al Sito
+                </button>
+                <button id="btn-logout">
                     <i class="ri-logout-box-line"></i>
-                    Esci
+                    Logout
                 </button>
             </div>
         </header>
@@ -93,7 +52,7 @@
                         <i class="ri-add-circle-line"></i>
                         Aggiungi Prodotto
                     </button>
-                    <button class="admin-nav-btn" data-section="stats">
+                    <button class="admin-nav-btn" data-section="stats" onclick="showStats()">
                         <i class="ri-bar-chart-box-line"></i>
                         Statistiche
                     </button>
@@ -103,6 +62,57 @@
                     </button>
                 </nav>
             </aside>
+
+            <!-- Sezione Statistiche -->
+<div class="stats-container" id="stats-container" style="display: none;">
+    <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-info">
+            <span class="stat-number" id="stat-total">0</span>
+            <span class="stat-label">Prodotti Totali</span>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">🌿</div>
+        <div class="stat-info">
+            <span class="stat-number" id="stat-benessere">0</span>
+            <span class="stat-label">Benessere</span>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">💄</div>
+        <div class="stat-info">
+            <span class="stat-number" id="stat-bellezza">0</span>
+            <span class="stat-label">Bellezza</span>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">🏠</div>
+        <div class="stat-info">
+            <span class="stat-number" id="stat-casa">0</span>
+            <span class="stat-label">Casa</span>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">💊</div>
+        <div class="stat-info">
+            <span class="stat-number" id="stat-integratori">0</span>
+            <span class="stat-label">Integratori</span>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-info">
+            <span class="stat-number" id="stat-valore">€0</span>
+            <span class="stat-label">Valore Totale</span>
+        </div>
+    </div>
+</div>
 
             <!-- Content Area -->
             <div class="admin-content">
@@ -186,8 +196,38 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="product-image">URL Immagine</label>
-                                <input type="text" id="product-image" placeholder="./sources/images/...">
+                                <label>Immagine Prodotto</label>
+
+                                <!-- Toggle tipo input -->
+                                <div style="margin-bottom: 10px;">
+                                    <label style="cursor: pointer;">
+                                        <input type="radio" name="image-type" value="local" checked
+                                            onchange="toggleImageInput()">
+                                        📁 Percorso locale
+                                    </label>
+                                    <label style="margin-left: 15px; cursor: pointer;">
+                                        <input type="radio" name="image-type" value="url" onchange="toggleImageInput()">
+                                        🔗 Link URL
+                                    </label>
+                                </div>
+
+                                <!-- Input locale -->
+                                <input type="text" id="product-image-local"
+                                    placeholder="./sources/images/categoria/immagine.png"
+                                    oninput="updateImagePreview()">
+
+                                <!-- Input URL (nascosto) -->
+                                <input type="url" id="product-image-url" placeholder="https://esempio.com/immagine.jpg"
+                                    style="display: none;" oninput="updateImagePreview()">
+
+                                <!-- Campo nascosto per il valore finale -->
+                                <input type="hidden" id="product-image">
+
+                                <!-- Anteprima -->
+                                <div id="image-preview"
+                                    style="margin-top: 10px; min-height: 80px; border: 1px dashed #ccc; border-radius: 8px; padding: 10px; text-align: center; background: #f9f9f9;">
+                                    <span style="color: #999;">Anteprima immagine</span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="product-rating">Rating (1-5)</label>
@@ -248,27 +288,7 @@
                     </div>
 
                     <div class="settings-content">
-                        <div class="settings-card">
-                            <h3><i class="ri-lock-password-line"></i> Cambia Password</h3>
-                            <form id="change-password-form">
-                                <div class="form-group">
-                                    <label for="current-password">Password Attuale</label>
-                                    <input type="password" id="current-password" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="new-password">Nuova Password</label>
-                                    <input type="password" id="new-password" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="confirm-password">Conferma Password</label>
-                                    <input type="password" id="confirm-password" required>
-                                </div>
-                                <button type="submit" class="btn-primary">
-                                    <i class="ri-save-line"></i>
-                                    Salva Password
-                                </button>
-                            </form>
-                        </div>
+
 
                         <div class="settings-card">
                             <h3><i class="ri-download-2-line"></i> Esporta Prodotti</h3>
@@ -302,6 +322,24 @@
 
     <!-- Toast Notifications -->
     <div class="toast-container" id="toast-container"></div>
+
+    <!-- 1. Firebase SDK (PRIMA di tutto) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- 2. Configurazione Firebase -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCAt6TWblWG0uclk0723eioeBjCqfwHIp8",
+            authDomain: "just-marizete.firebaseapp.com",
+            projectId: "just-marizete",
+            storageBucket: "just-marizete.firebasestorage.app",
+            messagingSenderId: "30378126861",
+            appId: "1:30378126861:web:892aca8d5a5a4327e46f44"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
 
     <!-- Scripts -->
     <script src="sources/js/products-data.js"></script>

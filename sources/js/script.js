@@ -36,6 +36,26 @@ function setupEventListeners() {
     // search functionality
     setupSearch();
 
+    // Click su pulsante wishlist
+document.addEventListener('click', function(e) {
+    const wishlistBtn = e.target.closest('.wishlist-btn');
+    
+    if (wishlistBtn) {
+        e.preventDefault();
+        const productId = parseInt(wishlistBtn.dataset.id);
+        toggleWishlist(productId);
+        
+        // Aggiorna icona
+        if (isInWishlist(productId)) {
+            wishlistBtn.classList.add('active');
+            wishlistBtn.innerHTML = '<i class="ri-heart-fill"></i>';
+        } else {
+            wishlistBtn.classList.remove('active');
+            wishlistBtn.innerHTML = '<i class="ri-heart-line"></i>';
+        }
+    }
+});
+
     // Add to Cart Buttons
     document.querySelectorAll('.shopping-bag').forEach(btn => {
         btn.addEventListener('click', handleAddToCart);
@@ -206,32 +226,34 @@ function parsePrice(priceString) {
 }
 
 function addToCart(product) {
-    const existingItem = cartItems.find(item => item.id === product.id);
+    // ✅ Usa l'ID così com'è (stringa o numero)
+    const productId = product.id;
+    
+    if (!productId) {
+        console.error('ID prodotto non valido!');
+        return;
+    }
+    
+    // ✅ Confronta come stringa
+    const existingItem = cartItems.find(item => String(item.id) === String(productId));
 
     if (existingItem) {
         existingItem.quantity++;
     } else {
-        cartItems.push({ ...product });
+        cartItems.push({ 
+            ...product, 
+            id: productId,
+            quantity: 1 
+        });
     }
 
     saveCart();
     renderCart();
 }
 
-function removeFromCart(productId) {
-    const itemIndex = cartItems.findIndex(item => item.id === productId);
-
-    if (itemIndex > -1) {
-        const removedItem = cartItems[itemIndex];
-        cartItems.splice(itemIndex, 1);
-        saveCart();
-        renderCart();
-        showToast(`${removedItem.name} rimosso dal carrello`, 'error');
-    }
-}
-
 function updateQuantity(productId, change) {
-    const item = cartItems.find(item => item.id === productId);
+    // ✅ Confronta come stringa
+    const item = cartItems.find(item => String(item.id) === String(productId));
 
     if (item) {
         item.quantity += change;
@@ -242,6 +264,17 @@ function updateQuantity(productId, change) {
             saveCart();
             renderCart();
         }
+    }
+}
+
+function removeFromCart(productId) {
+    // ✅ Confronta come stringa
+    const index = cartItems.findIndex(item => String(item.id) === String(productId));
+
+    if (index > -1) {
+        cartItems.splice(index, 1);
+        saveCart();
+        renderCart();
     }
 }
 
@@ -1140,7 +1173,7 @@ function reinitProductListeners() {
 }
 
 // ==========================================
-// WISHLIST PERSISTENTE
+// WISHLIST
 // ==========================================
 let wishlist = JSON.parse(localStorage.getItem('justWishlist')) || [];
 
@@ -1156,10 +1189,14 @@ function toggleWishlistPersistent(productId, btn) {
         wishlist.splice(index, 1);
         btn.classList.remove('active');
         btn.innerHTML = '<i class="ri-heart-line"></i>';
-        showToast('Rimosso dai preferiti', 'success');
+        showToast('Rimosso dai preferiti 💔', 'info');
     }
-
+    
+    // 💾 Salva in localStorage
     localStorage.setItem('justWishlist', JSON.stringify(wishlist));
+    
+    // Aggiorna contatore
+    updateWishlistCount();
 }
 
 function updateWishlistUI() {
@@ -1174,6 +1211,17 @@ function updateWishlistUI() {
     });
 }
 
+function updateWishlistCount() {
+    const countEl = document.getElementById('wishlist-count');
+    if (countEl) {
+        countEl.textContent = wishlist.length;
+        countEl.style.display = wishlist.length > 0 ? 'inline' : 'none';
+    }
+}
+
+function isInWishlist(productId) {
+    return wishlist.includes(productId);
+}
 
 
 
@@ -2094,9 +2142,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof loadNovitaProducts === 'function') {
         loadNovitaProducts();
     }
+
+    updateWishlistUI();
+    updateWishlistCount();
     
     console.log('✅ Sito caricato correttamente!');
 });
-
-
-
