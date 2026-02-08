@@ -129,6 +129,29 @@ document.addEventListener('click', function(e) {
         mobileProductsToggle?.classList.remove('active');
     });
 
+    function initCartButtons() {
+    const cart = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        const productId = button.dataset.id;
+        const productCard = button.closest('.product-card');
+        const productName = productCard?.querySelector('.product-title')?.textContent;
+        
+        // Controlla se già nel carrello
+        const inCart = cart.some(item => 
+            String(item.id) === String(productId) || 
+            item.name === productName
+        );
+        
+        if (inCart) {
+            button.classList.add('added');
+            button.innerHTML = '<i class="ri-check-line"></i><span>Aggiunto</span>';
+            button.disabled = true;
+        }
+    });
+}
+
+
     // ==========================================
     // 🆕 CHIUDI MENU CLICK FUORI
     // ==========================================
@@ -239,10 +262,13 @@ function parsePrice(priceString) {
 function addToCart(product) {
     const productId = String(product.id);
     
-    // ⚠️ Controlla se già nel carrello (per ID O per NOME)
+    // Trova il pulsante cliccato
+    const button = document.querySelector(`.add-to-cart-btn[data-id="${product.id}"]`);
+    
+    // Controlla se già nel carrello
     const existingItem = cartItems.find(item => 
         String(item.id) === productId || 
-        item.name === product.name  // ✅ Confronta anche per nome!
+        item.name === product.name
     );
 
     if (existingItem) {
@@ -263,6 +289,14 @@ function addToCart(product) {
     
     saveCart();
     renderCart();
+    
+    // ✅ Cambia il pulsante in "Aggiunto"
+    if (button) {
+        button.classList.add('added');
+        button.innerHTML = '<i class="ri-check-line"></i><span>Aggiunto</span>';
+        button.disabled = true;
+    }
+    
     showToast('🛒 Aggiunto al carrello!', 'success');
 }
 
@@ -2129,7 +2163,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // ... altro codice ...
 });
     
     // 3. SEZIONE PRODOTTI (filtri, ecc.)
@@ -2177,6 +2210,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     updateWishlistUI();
     updateWishlistCount();
+    initCartButtons()
     
     console.log('✅ Sito caricato correttamente!');
 });

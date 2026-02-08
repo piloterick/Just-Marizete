@@ -219,6 +219,14 @@ function addToCartFromWishlist(productId) {
     // Salva
     localStorage.setItem('cartItems', JSON.stringify(cart));
     
+    // ✅ Cambia il pulsante
+    const button = document.querySelector(`.btn-add-cart[onclick*="${productId}"]`);
+    if (button) {
+        button.classList.add('added');
+        button.innerHTML = '<i class="ri-check-line"></i> Aggiunto';
+        button.disabled = true;
+    }
+    
     showToast('🛒 Aggiunto al carrello!', 'success');
     updateCartCount();
 }
