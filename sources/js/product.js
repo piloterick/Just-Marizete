@@ -58,15 +58,22 @@ function displayProduct() {
     // Aggiorna titolo pagina
     document.title = `${p.name} - Just Marizete`;
     
-    // Riempi dati
+    // Riempi dati principali
     document.getElementById('product-image').src = p.image || './sources/images/placeholder.png';
     document.getElementById('product-image').alt = p.name;
     document.getElementById('product-name').textContent = p.name;
     document.getElementById('product-category').textContent = p.category;
-    document.getElementById('product-description').textContent = p.description || 'Nessuna descrizione disponibile.';
+    document.getElementById('product-description').textContent = p.description || '';
     document.getElementById('product-price').textContent = `€${parseFloat(p.price).toFixed(2)}`;
     document.getElementById('product-stars').innerHTML = generateStars(p.rating || 0);
     document.getElementById('product-reviews').textContent = `(${p.reviews || 0} recensioni)`;
+    
+    // ✅ Mostra descrizione completa
+    const fullDescEl = document.getElementById('product-full-description');
+    if (fullDescEl && p.fullDescription) {
+        fullDescEl.innerHTML = p.fullDescription;
+        fullDescEl.style.display = 'block';
+    }
     
     // Controlla se in wishlist
     updateWishlistButton();
