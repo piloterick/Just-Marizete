@@ -1,13 +1,15 @@
 const CACHE_NAME = 'just-marizete-v1';
 
-// ✅ Usa solo i file che esistono davvero
+// ✅ Percorsi relativi
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
-    './style.css',
+    './product.html',
+    './wishlist.html',
+    './manifest.json',
     './script.js',
     './products-data.js',
-    './manifest.json',
+    './sources/css/index.css',
     './sources/images/icons/icon-192x192.png',
     './sources/images/icons/icon-512x512.png'
 ];
@@ -20,7 +22,6 @@ self.addEventListener('install', event => {
         caches.open(CACHE_NAME)
             .then(cache => {
                 console.log('📦 Service Worker: Caching files...');
-                // ✅ Usa addAll con catch per evitare errori
                 return cache.addAll(ASSETS_TO_CACHE).catch(err => {
                     console.log('⚠️ Alcuni file non trovati:', err);
                 });
@@ -38,7 +39,6 @@ self.addEventListener('activate', event => {
             return Promise.all(
                 cacheNames.map(cache => {
                     if (cache !== CACHE_NAME) {
-                        console.log('🗑️ Eliminando vecchia cache:', cache);
                         return caches.delete(cache);
                     }
                 })

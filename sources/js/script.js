@@ -2225,7 +2225,8 @@ document.addEventListener('click', function(e) {
 // ==========================================
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
+        // ✅ Percorso per sottocartella GitHub Pages
+        navigator.serviceWorker.register('./service-worker.js')
             .then(registration => {
                 console.log('✅ PWA: Service Worker registrato!', registration);
             })
