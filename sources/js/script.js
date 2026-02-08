@@ -688,13 +688,7 @@ function initProductsSection() {
         });
     });
 
-    // Quick View Buttons
-    document.querySelectorAll('.quick-view-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const card = e.target.closest('.product-card');
-            openQuickView(card);
-        });
-    });
+    
 }
 
 // Filter by Category
@@ -2099,6 +2093,24 @@ document.addEventListener('DOMContentLoaded', function() {
         renderAllProducts();
         console.log('✅ Prodotti caricati');
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    
+    // ✅ Quick View - Event Delegation
+    document.addEventListener('click', function(e) {
+        const quickViewBtn = e.target.closest('.quick-view-btn');
+        
+        if (quickViewBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const card = quickViewBtn.closest('.product-card');
+            openQuickView(card);
+        }
+    });
+    
+    // ... altro codice ...
+});
     
     // 3. SEZIONE PRODOTTI (filtri, ecc.)
     if (typeof initProductsSection === 'function') {
