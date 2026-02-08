@@ -183,41 +183,41 @@ function addToCartFromWishlist(productId) {
     }
     
     // Trova il prodotto
-    const product = allProducts.find(p => p.id === productId || p.id === parseInt(productId));
+    const product = allProducts.find(p => String(p.id) === String(productId));
     
     if (!product) {
-        console.error('❌ Prodotto non trovato:', productId);
         showToast('❌ Prodotto non trovato', 'error');
         return;
     }
     
-    console.log('✅ Prodotto trovato:', product);
-    
     // Prendi carrello esistente
     let cart = JSON.parse(localStorage.getItem('cartItems') || '[]');
     
-    // Controlla se già nel carrello
-    const existingIndex = cart.findIndex(item => item.id === product.id);
+    // ⚠️ Controlla se già nel carrello (per ID O per NOME)
+    const existingItem = cart.find(item => 
+        String(item.id) === String(productId) || 
+        String(item.id) === String(product.id) ||
+        item.name === product.name  // ✅ Confronta anche per nome!
+    );
     
-    if (existingIndex > -1) {
-        cart[existingIndex].quantity += 1;
-    } else {
-        // ✅ AGGIUNGI TUTTI I DATI!
-        cart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            category: product.category,
-            description: product.description,
-            quantity: 1
-        });
+    if (existingItem) {
+        showToast('⚠️ Prodotto già nel carrello!', 'warning');
+        return;
     }
+    
+    // Aggiungi nuovo prodotto
+    cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        category: product.category,
+        description: product.description,
+        quantity: 1
+    });
     
     // Salva
     localStorage.setItem('cartItems', JSON.stringify(cart));
-    
-    console.log('🛒 Carrello aggiornato:', cart);
     
     showToast('🛒 Aggiunto al carrello!', 'success');
     updateCartCount();

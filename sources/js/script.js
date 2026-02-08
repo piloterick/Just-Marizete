@@ -237,29 +237,33 @@ function parsePrice(priceString) {
 }
 
 function addToCart(product) {
-    // ✅ Usa l'ID così com'è (stringa o numero)
-    const productId = product.id;
+    const productId = String(product.id);
     
-    if (!productId) {
-        console.error('ID prodotto non valido!');
+    // ⚠️ Controlla se già nel carrello (per ID O per NOME)
+    const existingItem = cartItems.find(item => 
+        String(item.id) === productId || 
+        item.name === product.name  // ✅ Confronta anche per nome!
+    );
+
+    if (existingItem) {
+        showToast('⚠️ Prodotto già nel carrello!', 'warning');
         return;
     }
     
-    // ✅ Confronta come stringa
-    const existingItem = cartItems.find(item => String(item.id) === String(productId));
-
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cartItems.push({ 
-            ...product, 
-            id: productId,
-            quantity: 1 
-        });
-    }
-
+    // Aggiungi nuovo prodotto
+    cartItems.push({ 
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        category: product.category,
+        description: product.description,
+        quantity: 1 
+    });
+    
     saveCart();
     renderCart();
+    showToast('🛒 Aggiunto al carrello!', 'success');
 }
 
 function updateQuantity(productId, change) {
@@ -792,8 +796,6 @@ function handleAddToCart(e) {
             quantity: 1
         });
     }
-
-    showToast(`${title} aggiunto al carrello!`, 'success');
 }
 
 // Quick View Modal
@@ -2076,6 +2078,13 @@ function loadNovitaProducts() {
     }
     
     console.log('🆕 ' + newProducts.length + ' novità caricate');
+}
+
+function loadCart() {
+    const saved = localStorage.getItem('cartItems');
+    if (saved) {
+        cartItems = JSON.parse(saved);
+    }
 }
 
 

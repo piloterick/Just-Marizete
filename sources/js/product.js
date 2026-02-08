@@ -112,26 +112,28 @@ function addToCart() {
     
     let cart = JSON.parse(localStorage.getItem('cartItems') || '[]');
     
-    const existingIndex = cart.findIndex(item => 
-        String(item.id) === String(currentProduct.id)
-    );
+    // ⚠️ Controlla se già nel carrello
+    const existingItem = cart.find(item => String(item.id) === String(currentProduct.id));
     
-    if (existingIndex > -1) {
-        cart[existingIndex].quantity += quantity;
-    } else {
-        cart.push({
-            id: currentProduct.id,
-            name: currentProduct.name,
-            price: currentProduct.price,
-            image: currentProduct.image,
-            category: currentProduct.category,
-            quantity: quantity
-        });
+    if (existingItem) {
+        showToast('⚠️ Prodotto già nel carrello!', 'warning');
+        return;
     }
+    
+    // Aggiungi con la quantità selezionata
+    cart.push({
+        id: currentProduct.id,
+        name: currentProduct.name,
+        price: currentProduct.price,
+        image: currentProduct.image,
+        category: currentProduct.category,
+        quantity: quantity
+    });
     
     localStorage.setItem('cartItems', JSON.stringify(cart));
     
     showToast(`🛒 ${quantity}x ${currentProduct.name} aggiunto al carrello!`, 'success');
+    updateCartCount();
 }
 
 // Toggle wishlist
@@ -174,17 +176,42 @@ function updateWishlistButton() {
 
 // Toast notifica
 function showToast(message, type = 'info') {
+    // Rimuovi toast esistenti
     const existingToast = document.querySelector('.toast');
-    if (existingToast) existingToast.remove();
+    if (existingToast) {
+        existingToast.remove();
+    }
     
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     toast.innerHTML = message;
+    
+    // ✅ Stile per posizione in ALTO (solo pagina prodotto)
+    toast.style.position = 'fixed';
+    toast.style.top = '30px';
+    toast.style.bottom = 'auto';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%) translateY(-100px)';
+    toast.style.padding = '15px 30px';
+    toast.style.borderRadius = '10px';
+    toast.style.color = 'white';
+    toast.style.fontWeight = '500';
+    toast.style.zIndex = '9999';
+    toast.style.opacity = '0';
+    toast.style.transition = 'transform 0.3s, opacity 0.3s';
+    
     document.body.appendChild(toast);
     
-    setTimeout(() => toast.classList.add('show'), 100);
+    // Mostra con animazione dall'alto
     setTimeout(() => {
-        toast.classList.remove('show');
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+        toast.style.opacity = '1';
+    }, 100);
+    
+    // Nascondi dopo 3 secondi
+    setTimeout(() => {
+        toast.style.transform = 'translateX(-50%) translateY(-100px)';
+        toast.style.opacity = '0';
         setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
