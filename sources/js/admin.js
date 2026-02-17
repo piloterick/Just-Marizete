@@ -699,3 +699,19 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Adatta testo bottoni su mobile
+function adaptMobileUI() {
+    if (window.innerWidth <= 480) {
+        document.getElementById('btn-back-to-site').innerHTML = '<i class="ri-arrow-left-line"></i> Sito';
+        document.getElementById('btn-logout').innerHTML = '<i class="ri-logout-box-line"></i> Esci';
+    } else {
+        document.getElementById('btn-back-to-site').innerHTML = '<i class="ri-arrow-left-line"></i> Torna al Sito';
+        document.getElementById('btn-logout').innerHTML = '<i class="ri-logout-box-line"></i> Logout';
+    }
+}
+
+window.addEventListener('resize', adaptMobileUI);
+adaptMobileUI();
+
+

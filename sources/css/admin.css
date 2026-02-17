@@ -14,16 +14,44 @@
     --admin-border: #e5e7eb;
 }
 
+/* ===================================
+   🔒 ANTI-OVERFLOW GLOBALE
+   =================================== */
+html {
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100vw;
+}
+
+body {
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+}
+
+.admin-dashboard,
+.admin-main,
+.admin-content {
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100%;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: var(--admin-light);
-    min-height: 100vh;
+/* Previeni overflow da elementi assoluti */
+.admin-content > * {
+    max-width: 100%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 
@@ -659,79 +687,13 @@ body {
 }
 
 /* ===================================
-   RESPONSIVE
-   =================================== */
-
-@media (max-width: 1024px) {
-    .admin-sidebar {
-        width: 80px;
-        padding: 20px 10px;
-    }
-
-    .admin-nav-btn span {
-        display: none;
-    }
-
-    .admin-nav-btn {
-        justify-content: center;
-        padding: 14px;
-    }
-
-    .admin-nav-btn i {
-        margin: 0;
-    }
-}
-
-@media (max-width: 768px) {
-    .admin-header {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px;
-    }
-
-    .admin-main {
-        flex-direction: column;
-    }
-
-    .admin-sidebar {
-        width: 100%;
-        flex-direction: row;
-        overflow-x: auto;
-    }
-
-    .admin-nav {
-        flex-direction: row;
-    }
-
-    .admin-content {
-        padding: 20px;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .section-actions {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .section-actions input,
-    .section-actions select {
-        width: 100%;
-    }
-}
-
-/* ===================================
-   ADMIN PANEL - RESPONSIVE MOBILE
+   📱 RESPONSIVE - VERSIONE CORRETTA
    =================================== */
 
 /* ===================================
    TABLET (max 1024px)
    =================================== */
 @media (max-width: 1024px) {
-
-    /* Sidebar compatta */
     .admin-sidebar {
         width: 70px;
         padding: 20px 10px;
@@ -751,19 +713,17 @@ body {
         margin: 0;
     }
 
-    /* Content più ampio */
     .admin-content {
         padding: 25px;
     }
 
-    /* Form a una colonna */
     .form-row {
         grid-template-columns: 1fr;
     }
 
-    /* Tabella scroll orizzontale */
     .products-table-container {
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .products-table {
@@ -772,15 +732,15 @@ body {
 }
 
 /* ===================================
-   MOBILE (max 768px)
+   📱 MOBILE (max 768px) - VERSIONE CORRETTA
    =================================== */
 @media (max-width: 768px) {
 
     /* ===== HEADER ===== */
     .admin-header {
         flex-direction: column;
-        gap: 15px;
-        padding: 15px;
+        gap: 10px;
+        padding: 10px;
     }
 
     .admin-header-left {
@@ -789,73 +749,95 @@ body {
     }
 
     .admin-header-left h1 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .admin-logo {
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
     }
 
     .admin-header-right {
         width: 100%;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
     }
 
-    #btn-back-to-site, #btn-logout {
-        padding: 8px 16px;
+    .admin-user {
+        width: 100%;
+        justify-content: center;
         font-size: 13px;
     }
 
-    /* ===== LAYOUT PRINCIPALE ===== */
+    #btn-back-to-site, 
+    #btn-logout {
+        flex: 1;
+        padding: 10px;
+        font-size: 12px;
+        gap: 4px;
+        min-width: 0;
+    }
+
+    /* ===== LAYOUT ===== */
     .admin-main {
         flex-direction: column;
     }
 
-    /* ===== SIDEBAR ORIZZONTALE ===== */
+    /* ===== SIDEBAR ===== */
     .admin-sidebar {
         width: 100%;
-        padding: 10px;
+        padding: 10px 0;
         overflow-x: auto;
+        overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
+    }
+
+    .admin-sidebar::-webkit-scrollbar {
+        height: 3px;
+    }
+
+    .admin-sidebar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
     }
 
     .admin-nav {
         flex-direction: row;
         gap: 8px;
-        min-width: max-content;
+        padding: 0 10px;
     }
 
     .admin-nav-btn {
         flex-shrink: 0;
-        padding: 12px 16px;
-        border-radius: 25px;
+        padding: 10px 14px;
+        font-size: 13px;
         white-space: nowrap;
     }
 
     .admin-nav-btn span {
         display: inline;
-        font-size: 13px;
     }
 
     .admin-nav-btn i {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     /* ===== CONTENT ===== */
     .admin-content {
-        padding: 20px 15px;
+        padding: 15px 10px;
+        width: 100%;
     }
 
     /* ===== SECTION HEADER ===== */
     .section-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 15px;
+        gap: 12px;
     }
 
     .section-header h2 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .section-actions {
@@ -867,54 +849,91 @@ body {
     .section-actions input,
     .section-actions select {
         width: 100%;
+        padding: 10px;
+        font-size: 14px;
     }
 
     /* ===== TABELLA PRODOTTI ===== */
     .products-table-container {
         border-radius: 12px;
-        margin: 0 -15px;
-        width: calc(100% + 30px);
+        overflow-x: auto;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+        background: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin: 0;
+        width: 100%;
     }
 
     .products-table {
-        min-width: 500px;
-        font-size: 14px;
+        min-width: 600px;
+        width: 100%;
+        font-size: 13px;
     }
 
     .products-table th,
     .products-table td {
-        padding: 12px 10px;
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    /* Colonna ID fissa */
+    .products-table th:first-child,
+    .products-table td:first-child {
+        position: sticky;
+        left: 0;
+        background: white;
+        z-index: 2;
+        box-shadow: 2px 0 4px rgba(0,0,0,0.05);
+    }
+
+    .products-table th:first-child {
+        background: var(--admin-light);
     }
 
     .products-table img {
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
     }
 
     .btn-edit,
     .btn-delete {
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
         font-size: 14px;
     }
 
-    /* ===== FORM PRODOTTO ===== */
-    .product-form {
-        padding: 20px;
-        border-radius: 12px;
-        margin: 0 -15px;
-        width: calc(100% + 30px);
+    /* Scrollbar */
+    .products-table-container::-webkit-scrollbar {
+        height: 8px;
     }
 
-    .product-form label {
-        font-size: 13px;
+    .products-table-container::-webkit-scrollbar-track {
+        background: var(--admin-light);
+        border-radius: 0 0 12px 12px;
+    }
+
+    .products-table-container::-webkit-scrollbar-thumb {
+        background: var(--admin-primary);
+        border-radius: 4px;
+    }
+
+    /* ===== FORM ===== */
+    .product-form {
+        padding: 20px 15px;
+        width: 100%;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
     }
 
     .product-form input,
     .product-form select,
     .product-form textarea {
-        padding: 12px 14px;
-        font-size: 14px;
+        padding: 11px;
+        font-size: 16px;
+        width: 100%;
     }
 
     .checkbox-group {
@@ -934,190 +953,292 @@ body {
     .btn-primary,
     .btn-secondary {
         width: 100%;
-        justify-content: center;
-        padding: 14px;
+        padding: 12px;
     }
 
-    /* ===== STATS ===== */
-    .stats-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
+    /* ===== STATISTICHE ===== */
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px;
+        padding: 0;
     }
 
     .stat-card {
-        padding: 20px 15px;
+        padding: 15px;
         flex-direction: column;
         text-align: center;
-        gap: 12px;
+        gap: 8px;
     }
 
     .stat-icon {
         width: 50px;
         height: 50px;
-        font-size: 24px;
+        font-size: 1.8rem;
+        margin: 0 auto;
     }
 
-    .stat-info h3 {
-        font-size: 1.6rem;
+    .stat-number {
+        font-size: 1.4rem;
     }
 
-    .stat-info p {
-        font-size: 12px;
+    .stat-label {
+        font-size: 0.75rem;
     }
 
     /* ===== SETTINGS ===== */
     .settings-content {
         grid-template-columns: 1fr;
-        gap: 20px;
     }
 
     .settings-card {
-        padding: 20px;
+        padding: 20px 15px;
     }
 
-    .settings-card h3 {
-        font-size: 1.1rem;
+    .settings-card button {
+        width: 100%;
     }
 
     /* ===== MODAL ===== */
-    .modal-overlay {
-        padding: 15px;
-        align-items: flex-end;
-    }
-
     .modal {
-        max-height: 85vh;
-        border-radius: 20px 20px 0 0;
-    }
-
-    .modal-header {
-        padding: 18px 20px;
-    }
-
-    .modal-header h3 {
-        font-size: 1.1rem;
-    }
-
-    .modal-body {
-        padding: 20px;
+        width: calc(100% - 20px);
+        max-height: 90vh;
     }
 
     /* ===== TOAST ===== */
     .toast-container {
-        left: 15px;
-        right: 15px;
-        bottom: 20px;
+        left: 10px;
+        right: 10px;
+        width: calc(100% - 20px);
     }
 
     .toast {
-        min-width: auto;
         width: 100%;
     }
 }
 
 /* ===================================
-   SMALL MOBILE (max 480px)
+   📱 SMALL MOBILE (max 480px)
    =================================== */
 @media (max-width: 480px) {
 
-    /* ===== LOGIN ===== */
-    .login-container {
-        padding: 30px 20px;
-        border-radius: 16px;
-    }
-
-    .login-logo {
-        width: 60px;
-        height: 60px;
-    }
-
-    .login-header h1 {
-        font-size: 1.5rem;
-    }
-
-    .login-header p {
-        font-size: 14px;
-    }
-
-    .login-form input {
-        padding: 12px 14px;
-        font-size: 15px;
-    }
-
-    .btn-login {
-        padding: 13px;
-        font-size: 15px;
-    }
-
     /* ===== HEADER ===== */
-    .admin-header-left h1 {
-        font-size: 1.1rem;
-    }
-
-    .admin-logo {
-        width: 35px;
-        height: 35px;
-    }
-
-    .admin-user {
-        font-size: 12px;
-    }
-
-    #btn-back-to-site, #btn-logout {
-        padding: 6px 12px;
-        font-size: 12px;
-    }
-
-
-    /* ===== SIDEBAR ===== */
-    .admin-sidebar {
+    .admin-header {
         padding: 8px;
     }
 
+    .admin-header-left h1 {
+        font-size: 1rem;
+    }
+
+    .admin-logo {
+        width: 30px;
+        height: 30px;
+    }
+
+    #btn-back-to-site, 
+    #btn-logout {
+        padding: 8px;
+        font-size: 11px;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .admin-sidebar {
+        padding: 8px 0;
+    }
+
+    .admin-nav {
+        gap: 6px;
+        padding: 0 8px;
+    }
+
     .admin-nav-btn {
-        padding: 10px 14px;
+        padding: 8px 12px;
         font-size: 12px;
     }
 
     .admin-nav-btn i {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     /* ===== CONTENT ===== */
     .admin-content {
-        padding: 15px 10px;
+        padding: 12px 8px;
     }
 
     .section-header h2 {
         font-size: 1.1rem;
     }
 
-    .section-header h2 i {
-        font-size: 20px;
+    /* ===== TABELLA PRODOTTI ===== */
+    .products-table-container {
+        border-radius: 10px;
     }
 
-    /* ===== TABELLA ===== */
     .products-table {
+        min-width: 550px; /* Ridotto ma non troppo */
         font-size: 12px;
     }
 
     .products-table th,
     .products-table td {
-        padding: 10px 8px;
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    /* ⚠️ FIX IMMAGINI - IMPORTANTE */
+    .products-table td:nth-child(2) {
+        min-width: 60px; /* Spazio minimo per immagine */
+        padding: 8px !important;
     }
 
     .products-table img {
-        width: 35px;
-        height: 35px;
+        width: 40px !important;
+        height: 40px !important;
+        object-fit: contain !important;
+        display: block !important;
+        margin: 0 auto;
+        background: var(--admin-light);
+        border-radius: 6px;
+        padding: 4px;
     }
 
-    /* Nascondi colonne meno importanti */
+    /* Nascondi colonna ID per fare spazio */
     .products-table th:nth-child(1),
     .products-table td:nth-child(1) {
         display: none;
-        /* Nascondi ID */
     }
 
+    /* Aggiusta colonna immagine dopo hide ID */
+    .products-table th:nth-child(2),
+    .products-table td:nth-child(2) {
+        position: sticky;
+        left: 0;
+        background: white;
+        z-index: 2;
+        box-shadow: 2px 0 4px rgba(0,0,0,0.05);
+    }
+
+    .products-table th:nth-child(2) {
+        background: var(--admin-light);
+    }
+
+    /* Bottoni azioni */
+    .btn-edit,
+    .btn-delete {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+
+    .actions {
+        gap: 4px !important;
+        flex-wrap: nowrap !important;
+    }
+
+    /* ===== FORM ===== */
+    .product-form {
+        padding: 15px 12px;
+    }
+
+    .product-form input,
+    .product-form select,
+    .product-form textarea {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .checkbox-label {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    /* ===== STATISTICHE (1 colonna) ===== */
+    .stats-container {
+        grid-template-columns: 1fr !important;
+        gap: 10px;
+    }
+
+    .stat-card {
+        flex-direction: row;
+        text-align: left;
+        padding: 12px;
+    }
+
+    .stat-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.6rem;
+        margin: 0;
+    }
+
+    .stat-number {
+        font-size: 1.3rem;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+    }
+
+    /* ===== MODAL ===== */
+    .modal {
+        width: calc(100% - 16px);
+        margin: 8px;
+    }
+
+    .modal-header,
+    .modal-body {
+        padding: 12px;
+    }
+}
+
+/* ===================================
+   📱 EXTRA SMALL (max 360px)
+   =================================== */
+@media (max-width: 360px) {
+
+    .admin-header-left h1 {
+        font-size: 0.9rem;
+    }
+
+    /* Sidebar solo icone */
+    .admin-nav-btn span {
+        display: none;
+    }
+
+    .admin-nav-btn {
+        padding: 10px;
+        width: 44px;
+        justify-content: center;
+    }
+
+    .section-header h2 {
+        font-size: 1rem;
+    }
+
+    /* ===== TABELLA ===== */
+    .products-table {
+        min-width: 480px; /* Ancora più compatta */
+    }
+
+    .products-table th,
+    .products-table td {
+        padding: 6px 4px;
+        font-size: 10px;
+    }
+
+    /* ⚠️ IMMAGINI PIÙ PICCOLE MA VISIBILI */
+    .products-table td:nth-child(2) {
+        min-width: 50px;
+        padding: 6px !important;
+    }
+
+    .products-table img {
+        width: 35px !important;
+        height: 35px !important;
+        padding: 3px;
+    }
+
+    /* Bottoni azioni compatti */
     .btn-edit,
     .btn-delete {
         width: 28px;
@@ -1126,101 +1247,30 @@ body {
     }
 
     .actions {
-        gap: 5px !important;
+        gap: 3px !important;
     }
 
-    /* ===== FORM ===== */
-    .product-form {
-        padding: 15px;
-    }
-
-    .product-form .form-group {
-        margin-bottom: 15px;
-    }
-
-    .product-form input,
-    .product-form select,
-    .product-form textarea {
-        padding: 10px 12px;
-        font-size: 14px;
-    }
-
-    .checkbox-label {
-        padding: 6px 10px;
-        font-size: 12px;
-    }
-
-    /* ===== STATS ===== */
-    .stats-grid {
-        grid-template-columns: 1fr;
+    /* ===== STATISTICHE ===== */
+    .stats-container {
+        gap: 8px;
     }
 
     .stat-card {
-        flex-direction: row;
-        text-align: left;
-        padding: 15px;
-    }
-
-    .stat-icon {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
-    }
-
-    .stat-info h3 {
-        font-size: 1.4rem;
-    }
-
-    /* ===== MODAL ===== */
-    .modal {
-        max-height: 90vh;
-    }
-
-    .modal-header {
-        padding: 15px;
-    }
-
-    .modal-body {
-        padding: 15px;
-    }
-
-    .modal-close {
-        width: 32px;
-        height: 32px;
-        font-size: 18px;
-    }
-}
-
-/* ===================================
-   EXTRA SMALL (max 360px)
-   =================================== */
-@media (max-width: 360px) {
-
-
-    .admin-nav-btn span {
-        display: none;
-    }
-
-    .admin-nav-btn {
         padding: 10px;
-    }
-
-    .stats-grid {
-        gap: 10px;
-    }
-
-    .stat-card {
-        padding: 12px;
     }
 
     .stat-icon {
         width: 40px;
         height: 40px;
-        font-size: 18px;
+        font-size: 1.4rem;
     }
 
-    .stat-info h3 {
+    .stat-number {
         font-size: 1.2rem;
+    }
+
+    .stat-label {
+        font-size: 0.65rem;
     }
 }
 
@@ -1228,11 +1278,14 @@ body {
    LANDSCAPE MOBILE
    =================================== */
 @media (max-height: 500px) and (orientation: landscape) {
-
-    
-
     .modal {
         max-height: 95vh;
+    }
+
+    .admin-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
     }
 }
 
@@ -1240,8 +1293,8 @@ body {
    TOUCH IMPROVEMENTS
    =================================== */
 @media (hover: none) and (pointer: coarse) {
-
-    /* Bottoni più grandi per touch */
+    
+    /* Target touch minimi 44x44px (Apple HIG) */
     .btn-edit,
     .btn-delete {
         min-width: 44px;
@@ -1257,7 +1310,7 @@ body {
         min-height: 48px;
     }
 
-    /* Rimuovi hover effects su touch */
+    /* Rimuovi hover, aggiungi active */
     .products-table tr:hover {
         background: transparent;
     }
@@ -1266,25 +1319,15 @@ body {
         background: var(--admin-light);
     }
 
-    /* Scrollbar sottile */
-    .admin-sidebar::-webkit-scrollbar,
-    .products-table-container::-webkit-scrollbar {
-        height: 4px;
+    button:active {
+        opacity: 0.8;
     }
-}
-
-/* ===================================
-   DARK MODE (Opzionale)
-   =================================== */
-@media (prefers-color-scheme: dark) {
-    /* Aggiungi qui stili dark mode se vuoi */
 }
 
 /* ===================================
    PRINT STYLES
    =================================== */
 @media print {
-
     .admin-sidebar,
     .admin-header,
     .section-actions,
@@ -1303,3 +1346,4 @@ body {
         box-shadow: none;
     }
 }
+
