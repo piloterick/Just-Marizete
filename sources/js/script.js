@@ -2076,10 +2076,10 @@ function loadNovitaProducts() {
         return;
     }
     
-    // Genera HTML
+    // Genera HTML CON PULSANTE CARRELLO
     var html = '';
     newProducts.forEach(function(p) {
-        html += '<div class="novita-card">';
+        html += '<div class="novita-card" data-id="' + p.id + '">';
         html += '<div class="novita-card-image">';
         html += '<span class="novita-card-badge">Nuovo</span>';
         html += '<img src="' + p.image + '" alt="' + p.name + '" onerror="this.src=\'./sources/images/placeholder.png\'">';
@@ -2087,7 +2087,12 @@ function loadNovitaProducts() {
         html += '<div class="novita-card-info">';
         html += '<div class="novita-card-category">' + p.category + '</div>';
         html += '<h3 class="novita-card-title">' + p.name + '</h3>';
-        html += '<div class="novita-card-price">€ ' + p.price.toFixed(2) + '</div>';
+        html += '<div class="novita-card-price">€ ' + p.price.toFixed(2).replace('.', ',') + '</div>';
+        // 👇 PULSANTE CON LA TUA CLASSE CSS ESISTENTE
+        html += '<button class="novita-card-btn" data-id="' + p.id + '">';
+        html += '<i class="ri-shopping-cart-2-line"></i>';
+        html += 'Aggiungi al Carrello';
+        html += '</button>';
         html += '</div>';
         html += '</div>';
     });
@@ -2110,14 +2115,48 @@ function loadNovitaProducts() {
         };
     }
     
+    // 👇 EVENT LISTENERS PER I PULSANTI
+    initNovitaCartButtons();
+    
     console.log('🆕 ' + newProducts.length + ' novità caricate');
 }
 
-function loadCart() {
-    const saved = localStorage.getItem('cartItems');
-    if (saved) {
-        cartItems = JSON.parse(saved);
-    }
+// GESTIONE CLICK PULSANTI CARRELLO
+function initNovitaCartButtons() {
+    var buttons = document.querySelectorAll('.novita-card-btn');
+    
+    buttons.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var productId = parseInt(btn.dataset.id);
+            var product = products.find(function(p) { return p.id === productId; });
+            
+            if (product) {
+                // Aggiungi al carrello
+                if (typeof addToCart === 'function') {
+                    addToCart({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        quantity: 1
+                    });
+                }
+                
+                // Feedback visivo
+                btn.innerHTML = '<i class="ri-check-line"></i> Aggiunto!';
+                btn.style.background = '#4caf50';
+                
+                setTimeout(function() {
+                    btn.innerHTML = '<i class="ri-shopping-cart-2-line"></i> Aggiungi al Carrello';
+                    btn.style.background = '';
+                }, 1500);
+                
+            }
+        });
+    });
 }
 
 
