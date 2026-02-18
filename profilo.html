@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Mio Profilo - Just Marizete</title>
+    <link rel="stylesheet" href="./sources/css/index.css">
+    <link rel="stylesheet" href="./sources/css/profilo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Libertinus+Keyboard&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html"><img class="logo" src="./sources/images/Logo_Just.svg" alt="Logo Just"></a>
+            <ul class="nav-list">
+                <li class="menu-border nav-item"><a class="link-nav" href="index.html">Home</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="index.html#prodotti">Prodotti</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="wishlist.html">Wishlist</a></li>
+                <li class="menu-border nav-item"><a class="link-nav active" href="profilo.html">Profilo</a></li>
+            </ul>
+            <div class="mobile-menu-icon">
+                <a href="#" onclick="menuShow()"><img class="icona-menu" src="sources/images/menu-list.png"
+                        alt="menu"></a>
+            </div>
+        </nav>
+
+        <div class="mobile-menu">
+            <ul class="nav-list">
+                <li class="menu-border nav-item"><a class="link-nav" href="index.html">Home</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="index.html#prodotti">Prodotti</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="wishlist.html">Wishlist</a></li>
+                <li class="menu-border nav-item"><a class="link-nav" href="profilo.html">Profilo</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="profile-main">
+        <div class="profile-container">
+            <!-- Sidebar Navigazione Profilo -->
+            <aside class="profile-sidebar">
+                <div class="profile-avatar-section">
+                    <div class="avatar-wrapper">
+                        <img id="avatar-preview" src="https://via.placeholder.com/120x120/6643b5/ffffff?text=User" alt="Avatar utente">
+                        <label for="avatar-upload" class="avatar-edit">
+                            <i class="ri-camera-line"></i>
+                        </label>
+                        <input type="file" id="avatar-upload" accept="image/*" hidden>
+                    </div>
+                    <h2 id="sidebar-username">Nome Utente</h2>
+                    <p id="sidebar-email">email@esempio.com</p>
+                </div>
+
+                <nav class="profile-nav">
+                    <button class="profile-nav-btn active" data-section="dati-personali">
+                        <i class="ri-user-line"></i>
+                        <span>Dati Personali</span>
+                    </button>
+                    <button class="profile-nav-btn" data-section="indirizzi">
+                        <i class="ri-map-pin-line"></i>
+                        <span>Indirizzi</span>
+                    </button>
+                    <button class="profile-nav-btn" data-section="ordini">
+                        <i class="ri-shopping-bag-3-line"></i>
+                        <span>I Miei Ordini</span>
+                    </button>
+                    <button class="profile-nav-btn" data-section="sicurezza">
+                        <i class="ri-shield-keyhole-line"></i>
+                        <span>Sicurezza</span>
+                    </button>
+                    <button class="profile-nav-btn" data-section="preferenze">
+                        <i class="ri-settings-3-line"></i>
+                        <span>Preferenze</span>
+                    </button>
+                    <button class="profile-nav-btn logout-btn" id="logout-btn">
+                        <i class="ri-logout-box-line"></i>
+                        <span>Esci</span>
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Contenuto Principale -->
+            <div class="profile-content">
+                <!-- Sezione Dati Personali -->
+                <section id="dati-personali" class="profile-section active">
+                    <div class="section-header">
+                        <h1><i class="ri-user-line"></i> Dati Personali</h1>
+                        <p>Gestisci le tue informazioni personali</p>
+                    </div>
+
+                    <form id="personal-data-form" class="profile-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome">Nome *</label>
+                                <input type="text" id="nome" name="nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cognome">Cognome *</label>
+                                <input type="text" id="cognome" name="cognome" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Telefono</label>
+                                <input type="tel" id="telefono" name="telefono" placeholder="+39">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="data-nascita">Data di Nascita</label>
+                                <input type="date" id="data-nascita" name="data-nascita">
+                            </div>
+                            <div class="form-group">
+                                <label for="genere">Genere</label>
+                                <select id="genere" name="genere">
+                                    <option value="">Seleziona...</option>
+                                    <option value="M">Uomo</option>
+                                    <option value="F">Donna</option>
+                                    <option value="altro">Altro</option>
+                                    <option value="non-specificato">Preferisco non specificare</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="codice-fiscale">Codice Fiscale</label>
+                            <input type="text" id="codice-fiscale" name="codice-fiscale" maxlength="16"
+                                pattern="[A-Z0-9]{16}" style="text-transform: uppercase;">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" id="reset-personal">Annulla</button>
+                            <button type="submit" class="btn-primary">
+                                <i class="ri-save-line"></i> Salva Modifiche
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Sezione Indirizzi -->
+                <section id="indirizzi" class="profile-section">
+                    <div class="section-header">
+                        <h1><i class="ri-map-pin-line"></i> I Miei Indirizzi</h1>
+                        <p>Gestisci i tuoi indirizzi di spedizione e fatturazione</p>
+                    </div>
+
+                    <div class="addresses-container">
+                        <div class="addresses-grid" id="addresses-list">
+                            <!-- Gli indirizzi verranno caricati dinamicamente -->
+                        </div>
+
+                        <button class="btn-add-address" id="add-address-btn">
+                            <i class="ri-add-line"></i>
+                            Aggiungi Nuovo Indirizzo
+                        </button>
+                    </div>
+
+                    <!-- Modal Aggiungi/Modifica Indirizzo -->
+                    <div class="modal" id="address-modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 id="address-modal-title">Nuovo Indirizzo</h2>
+                                <button class="modal-close" id="close-address-modal">
+                                    <i class="ri-close-line"></i>
+                                </button>
+                            </div>
+                            <form id="address-form">
+                                <input type="hidden" id="address-id">
+                                
+                                <div class="form-group">
+                                    <label for="address-label">Etichetta Indirizzo *</label>
+                                    <input type="text" id="address-label" placeholder="es. Casa, Ufficio" required>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="address-nome">Nome *</label>
+                                        <input type="text" id="address-nome" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address-cognome">Cognome *</label>
+                                        <input type="text" id="address-cognome" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address-via">Indirizzo *</label>
+                                    <input type="text" id="address-via" placeholder="Via/Piazza e numero civico" required>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="address-cap">CAP *</label>
+                                        <input type="text" id="address-cap" maxlength="5" pattern="[0-9]{5}" required>
+                                    </div>
+                                    <div class="form-group flex-2">
+                                        <label for="address-citta">Città *</label>
+                                        <input type="text" id="address-citta" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="address-provincia">Provincia *</label>
+                                        <input type="text" id="address-provincia" maxlength="2" style="text-transform: uppercase;" required>
+                                    </div>
+                                    <div class="form-group flex-2">
+                                        <label for="address-paese">Paese *</label>
+                                        <select id="address-paese" required>
+                                            <option value="IT" selected>Italia</option>
+                                            <option value="CH">Svizzera</option>
+                                            <option value="SM">San Marino</option>
+                                            <option value="VA">Città del Vaticano</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address-telefono">Telefono *</label>
+                                    <input type="tel" id="address-telefono" required>
+                                </div>
+
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="address-default">
+                                        <span class="checkmark"></span>
+                                        Imposta come indirizzo predefinito
+                                    </label>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="button" class="btn-secondary" id="cancel-address">Annulla</button>
+                                    <button type="submit" class="btn-primary">Salva Indirizzo</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sezione Ordini -->
+                <section id="ordini" class="profile-section">
+                    <div class="section-header">
+                        <h1><i class="ri-shopping-bag-3-line"></i> I Miei Ordini</h1>
+                        <p>Visualizza lo storico dei tuoi ordini</p>
+                    </div>
+
+                    <div class="orders-filters">
+                        <div class="filter-group">
+                            <label for="order-status-filter">Stato:</label>
+                            <select id="order-status-filter">
+                                <option value="tutti">Tutti</option>
+                                <option value="in-elaborazione">In Elaborazione</option>
+                                <option value="spedito">Spedito</option>
+                                <option value="consegnato">Consegnato</option>
+                                <option value="annullato">Annullato</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="order-date-filter">Periodo:</label>
+                            <select id="order-date-filter">
+                                <option value="tutti">Tutti</option>
+                                <option value="30">Ultimi 30 giorni</option>
+                                <option value="90">Ultimi 3 mesi</option>
+                                <option value="180">Ultimi 6 mesi</option>
+                                <option value="365">Ultimo anno</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="orders-container" id="orders-list">
+                        <!-- Gli ordini verranno caricati dinamicamente -->
+                    </div>
+
+                    <div class="empty-state" id="no-orders" style="display: none;">
+                        <i class="ri-shopping-bag-3-line"></i>
+                        <h3>Nessun ordine trovato</h3>
+                        <p>Non hai ancora effettuato ordini</p>
+                        <a href="index.html#prodotti" class="btn-primary">Inizia lo Shopping</a>
+                    </div>
+                </section>
+
+                <!-- Sezione Sicurezza -->
+                <section id="sicurezza" class="profile-section">
+                    <div class="section-header">
+                        <h1><i class="ri-shield-keyhole-line"></i> Sicurezza</h1>
+                        <p>Gestisci la password e le impostazioni di sicurezza</p>
+                    </div>
+
+                    <!-- Cambio Password -->
+                    <div class="security-card">
+                        <div class="security-card-header">
+                            <div class="security-icon">
+                                <i class="ri-lock-password-line"></i>
+                            </div>
+                            <div class="security-info">
+                                <h3>Password</h3>
+                                <p>Ultima modifica: <span id="last-password-change">Mai</span></p>
+                            </div>
+                        </div>
+                        <form id="change-password-form" class="security-form">
+                            <div class="form-group">
+                                <label for="current-password">Password Attuale *</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="current-password" required>
+                                    <button type="button" class="toggle-password" data-target="current-password">
+                                        <i class="ri-eye-line"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="new-password">Nuova Password *</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="new-password" required minlength="8">
+                                    <button type="button" class="toggle-password" data-target="new-password">
+                                        <i class="ri-eye-line"></i>
+                                    </button>
+                                </div>
+                                <div class="password-strength" id="password-strength">
+                                    <div class="strength-bar"></div>
+                                    <span class="strength-text"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirm-password">Conferma Nuova Password *</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="confirm-password" required>
+                                    <button type="button" class="toggle-password" data-target="confirm-password">
+                                        <i class="ri-eye-line"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="password-requirements">
+                                <p>La password deve contenere:</p>
+                                <ul>
+                                    <li id="req-length"><i class="ri-close-line"></i> Almeno 8 caratteri</li>
+                                    <li id="req-uppercase"><i class="ri-close-line"></i> Una lettera maiuscola</li>
+                                    <li id="req-lowercase"><i class="ri-close-line"></i> Una lettera minuscola</li>
+                                    <li id="req-number"><i class="ri-close-line"></i> Un numero</li>
+                                    <li id="req-special"><i class="ri-close-line"></i> Un carattere speciale (!@#$%^&*)</li>
+                                </ul>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="ri-lock-line"></i> Cambia Password
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Autenticazione a Due Fattori -->
+                    <div class="security-card">
+                        <div class="security-card-header">
+                            <div class="security-icon">
+                                <i class="ri-smartphone-line"></i>
+                            </div>
+                            <div class="security-info">
+                                <h3>Autenticazione a Due Fattori (2FA)</h3>
+                                <p>Aggiungi un ulteriore livello di sicurezza al tuo account</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggle-2fa">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Sessioni Attive -->
+                    <div class="security-card">
+                        <div class="security-card-header">
+                            <div class="security-icon">
+                                <i class="ri-device-line"></i>
+                            </div>
+                            <div class="security-info">
+                                <h3>Sessioni Attive</h3>
+                                <p>Gestisci i dispositivi connessi al tuo account</p>
+                            </div>
+                        </div>
+                        <div class="sessions-list" id="sessions-list">
+                            <!-- Sessioni caricate dinamicamente -->
+                        </div>
+                        <button class="btn-danger" id="logout-all-devices">
+                            <i class="ri-logout-circle-line"></i> Disconnetti Tutti i Dispositivi
+                        </button>
+                    </div>
+
+                    <!-- Elimina Account -->
+                    <div class="security-card danger-zone">
+                        <div class="security-card-header">
+                            <div class="security-icon danger">
+                                <i class="ri-delete-bin-line"></i>
+                            </div>
+                            <div class="security-info">
+                                <h3>Elimina Account</h3>
+                                <p>Questa azione è irreversibile. Tutti i tuoi dati verranno eliminati permanentemente.</p>
+                            </div>
+                        </div>
+                        <button class="btn-danger" id="delete-account-btn">
+                            <i class="ri-delete-bin-line"></i> Elimina il Mio Account
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Sezione Preferenze -->
+                <section id="preferenze" class="profile-section">
+                    <div class="section-header">
+                        <h1><i class="ri-settings-3-line"></i> Preferenze</h1>
+                        <p>Personalizza la tua esperienza</p>
+                    </div>
+
+                    <!-- Notifiche -->
+                    <div class="preferences-card">
+                        <h3><i class="ri-notification-3-line"></i> Notifiche</h3>
+                        
+                        <div class="preference-item">
+                            <div class="preference-info">
+                                <h4>Email Promozionali</h4>
+                                <p>Ricevi offerte esclusive e novità sui prodotti</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="email-promo" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="preference-item">
+                            <div class="preference-info">
+                                <h4>Notifiche Ordini</h4>
+                                <p>Aggiornamenti sullo stato dei tuoi ordini</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="order-notifications" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="preference-item">
+                            <div class="preference-info">
+                                <h4>Newsletter</h4>
+                                <p>Ricevi la nostra newsletter settimanale</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="newsletter">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="preference-item">
+                            <div class="preference-info">
+                                <h4>Notifiche Push</h4>
+                                <p>Ricevi notifiche sul browser</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="push-notifications">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Lingua e Regione -->
+                    <div class="preferences-card">
+                        <h3><i class="ri-global-line"></i> Lingua e Regione</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="language">Lingua</label>
+                                <select id="language">
+                                    <option value="it" selected>Italiano</option>
+                                    <option value="en">English</option>
+                                    <option value="de">Deutsch</option>
+                                    <option value="fr">Français</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="currency">Valuta</label>
+                                <select id="currency">
+                                    <option value="EUR" selected>Euro (€)</option>
+                                    <option value="CHF">Franco Svizzero (CHF)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aspetto -->
+                    <div class="preferences-card">
+                        <h3><i class="ri-palette-line"></i> Aspetto</h3>
+                        
+                        <div class="theme-selector">
+                            <label class="theme-option">
+                                <input type="radio" name="theme" value="light" checked>
+                                <div class="theme-preview light">
+                                    <i class="ri-sun-line"></i>
+                                    <span>Chiaro</span>
+                                </div>
+                            </label>
+                            <label class="theme-option">
+                                <input type="radio" name="theme" value="dark">
+                                <div class="theme-preview dark">
+                                    <i class="ri-moon-line"></i>
+                                    <span>Scuro</span>
+                                </div>
+                            </label>
+                            <label class="theme-option">
+                                <input type="radio" name="theme" value="auto">
+                                <div class="theme-preview auto">
+                                    <i class="ri-computer-line"></i>
+                                    <span>Automatico</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Privacy -->
+                    <div class="preferences-card">
+                        <h3><i class="ri-shield-user-line"></i> Privacy</h3>
+                        
+                        <div class="preference-item">
+                            <div class="preference-info">
+                                <h4>Cronologia Ricerche</h4>
+                                <p>Salva le tue ricerche per suggerimenti personalizzati</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="search-history" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="preference-item">
+                            <div class="preference-info">
+                                <h4>Cookie Analitici</h4>
+                                <p>Aiutaci a migliorare il sito con dati anonimi</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="analytics-cookies" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <button class="btn-secondary" id="download-data">
+                            <i class="ri-download-line"></i> Scarica i Miei Dati
+                        </button>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-primary" id="save-preferences">
+                            <i class="ri-save-line"></i> Salva Preferenze
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Conferma Eliminazione Account -->
+    <div class="modal" id="delete-account-modal">
+        <div class="modal-content modal-danger">
+            <div class="modal-header">
+                <h2><i class="ri-error-warning-line"></i> Elimina Account</h2>
+                <button class="modal-close" id="close-delete-modal">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Sei sicuro di voler eliminare il tuo account? Questa azione è <strong>irreversibile</strong>.</p>
+                <p>Verranno eliminati:</p>
+                <ul>
+                    <li>Tutti i tuoi dati personali</li>
+                    <li>Storico ordini</li>
+                    <li>Wishlist e preferenze</li>
+                    <li>Indirizzi salvati</li>
+                </ul>
+                <div class="form-group">
+                    <label for="delete-confirm-password">Inserisci la tua password per confermare:</label>
+                    <input type="password" id="delete-confirm-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="delete-confirm-text">Scrivi "ELIMINA" per confermare:</label>
+                    <input type="text" id="delete-confirm-text" placeholder="ELIMINA" required>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancel-delete">Annulla</button>
+                <button class="btn-danger" id="confirm-delete" disabled>Elimina Definitivamente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Dettaglio Ordine -->
+    <div class="modal" id="order-detail-modal">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h2>Dettaglio Ordine <span id="order-detail-id"></span></h2>
+                <button class="modal-close" id="close-order-modal">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="order-detail-content">
+                <!-- Contenuto caricato dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <footer>
+        <div class="footer-testo">
+            <p>Made with ❤️ in Italy © 2025 Just Marizete</p>
+            <p>Website Created by Erick Developer</p>
+        </div>
+    </footer>
+
+    <script src="sources/js/profilo.js"></script>
+</body>
+
+</html>
