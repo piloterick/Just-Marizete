@@ -1407,3 +1407,537 @@
         flex: 1;
     }
 }
+
+/* ==================== */
+/* RESPONSIVE - MOBILE  */
+/* ==================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .profile-container {
+        flex-direction: column;
+    }
+
+    .profile-sidebar {
+        width: 100%;
+        position: relative;
+        top: 0;
+    }
+
+    .profile-avatar-section {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        text-align: left;
+        padding-bottom: 20px;
+    }
+
+    .avatar-wrapper {
+        width: 80px;
+        height: 80px;
+        margin: 0;
+    }
+
+    .profile-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .profile-nav-btn {
+        padding: 10px 15px;
+        flex: 0 0 auto;
+    }
+
+    .profile-nav-btn span {
+        display: none;
+    }
+
+    .profile-nav-btn i {
+        margin: 0;
+        font-size: 1.3rem;
+    }
+
+    .profile-nav-btn.logout-btn {
+        margin-top: 0;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .profile-main {
+        padding: 10px;
+        margin-top: 95px;
+    }
+
+    .profile-container {
+        gap: 15px;
+    }
+
+    .profile-sidebar {
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .profile-avatar-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .avatar-wrapper {
+        width: 70px;
+        height: 70px;
+    }
+
+    .avatar-edit {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+
+    .profile-avatar-section h2 {
+        font-size: 1.1rem;
+    }
+
+    .profile-avatar-section p {
+        font-size: 0.8rem;
+    }
+
+    .profile-nav {
+        gap: 4px;
+    }
+
+    .profile-nav-btn {
+        padding: 10px 12px;
+        border-radius: 8px;
+    }
+
+    .profile-nav-btn i {
+        font-size: 1.2rem;
+    }
+
+    /* Sezioni */
+    .profile-section {
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .section-header {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+    }
+
+    .section-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .section-header p {
+        font-size: 0.85rem;
+    }
+
+    /* Form */
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 10px 12px;
+        font-size: 16px; /* Previene zoom su iOS */
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .form-actions button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+
+    /* Indirizzi */
+    .addresses-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .address-card {
+        padding: 15px;
+    }
+
+    .address-card .address-actions {
+        flex-direction: column;
+    }
+
+    .address-card .address-actions button {
+        width: 100%;
+    }
+
+    .btn-add-address {
+        padding: 14px;
+        font-size: 0.9rem;
+    }
+
+    /* Ordini */
+    .orders-filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-group {
+        width: 100%;
+    }
+
+    .filter-group select {
+        flex: 1;
+        padding: 10px;
+    }
+
+    .order-card {
+        border-radius: 10px;
+    }
+
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 15px;
+    }
+
+    .order-info {
+        width: 100%;
+        gap: 15px;
+    }
+
+    .order-info-item span:first-child {
+        font-size: 0.7rem;
+    }
+
+    .order-info-item span:last-child {
+        font-size: 0.9rem;
+    }
+
+    .order-status {
+        align-self: flex-start;
+    }
+
+    .order-products {
+        padding: 10px 15px;
+        gap: 8px;
+    }
+
+    .order-product-thumb {
+        width: 50px;
+        height: 50px;
+    }
+
+    .order-footer {
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px 15px;
+    }
+
+    .order-actions {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .order-actions button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Sicurezza */
+    .security-card {
+        padding: 15px;
+    }
+
+    .security-card-header {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .security-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .security-info {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .security-info h3 {
+        font-size: 1rem;
+    }
+
+    .security-info p {
+        font-size: 0.8rem;
+    }
+
+    .security-form {
+        margin-top: 15px;
+        padding-top: 15px;
+    }
+
+    .password-requirements {
+        padding: 12px;
+    }
+
+    .password-requirements li {
+        font-size: 0.8rem;
+    }
+
+    .session-item {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .session-item i {
+        font-size: 1.5rem;
+    }
+
+    .session-info h4 {
+        font-size: 0.9rem;
+    }
+
+    .session-info p {
+        font-size: 0.75rem;
+    }
+
+    /* Preferenze */
+    .preferences-card {
+        padding: 15px;
+    }
+
+    .preferences-card h3 {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        padding-bottom: 12px;
+    }
+
+    .preference-item {
+        padding: 12px 0;
+    }
+
+    .preference-info h4 {
+        font-size: 0.9rem;
+    }
+
+    .preference-info p {
+        font-size: 0.8rem;
+    }
+
+    .theme-selector {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .theme-option {
+        width: 100%;
+    }
+
+    .theme-preview {
+        flex-direction: row;
+        justify-content: center;
+        padding: 15px;
+        width: 100%;
+    }
+
+    /* Modals */
+    .modal {
+        padding: 10px;
+        align-items: flex-end;
+    }
+
+    .modal-content {
+        max-height: 85vh;
+        border-radius: 16px 16px 0 0;
+        width: 100%;
+    }
+
+    .modal-header {
+        padding: 15px;
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 10;
+    }
+
+    .modal-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .modal-body {
+        padding: 15px;
+    }
+
+    .modal-actions {
+        padding: 15px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-actions button {
+        width: 100%;
+    }
+
+    /* Toast */
+    .toast-container {
+        left: 10px;
+        right: 10px;
+        top: auto;
+        bottom: 20px;
+    }
+
+    .toast {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .toast-content h4 {
+        font-size: 0.9rem;
+    }
+
+    .toast-content p {
+        font-size: 0.8rem;
+    }
+
+    /* Empty state */
+    .empty-state {
+        padding: 40px 20px;
+    }
+
+    .empty-state i {
+        font-size: 60px;
+    }
+
+    .empty-state h3 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile piccolo */
+@media (max-width: 480px) {
+    .profile-main {
+        padding: 8px;
+        margin-top: 90px;
+    }
+
+    .profile-sidebar {
+        padding: 12px;
+    }
+
+    .profile-nav-btn {
+        padding: 8px 10px;
+    }
+
+    .profile-nav-btn i {
+        font-size: 1.1rem;
+    }
+
+    .profile-section {
+        padding: 12px;
+    }
+
+    .section-header h1 {
+        font-size: 1.15rem;
+        flex-wrap: wrap;
+    }
+
+    .section-header h1 i {
+        font-size: 1.2rem;
+    }
+
+    .order-info {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .order-info-item {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .address-card .address-label {
+        font-size: 0.75rem;
+        padding: 3px 10px;
+    }
+
+    .default-badge {
+        font-size: 0.7rem;
+        padding: 2px 8px;
+    }
+}
+
+/* Fix per iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px;
+    }
+
+    .modal-content {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* Mobile menu per profilo */
+@media (max-width: 768px) {
+    .mobile-menu.open {
+        display: flex;
+        flex-direction: column;
+        background: var(--navbar);
+        padding: 15px;
+    }
+
+    .mobile-menu .nav-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .mobile-menu .nav-item {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Landscape mode mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .profile-main {
+        margin-top: 70px;
+    }
+
+    .modal {
+        align-items: center;
+    }
+
+    .modal-content {
+        max-height: 90vh;
+        border-radius: 12px;
+    }
+}
